@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login,logout
 from Pet.models import Mascota
 from django.template import loader
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 #region Elegir
@@ -209,10 +210,10 @@ def ActualizarMascota(request,Id_Mascota):
         mascota.Foto_M = Foto_M
         mascota.save()
         
-        mascota = Mascota.objects.all().values()
+        mascotas = Mascota.objects.all().values()
         
         context = {
-            'mascota': mascota
+            'mascotas': mascotas
         }
         return render(request, 'MisMascotas/Listado.html', context)
     
