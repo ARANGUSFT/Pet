@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        const botonEliminar = (Id_Mascota) => {
+            if(window.confirm("¿Está Seguro De Querer Eliminar El Registro?")){
+                window.location.href = ""+Id_Mascota;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre de la Mascota</th>
+                <th>Raza de la Mascota</th>
+                <th>Color de la Mascota</th>
+                <th>Foto de la Mascota</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        
+       
+        <tbody>{% for mascota in mascotas %}
+            <tr>
+                <td>{{ mascota.Nombre_M }}</td>
+                <td>{{ mascota.Raza_M }}</td>
+                <td>{{ mascota.Color_M }}</td>
+                <td><img src="../../../Media/{{ mascota.Foto_M }}" alt="No Encontrada" width="100" height="100"></td>
+                <td><a href="" >Editar</a>
+                    <i class=""></i>
+                </a></td>
+                <td><button type="button" onclick="botonEliminar({{ mascota.Id_Mascota}})" class=""><i class=""></i></button>
+                </a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>

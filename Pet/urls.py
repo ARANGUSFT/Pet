@@ -17,13 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Pet.views import Principal
-from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario
-
+from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
+from Pet.views import ListadoMascota,EliminarMascota
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     #Inicio
+    
     path('Elegir/entrar',Elegir),
 
     #Login
@@ -35,8 +38,20 @@ urlpatterns = [
     path('Actualizar/usuarios/<int:user_id>',ActualizarUsuario),
     path('Usuarios/eliminar/<int:user_id>',EliminarUsuario),
 
-    path('Principal/inicio',Principal)
+    path('Principal/inicio',Principal),
 
-    
+    #Elegir botones
+    path('MisMascotas/Botones',ElegirBotones),
 
+    #Insertar Mascota
+    path('MisMascotas/Insertar',InsertarMascota),
+
+    #Listado Mascota
+    path('MisMascotas/Listado',ListadoMascota),
+
+    #Borrar Mascota
+    path('MisMascotas/Eliminar/<int:Id_Mascota>',EliminarMascota)
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

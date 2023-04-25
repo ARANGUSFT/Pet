@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from Pet.models import Mascota
+from django.template import loader
+from django.http import HttpResponse
 
 
 #region Elegir
@@ -127,5 +130,50 @@ def EliminarUsuario(request,user_id):
     user = User.objects.get(id=user_id)
     user.delete()
     return redirect('/Elegir/entrar')
+
+#endregion
+
+
+
+#region MisMascotas
+def ElegirBotones(request):    
+    return render(request, 'MisMascotas/Botones.html')
+
+def InsertarMascota(request):    
+        if request.method == "POST":
+        
+            mascota = Mascota() 
+            mascota.Nombre_M = request.POST.get('Nombre_M')
+            mascota.Raza_M = request.POST.get('Raza_M')
+            mascota.Color_M = request.POST.get('Color_M')
+            mascota.Foto_M = request.FILES['Foto_M']
+            mascota.save()
+            return redirect('MisMascotas/Botones')
+        else:
+            return render(request, 'MisMascotas/Insertar.html')
+        
+
+def ListadoMascota(request):
+    mascotas = Mascota.objects.all()
+    context = {
+        'mascotas': mascotas
+    }
+    return render(request, 'MisMascotas/Listado.html', context)
+
+def EliminarMascota(request,Id_Mascota):
+    mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+    if request.method == "POST":
+        fonom = mascota.Foto_M
+        ruta_foto = "Media/+"+str(mascota.Foto_M)
+        mascota.delete()
+
+        import os
+        os.remove(ruta_foto)
+
+        mascota = Mascota.objects.all().values()
+
+        return redirect('MisMascotas/Listado')  # Redireccionar a la lista de mascotas
+    context = {'mascota': mascota}
+    return render(request, 'MisMascotas/Listado.html', context)
 
 #endregion
