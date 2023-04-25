@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+
 
 
 #region Elegir
@@ -18,6 +22,38 @@ def Elegir(request):
 #FUNCION PARA ENTRAR A LA PAGINA PRINCIPAL
 def Principal(request):    
     return render(request, 'Principal/inicio.html')
+
+
+
+#FUNCION PARA MANDAR EL CORREO
+def Contacto(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        template = render_to_string('Principal/email.html',{
+            'name': name,
+            'email': email,
+            'message': message
+        })
+
+        email = EmailMessage(
+            subject,
+            template,
+            settings.EMAIL_HOST_USER,
+            ['littlepetworld2023@gmail.com']
+        )
+
+        email.fail_silently = False
+        email.send()
+
+        messages.success(request, 'Correo enviado')
+        return redirect('/Usuarios/contacto')
+    else:
+        return render(request, 'Principal/contacto.html')
+
 
 #endregion
 

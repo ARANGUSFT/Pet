@@ -1,0 +1,43 @@
+{% include "Inc/header.html" %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Css/EstiloContacto.css' %}">
+    <title>Document</title>
+</head>
+<body><br><br><br><br><br>
+
+    <h1>Formulario Contacto</h1>
+
+    <form class="cf" action="{% url 'Contacto' %}" method="POST">
+
+        {% csrf_token %}
+      <div class="half left cf">
+        <input name="subject" type="text" id="input-email" placeholder="Asunto">
+        <input name="name" type="text" id="input-name" placeholder="Ingresa tu nombre">
+        <input name="email" type="email" id="input-email" placeholder="Ingresa tu correo">
+      </div>
+
+      <div class="half right cf">
+        <textarea name="message" type="text" id="input-message" placeholder="Mensaje"></textarea>
+        <input type="submit" value="Enviar" id="input-submit">
+      </div>
+      
+    </form>
+
+    {% if messages %}
+      {% for message in messages%}
+          <h1>{{message}}</h1>
+      {% endfor %}
+    {% endif %}
+
+</body>
+</html>
+
+
+{% include "Inc/footer.html" %}

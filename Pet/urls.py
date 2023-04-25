@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Pet.views import Principal
+from Pet.views import Principal,Contacto
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario
 
 
@@ -31,12 +31,13 @@ urlpatterns = [
     path('Ingresar/usuarios',IngresarLogin),
     path('Cerrar/sesion',Logout),
     
-    #Principal
+    #Actualizar Perfil
     path('Actualizar/usuarios/<int:user_id>',ActualizarUsuario),
     path('Usuarios/eliminar/<int:user_id>',EliminarUsuario),
 
-    path('Principal/inicio',Principal)
-
+    #Principal
+    path('Principal/inicio',Principal),
+    path('Usuarios/contacto',Contacto, name='Contacto')
     
 
 ]
