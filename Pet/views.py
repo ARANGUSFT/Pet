@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+import hashlib  
+
+
 
 
 
@@ -135,26 +138,38 @@ def ActualizarUsuario(request, user_id):
             messages.error(request, 'El email ya fue registrado')
             return redirect(f"/Actualizar/usuarios/{user.id}")
 
-        
         user = User.objects.get(id=user_id)
         user.username = username
         user.email = email
-        user.password = password
+        user.set_password(password)  # Utilizamos el método set_password() para establecer la nueva contraseña
         user.save()
 
-        return redirect(f"/Actualizar/usuarios/{user.id}")
+        # Autenticar al usuario con su nueva contraseña
+        auth_user = authenticate(username=username, password=password)
+        if auth_user is not None:
+            # Iniciar sesión con la nueva información de autenticación
+            login(request, auth_user)
+            # Actualizar la sesión del usuario con la nueva información de autenticación
+            update_session_auth_hash(request, auth_user)
 
-    # si el método de la petición es GET, mostrar el formulario de actualización de perfil
+        return redirect(f"/Actualizar/usuarios/{user.id}")
     else:
         if str(user.id) != str(user_id):
-            return redirect('/Error/paginaerror')
-        
+            return redirect(f"/Actualizar/usuarios/{user.id}")
+
         else:
-            user = User.objects.get(id=user_id)
-            return render(request, 'Login/actualizar.html', {'user': user})
+          user = User.objects.get(id=user_id)
+          return render(request, 'Login/actualizar.html', {'user': user})
+
         
 
 #endregion
+
+
+    # si el método de la petición es GET, mostrar el formulario de actualización de perfil
+    # else:
+    #     if str(user.id) != str(user_id):
+    #         return redirect(f"/Actualizar/usuarios/{user.id}")
 
 
 #region EliminarCuenta
