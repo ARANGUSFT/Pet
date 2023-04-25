@@ -1,0 +1,110 @@
+{% include "Inc/header.html" %}
+{% load static %}
+    <body id="page-top">
+        <!-- Header-->
+        <header class="masthead text-center text-white">
+            <div class="masthead-content">
+                <div class="container px-5">
+                    <h1 class="masthead-heading mb-0">LITTLE PET WORLD</h1>
+                    <h2 class="masthead-subheading mb-0"></h2><br><br>
+                </div>
+            </div>
+            <div class="bg-circle-1 bg-circle"></div>
+            <div class="bg-circle-2 bg-circle"></div>
+            <div class="bg-circle-3 bg-circle"></div>
+            <div class="bg-circle-4 bg-circle"></div>
+        </header>
+
+
+        <!-- Contenido 1-->
+        <section id="scroll">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="{% static 'Img/01.jpeg'%}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">SOBRE LA PLACA</h2>
+                            <p class="myP">
+                                <b class="titulos">¿Como se genera?: </b> Al llenar el formulario con todos los datos solicitados del dueño y 
+                                sus mascota se genera un codigo QR, el cual se grabara en una placa metalica.<br><br>
+                                 
+                                
+                                <b class="titulos">¿Como utilizarlo?: </b> Una vez te llegue la placa QR, tendras que fijarla en el collar de tu mascota, y al momento
+                                de escanearla podras vizualizar todos los datos y editarlos al iniciar sesion.<br><br>
+                
+                                <b class="titulos">¿Tiempo de entrega?: </b>Una vez la compra se haya realizado el producto se enviara a la direccion registrda y tardara 3 a 5 dias. <br><br>
+                
+                                <b class="titulos">¿Que hacer si mi mascota se pierde con la placa?: </b> Si en algun momento tu mascota se llega a estraviar, entre la comunidad se
+                                 podran ayudar adar la ubicacion de esta.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><br><br>
+
+
+
+        <!-- Contenido 2-->
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="{% static 'Img/02.png'%}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">PLACAS</h2>
+                            <h5><b class="myP" id="titulos">Descripcion</b></h5>
+
+                            <p class="myP">Placa metalica que lleva grabado el nombre de la mascota, y el codigo QR con todos los datos ingresados por el dueño.</p><br>
+         
+                            <h5><b id="titulos" class="myP">Caracteristicas</b></h5>
+                            <p class="myP" >
+                            -Dimensiones: 24x33mm. (ancho x alto) <br>
+                            -Peso:  15g <br>
+                            -Material:  metal <br>
+                            -Codigo QR:  codigo unico <br>
+                            </p><br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><br><br>
+
+
+
+        <!-- Contenido 3-->
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="{% static 'Img/03.png'%}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">NOSOTROS</h2>
+                            <p class="myP">Sabemos el cariño que las personas pueden llegar a tener por estos nuevos integrantes de la familia, y lo que menos queremos es no volver a verlos por eso nos enfocamos en un forma de reducir
+                                las perdidas de estas, y de esta problematica nacio <b class="titulos">Little pet world</b>, un pequeño mundo de mascotas en el cual toda la comunidad
+                                se podran ayudar a dar con la ubicacion de esta. <br><a href="#boton" class="titulos">QUE ESPERAS PARA UNIRTE A LA MANADA</a><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><br><br>
+
+
+
+        <!-- Footer-->
+        <footer class="py-5 bg-black">
+            <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p></div>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+{% include "Inc/footer.html" %}

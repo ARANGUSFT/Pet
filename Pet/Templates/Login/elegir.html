@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Css/EstiloElegir.css'%}">
+    <title>Bienvenido</title>
+</head>
+  <body>
+    
+
+     
+<section class="showcase">
+
+       <header>
+         <img class="logo" src="{% static 'Img/03.png'%}" alt="...">
+         <div class="toggle"></div>
+       </header>
+
+       <div class="overlay"></div>
+
+        <div class="text">
+            <h2 class="titulo">Little pet world </h2> 
+            <p>Inicia sesion o crea una cuenta para disfrutar de nuestras placas QR,
+            recuerda que las puedes personalizar  con los diseños que tenemos para ti. <br>
+            <b>¿que esperas para comenzar?</b></p>
+
+            <a  href="/Ingresar/usuarios">Iniciar</a>
+            <a  href="/Registro/usuarios">Registrarse</a>
+        </div>
+ 
+</section>
+
+  </body>
+</html>
+
+
+

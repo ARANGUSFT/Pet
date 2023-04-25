@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Css/Login2.css'%}">
+    <title>Ingreso</title>
+</head>
+<body>
+    
+        
+<div class="wrapper">
+   
+    
+    <div class="quote-wrapper">
+
+    </div> <!-- end quote-wrapper -->
+  
+    <div class="form-wrapper">
+      <h1 class="form-title">Ingresar Cuenta</h1>
+  
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="username">Apodo</label>
+          <input type="text" name="username" id="username" class="w-100" autofocus placeholder="ingresa tu apodo" >
+          <span class="check-icon"></span>
+        </div>
+  
+  
+        <div class="form-group mb-1">
+          <label for="password">Contraseña</label>
+          <input type="password" name="password" id="password" placeholder="ingresa tu contraseña" class="w-100" >
+          <span class="check-icon"></span>
+        </div><br><br>
+  
+        
+  
+        <div class="form-group mb-0">
+          <input type="submit" value="Entrar" class="w-100" id="submit">
+        </div>
+      </form><br>
+
+      <center>
+        <h3 style="color: rgb(255, 0, 0)">
+            {% if mensaje %}
+               {{ mensaje }}
+            {% endif %}
+        </h3>
+    </center>
+  
+      <small>Crear cuenta <a href="/Registro/usuarios">Registro</a></small>
+      
+    </div> <!-- end form-wrapper -->
+  </div> <!-- end wrapper -->
+
+  <!-- <script src="{% static 'Js/ValidacionesLogin.js'%}"></script> -->
+    
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Css/EstiloActualizarPerfil.css'%}">
+    <script src="{% static 'Js/sweetalert.min.js'%}"></script>
+    <script src="{% static 'Js/AlertaEliminarCuenta.js'%}"></script>
+    <title>EditarPerfil</title>
+</head>
+<body>
+
+
+    <div class="sttngs">
+       
+        <h2 class="SS">Editar Perfil</h2>
+        <div class="tabordion">
+         <section id="section1">
+          <input class="t" type="radio" name="sections" id="option1" checked>
+          <label for="option1" class="trr"> <a href="/Principal/inicio" style="color: inherit;">Atras</a></label>
+
+        <article><br>
+        
+            <div class="frm">     
+                <div id='upload'>
+                    <div class="">
+      
+     <!-- Formulario  -->
+   <form action="" id="form" method="POST">
+        {% csrf_token %}
+
+    <div class="tr">          
+        <h1 style="font-size: 3em;color: #f5831f;">Little Pet Word</h1>
+    
+        <label class="label" for="input">Apodo</label>
+         <input class="input" type="text" name="username" value="{{ user.username }}" id="username">
+         <div id="Error1" class="error-message"></div>
+        
+        
+        <label class="label" for="input">Email<div id="texte"></div></label>  
+         <input class="input texte" type="email" name="email" value="{{ user.email }}" id="email">
+         <div id="Error2" class="error-message"></div>
+        
+        <label class="label" for="input">Contraseña</label> 
+         <input class="input" type="password" name="password" value="{{ user.password }}" id="password">
+         <div id="Error3" class="error-message"></div>
+    </div><br><br>
+
+      
+        <!-- Botones -->
+        <button class="button1" type="submit">Guardar</button>
+        <a href="#" onclick='borrarusuario("{{user.id}}")' class="button2" style="text-decoration:none;">Eliminar Cuenta</a>
+ 
+        <!-- Mensaje -->
+        <center>
+            {% if messages %}
+               <ul class="messages">
+                   {% for message in messages %}
+                   <h3 style="color: rgb(255, 0, 0)" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+                   {% endfor %}
+              </ul>
+            {% endif %}
+        </center>
+
+    </form>
+
+    </div>
+           
+          
+        </article>
+      </section>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</body>
+</html>
