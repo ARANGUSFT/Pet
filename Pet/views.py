@@ -161,19 +161,62 @@ def ListadoMascota(request):
     return render(request, 'MisMascotas/Listado.html', context)
 
 def EliminarMascota(request,Id_Mascota):
-    mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
-    if request.method == "POST":
-        fonom = mascota.Foto_M
-        ruta_foto = "Media/+"+str(mascota.Foto_M)
+    
+        mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+        Nombre_M = mascota.Nombre_M
+        Raza_M = mascota.Raza_M
+        Color_M = mascota.Color_M
+        ruta_foto = "Media/"+str(mascota.Foto_M)
         mascota.delete()
-
+        
         import os
-        os.remove(ruta_foto)
-
+        if ruta_foto != "Media/ImagenesBD/noimagen.jpg":
+            os.remove(ruta_foto)
+            
         mascota = Mascota.objects.all().values()
+        context = {
+        'mascotas': mascota
+        }
+        
+        return render(request, 'MisMascotas/Listado.html', context)
+    
+def MostrarActualizarMascota(request,Id_Mascota):
+    mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+    context = {
+        'mascota': mascota
+    }
+    return render(request, 'MisMascotas/Actualizar.html', context)
 
-        return redirect('MisMascotas/Listado')  # Redireccionar a la lista de mascotas
-    context = {'mascota': mascota}
-    return render(request, 'MisMascotas/Listado.html', context)
+def ActualizarMascota(request,Id_Mascota):
+    try:
+        Nombre_M = request.POST['Nombre_M']
+        Raza_M = request.POST['Raza_M']
+        Color_M = request.POST['Color_M']
+        mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+        try:
+            Foto_M = request.FILES['Foto_M']
+            ruta_foto = "Media/"+str(mascota.Foto_M)
+            
+            import os
+            if ruta_foto != "Media/ImagenesBD/noimagen.jpg":
+                os.remove(ruta_foto)
+        except:
+            Foto_M = mascota.Foto_M
+            
+        mascota.Nombre_M = Nombre_M
+        mascota.Raza_M = Raza_M
+        mascota.Color_M = Color_M
+        mascota.Foto_M = Foto_M
+        mascota.save()
+        
+        mascota = Mascota.objects.all().values()
+        
+        context = {
+            'mascota': mascota
+        }
+        return render(request, 'MisMascotas/Listado.html', context)
+    
+    except:
+        pass
 
 #endregion

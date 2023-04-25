@@ -40,10 +40,10 @@
                 <td>{{ mascota.Raza_M }}</td>
                 <td>{{ mascota.Color_M }}</td>
                 <td><img src="../../../Media/{{ mascota.Foto_M }}" alt="No Encontrada" width="100" height="100"></td>
-                <td><a href="" >Editar</a>
+                <td><a href="/MisMascotas/Actualizar/{{ mascota.Id_Mascota }}" >Editar</a>
                     <i class=""></i>
                 </a></td>
-                <td><button type="button" onclick="botonEliminar({{ mascota.Id_Mascota}})" class=""><i class=""></i></button>
+                <td><button type="button" onclick="botonEliminar({{ mascota.Id_Mascota}})" class="">Borrar<i class=""></i></button>
                 </a></td>
             </tr>
         </tbody>
