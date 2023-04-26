@@ -5,9 +5,10 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
- 
-
-
+from Pet.models import Mascota
+from django.template import loader
+from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 #region Elegir
@@ -171,5 +172,94 @@ def EliminarUsuario(request,user_id):
     user = User.objects.get(id=user_id)
     user.delete()
     return redirect('/Elegir/entrar')
+
+#endregion
+
+
+#region MisMascotas
+def ElegirBotones(request):    
+    return render(request, 'MisMascotas/Botones.html')
+
+
+def InsertarMascota(request):    
+        if request.method == "POST":
+        
+            mascota = Mascota() 
+            mascota.Nombre_M = request.POST.get('Nombre_M')
+            mascota.Raza_M = request.POST.get('Raza_M')
+            mascota.Color_M = request.POST.get('Color_M')
+            mascota.Foto_M = request.FILES['Foto_M']
+            mascota.save()
+            return redirect('MisMascotas/Botones')
+        else:
+            return render(request, 'MisMascotas/Insertar.html')
+        
+
+def ListadoMascota(request):
+    mascotas = Mascota.objects.all()
+    context = {
+        'mascotas': mascotas
+    }
+    return render(request, 'MisMascotas/Listado.html', context)
+
+
+def EliminarMascota(request,Id_Mascota):
+    
+        mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+        Nombre_M = mascota.Nombre_M
+        Raza_M = mascota.Raza_M
+        Color_M = mascota.Color_M
+        ruta_foto = "Media/"+str(mascota.Foto_M)
+        mascota.delete()
+        
+        import os
+        if ruta_foto != "Media/ImagenesBD/noimagen.jpg":
+            os.remove(ruta_foto)
+            
+        mascota = Mascota.objects.all().values()
+        context = {
+        'mascotas': mascota
+        }
+        
+        return render(request, 'MisMascotas/Listado.html', context)
+    
+def MostrarActualizarMascota(request,Id_Mascota):
+    mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+    context = {
+        'mascota': mascota
+    }
+    return render(request, 'MisMascotas/Actualizar.html', context)
+
+def ActualizarMascota(request,Id_Mascota):
+    try:
+        Nombre_M = request.POST['Nombre_M']
+        Raza_M = request.POST['Raza_M']
+        Color_M = request.POST['Color_M']
+        mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+        try:
+            Foto_M = request.FILES['Foto_M']
+            ruta_foto = "Media/"+str(mascota.Foto_M)
+            
+            import os
+            if ruta_foto != "Media/ImagenesBD/noimagen.jpg":
+                os.remove(ruta_foto)
+        except:
+            Foto_M = mascota.Foto_M
+            
+        mascota.Nombre_M = Nombre_M
+        mascota.Raza_M = Raza_M
+        mascota.Color_M = Color_M
+        mascota.Foto_M = Foto_M
+        mascota.save()
+        
+        mascotas = Mascota.objects.all().values()
+        
+        context = {
+            'mascotas': mascotas
+        }
+        return render(request, 'MisMascotas/Listado.html', context)
+    
+    except:
+        pass
 
 #endregion

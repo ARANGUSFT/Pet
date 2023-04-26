@@ -17,27 +17,44 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Pet.views import Principal,Contacto
-from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario
-
+from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
+from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     #Inicio
     path('Elegir/entrar',Elegir),
-
     #Login
     path('Registro/usuarios',RegistroLogin),
     path('Ingresar/usuarios',IngresarLogin),
     path('Cerrar/sesion',Logout),
-    
     #Actualizar Perfil
     path('Actualizar/usuarios/<int:user_id>',ActualizarUsuario),
     path('Usuarios/eliminar/<int:user_id>',EliminarUsuario),
-
     #Principal
     path('Principal/inicio',Principal),
-    path('Usuarios/contacto',Contacto, name='Contacto')
-    
+    path('Usuarios/contacto',Contacto, name='Contacto'),    
+
+
+
+
+    #Elegir botones
+    path('MisMascotas/Botones',ElegirBotones),
+    #Insertar Mascota
+    path('MisMascotas/Insertar',InsertarMascota),
+    #Listado Mascota
+    path('MisMascotas/Listado',ListadoMascota),
+    #Borrar Mascota
+    path('MisMascotas/Eliminar/<int:Id_Mascota>',EliminarMascota),  
+    #Ver Actualizar Mascota
+    path('MisMascotas/ActualizarForm/<int:Id_Mascota>',MostrarActualizarMascota),
+    #Actualizar Mascota
+    path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota)
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

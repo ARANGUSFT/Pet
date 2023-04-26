@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form action="/MisMascotas/Actualizar/{{ mascota.Id_Mascota }}" method="post" enctype="multipart/form-data">
+        
+        {% csrf_token %}
+
+        <h1>Actualizar</h1>
+
+        <label for="">Nombre de la Mascota:</label>
+        <input type="text" name="Nombre_M" id="" value="{{ mascota.Nombre_M }}"> <br>
+
+        <label for="">Raza de la Mascota:</label>
+        <input type="text" name="Raza_M" id="" value="{{ mascota.Raza_M }}"> <br>
+
+        <label for="">Color de la Mascota:</label>
+        <input type="text" name="Color_M" id="" value="{{ mascota.Color_M }}"> <br>
+
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <input type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id=""/>
+                </td>
+                <td align="center">
+                    <img src="../../../Media/{{ mascota.Foto_M }}" width="100" height="100" alt="No Encontrada"/>
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+
+</html>
