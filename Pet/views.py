@@ -5,8 +5,7 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
-import hashlib  
-
+ 
 
 
 
@@ -164,12 +163,6 @@ def ActualizarUsuario(request, user_id):
         
 
 #endregion
-
-
-    # si el método de la petición es GET, mostrar el formulario de actualización de perfil
-    # else:
-    #     if str(user.id) != str(user_id):
-    #         return redirect(f"/Actualizar/usuarios/{user.id}")
 
 
 #region EliminarCuenta
