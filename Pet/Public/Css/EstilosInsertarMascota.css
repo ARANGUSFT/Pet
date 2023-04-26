@@ -1,0 +1,32 @@
+body{
+    background-image: url("../Img/fondo.jpg");
+    background-size: cover;
+}
+
+.form{
+    margin-left: 5%;
+}
+
+.Rectangulo{
+    margin-top: 12.5%; 
+    width: 50%;
+    height: 400px;
+    background: #F7F7F7;
+    padding: 1%;
+    border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.Container{
+    display: flex;
+    justify-content: center;
+}
+
+footer{
+    background-color: black;
+    padding: 1em 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
