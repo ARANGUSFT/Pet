@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2023 a las 04:59:53
+-- Tiempo de generación: 26-04-2023 a las 21:50:11
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.1.17
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -85,7 +85,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (21, 'Can add session', 6, 'add_session'),
 (22, 'Can change session', 6, 'change_session'),
 (23, 'Can delete session', 6, 'delete_session'),
-(24, 'Can view session', 6, 'view_session');
+(24, 'Can view session', 6, 'view_session'),
+(25, 'Can add mascota', 7, 'add_mascota'),
+(26, 'Can change mascota', 7, 'change_mascota'),
+(27, 'Can delete mascota', 7, 'delete_mascota'),
+(28, 'Can view mascota', 7, 'view_mascota');
 
 -- --------------------------------------------------------
 
@@ -112,7 +116,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(4, 'pbkdf2_sha256$600000$UD1hg5Tl6rDFk9CBgNJAeO$XWKPNgqA2/Iia6xajwRYAAL4A4RAqTMAH/RxnIvPL4E=', '2023-04-25 02:30:36.525914', 0, 'ARANGUSFT', '', '', 'santiago@gmail.com', 0, 1, '2023-04-25 02:22:23.519846');
+(6, 'pbkdf2_sha256$600000$qUcA95HZLlmmG0ViZPEhUj$Khg7myv2nPawAjXAIDvI2PlhHVUa3rNC2cLJE260XVw=', '2023-04-25 20:30:03.404073', 0, 'Arnol', '', '', 'arnol@gmail.com', 0, 1, '2023-04-25 20:29:01.094413');
 
 -- --------------------------------------------------------
 
@@ -177,6 +181,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
+(7, 'Pet', 'mascota'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -233,7 +238,22 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911');
+('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911'),
+('ynyprl5z1v2h6yqqlmxukjj47ymx60hu', '.eJxVjDEOwjAMRe-SGUVtqIPDyM4ZIjt2SAGlUtNOiLtDpQ6w_vfef5lI61Li2nSOo5iz8ebwuzGlh9YNyJ3qbbJpqss8st0Uu9Nmr5Po87K7fweFWvnWhC74AX2fhAavkoP0nR6xI0RwzJKAhAKnjESagcF5TSAIJ1ZybN4fBDU5Wg:1prPIZ:_u-qILbed58Ho-jIgSCPjANTa98letK9MFcIQ3mTORs', '2023-05-09 20:30:03.404761');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_mascota`
+--
+
+CREATE TABLE `tbl_mascota` (
+  `Id_Mascota` int(11) NOT NULL,
+  `Nombre_M` varchar(50) NOT NULL,
+  `Raza_M` varchar(50) NOT NULL,
+  `Color_M` varchar(50) NOT NULL,
+  `Foto_M` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -313,6 +333,12 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
+-- Indices de la tabla `tbl_mascota`
+--
+ALTER TABLE `tbl_mascota`
+  ADD PRIMARY KEY (`Id_Mascota`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -332,13 +358,13 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT de la tabla `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
@@ -362,13 +388,19 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT de la tabla `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mascota`
+--
+ALTER TABLE `tbl_mascota`
+  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
