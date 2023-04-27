@@ -53,7 +53,6 @@ urlpatterns = [
     path('MisMascotas/ActualizarForm/<int:Id_Mascota>',MostrarActualizarMascota),
     #Actualizar Mascota
     path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota)
-
 ]
 
 if settings.DEBUG:

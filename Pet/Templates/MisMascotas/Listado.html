@@ -13,7 +13,7 @@
     <title>Document</title>
 
     <script>
-    
+
         function borrar(Id_Mascota) {
             swal({
                 title: "¿Estas Seguro que Quieres Borrar Tu Mascota?",
@@ -40,8 +40,8 @@
 </head>
 
 <body>
-
-
+    <h1>Tus Mascotas Registradas</h1>
+    <a href="/MisMascotas/Botones" role="button"  class="btn btn-secondary a" >Volver</a>
     <table class="table table-striped table" class="table-light">
         <thead>
             <tr class="table-light">
@@ -73,9 +73,42 @@
             </tr>
         </tbody>
         {% endfor %}
-    </table>    
+    </table>
+
+    {% if mascotas.has_other_pages %}
+    <ul class="pagination">
+        {% if mascotas.has_previous %}
+        <li><a href="?pagina={{ mascotas.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for num_pagina in mascotas.paginator.page_range %}
+        {% if num_pagina == mascotas.number %}
+        <li class="active"><span>{{ num_pagina }} <span class="sr-only">(página actual)</span></span></li>
+        {% elif num_pagina > mascotas.number|add:'-3' and num_pagina < mascotas.number|add:'3' %} <li><a
+                href="?pagina={{ num_pagina }}">{{ num_pagina }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if mascotas.has_next %}
+            <li><a href="?pagina={{ mascotas.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+    </ul>
+    {% endif %}
+
+    <ul>
+        {% for mascotas in elementos %}
+        <li>{{ mascotas.nombre }}</li>
+        {% endfor %}
+    </ul>
+
+    <footer>
+        <div class="container px-5">
+            <p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p>
+        </div>
+    </footer>
 
 </body>
 
 </html>
-

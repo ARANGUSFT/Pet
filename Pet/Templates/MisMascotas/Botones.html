@@ -1,16 +1,59 @@
+{% include "Inc/header.html" %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Css/EstilosBotones.css'%}" rel="stylesheet">
     <title>Document</title>
 </head>
+
 <body>
 
-    <a href="/MisMascotas/Listado">Ver Mis Mascotas</a> <br>
-    <a href="/MisMascotas/Insertar">Agregar Mascota</a> <br>
-    <a href="">Generar QR</a>
+    <div class="Container">
+        <div class="row">
+            <div class="col-sm-4 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Que puedo hacer en <b>Ver mis Mascotas</b>?</h5>
+                        <p class="card-text">En este apartado podras visualizar todas tus mascotas
+                            anteriormente agregadas.</p>
+                        <a href="/MisMascotas/Listado" role="button" class="btn btn-secondary">Ver Mis Mascotas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Que puedo hacer en <b>Agregar Mascota</b>?</h5>
+                        <p class="card-text">En este apartado podras agregar todas las mascotas que
+                            tengas en casa.</p>
+                        <a href="/MisMascotas/Insertar" role="button" class="btn btn-secondary">Agregar Mascota</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Que puedo hacer en <b>Generar mi QR</b>?</h5>
+                        <p class="card-text">En este apartado podras generar el QR para cada
+                            una de tus mascotas.</p>
+                        <a href="" role="button" class="btn btn-secondary">Generar QR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p></div>
+    </footer>
 
 </body>
+
 </html>

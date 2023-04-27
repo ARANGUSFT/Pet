@@ -1,3 +1,5 @@
+{% include "Inc/header.html" %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,26 +8,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="{% static 'Css/EstilosInsertarMascota.css'%}" rel="stylesheet">
 </head>
 
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
 
-        <label for="">Nombre de la Mascota:</label>
-        <input type="text" name="Nombre_M" id=""> <br>
+    <div class="Container">
 
-        <label for="">Raza de la Mascota:</label>
-        <input type="text" name="Raza_M" id=""> <br>
+        <div class="Rectangulo">
 
-        <label for="">Color de la Mascota:</label>
-        <input type="text" name="Color_M" id=""> <br>
+            <form action="" method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="form">
+                <h1>Registra tu Mascota</h1>
 
-        <label for="">Foto de la Mascota:</label>
-        <input type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id=""> <br> <br>
+                
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Nombre de la Mascota:</label>
+                            <input class="form-control" type="text" name="Nombre_M" id="">
+                        </div>
+    
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Raza de la Mascota:</label>
+                            <input class="form-control" type="text" name="Raza_M" id="">
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Color de la Mascota:</label>
+                            <input class="form-control" type="text" name="Color_M" id="">
+                        </div>
+    
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Foto de la Mascota:</label>
+                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg"
+                                id="">
+                        </div>
+                    </div>
+    
+                    <br>
+                    <a href="/MisMascotas/Botones" role="button" class="btn btn-secondary">Volver</a>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    
 
-        <input type="submit" value="Enviar">
-    </form>
+                </div>
+                
+            </form>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p></div>
+    </footer>
+
 </body>
 
 </html>

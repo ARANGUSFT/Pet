@@ -7,8 +7,9 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from Pet.models import Mascota
 from django.template import loader
-from django.http import HttpResponse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 
 
 #region Elegir
@@ -196,11 +197,26 @@ def InsertarMascota(request):
         
 
 def ListadoMascota(request):
-    mascotas = Mascota.objects.all()
+    MascotasPorPaginar = 4
+    MMascotas = Mascota.objects.all()
+    paginador = Paginator(MMascotas, MascotasPorPaginar)
+
+    pagina = request.GET.get('pagina')
+
+    try:
+        mascotas = paginador.page(pagina)
+    except PageNotAnInteger:
+        mascotas = paginador.page(1)
+    except EmptyPage:
+        mascotas = paginador.page(paginador.num_pages)
+
+
     context = {
         'mascotas': mascotas
     }
     return render(request, 'MisMascotas/Listado.html', context)
+
+    
 
 
 def EliminarMascota(request,Id_Mascota):
