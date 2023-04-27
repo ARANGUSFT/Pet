@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from Pet.views import Principal,Contacto
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
-from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,PaginadoMascota
+from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -52,9 +52,7 @@ urlpatterns = [
     #Ver Actualizar Mascota
     path('MisMascotas/ActualizarForm/<int:Id_Mascota>',MostrarActualizarMascota),
     #Actualizar Mascota
-    path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota),
-    #Paginar Mascotas
-    path('MisMascotas/Paginar',PaginadoMascota)
+    path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota)
 ]
 
 if settings.DEBUG:

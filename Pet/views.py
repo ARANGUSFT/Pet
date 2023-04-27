@@ -278,23 +278,4 @@ def ActualizarMascota(request,Id_Mascota):
     except:
         pass
 
-def PaginadoMascota(request):
-    MascotasPorPaginar = 5
-    MMascotas = Mascota.objects.all()
-    paginador = Paginator(MMascotas, MascotasPorPaginar)
-
-    pagina = request.GET.get('pagina')
-
-    try:
-        mascotas = paginador.page(pagina)
-    except PageNotAnInteger:
-        mascotas = paginador.page(1)
-    except EmptyPage:
-        mascotas = paginador.page(paginador.num_pages)
-    
-    context = {
-        'mascotas': mascotas,
-    }
-    return render(request, 'Mismascotas/Listado.html', context)
-
 #endregion
