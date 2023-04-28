@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2023 a las 02:40:48
+-- Tiempo de generación: 28-04-2023 a las 04:58:57
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -106,6 +106,13 @@ CREATE TABLE `auth_user` (
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `auth_user`
+--
+
+INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
+(8, 'pbkdf2_sha256$600000$EVIrTcbtVByMrQ9UY2bWzm$UzejB0uIevZN/kd/hZ+33CRfEX5gliEu1LFybzeMWig=', '2023-04-28 02:34:58.181701', 0, 'ARANGUSFT', '', '', 'santiago@gmail.com', 0, 1, '2023-04-28 01:58:42.503409');
 
 -- --------------------------------------------------------
 
@@ -227,7 +234,7 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911'),
-('9v372203qsb86eah92986p4fr4h0d8b9', '.eJxVjMEOwiAQRP-FsyFSWASP3vsNZBcWqRpISnsy_rtt0oMe5jLvzbxFwHUpYe08hymJqwBx-u0I45PrDtID673J2OoyTyR3RR60y7Elft0O9--gYC_bOjIZZIigLsafc8wJSQMzoicgthZNsk7byA60VqzNoOwWoCFD8k58vhfiOGU:1psBuY:PrxHOpZjDcwTCyqMqqL_Aei2uu7Tco_hf7UlWRqnr60', '2023-05-12 00:24:30.301595');
+('sdvgm7g03rudsay78hucn4tnx6pbuvwi', '.eJxVjE0OwiAYBe_C2pACBcGle89Avr9K1dCktCvj3W2TLnQ7M--9VYZ1KXltMueR1UVFdfplCPSUugt-QL1Pmqa6zCPqPdGHbfo2sbyuR_t3UKCVbT2Ic3QO1gigCWzJeMtMYXDihVOE2McNIqGVZJm8c8l3GIPBnrtk1ecLAXM4MA:1psDwo:4PtElfGk13A9C8zv6rOx8V_tw1-cFKou9gs3uMdc5hE', '2023-05-12 02:34:58.183266');
 
 -- --------------------------------------------------------
 
@@ -240,8 +247,16 @@ CREATE TABLE `tbl_mascota` (
   `Nombre_M` varchar(50) NOT NULL,
   `Raza_M` varchar(50) NOT NULL,
   `Color_M` varchar(50) NOT NULL,
-  `Foto_M` varchar(255) NOT NULL
+  `Foto_M` varchar(255) NOT NULL,
+  `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_mascota`
+--
+
+INSERT INTO `tbl_mascota` (`Id_Mascota`, `Nombre_M`, `Raza_M`, `Color_M`, `Foto_M`, `usuario_id`) VALUES
+(9, 'kiara', 'criollo', 'cafe', 'ImagenesBD/perro.jpg', 8);
 
 --
 -- Índices para tablas volcadas
@@ -324,7 +339,8 @@ ALTER TABLE `django_session`
 -- Indices de la tabla `tbl_mascota`
 --
 ALTER TABLE `tbl_mascota`
-  ADD PRIMARY KEY (`Id_Mascota`);
+  ADD PRIMARY KEY (`Id_Mascota`),
+  ADD KEY `usuario_id` (`usuario_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -352,7 +368,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
@@ -388,7 +404,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT de la tabla `tbl_mascota`
 --
 ALTER TABLE `tbl_mascota`
-  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
@@ -427,6 +443,12 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `tbl_mascota`
+--
+ALTER TABLE `tbl_mascota`
+  ADD CONSTRAINT `tbl_mascota_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
