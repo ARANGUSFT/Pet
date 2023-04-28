@@ -182,22 +182,22 @@ def ElegirBotones(request):
 
 
 def InsertarMascota(request):    
-        if request.method == "POST":
-        
-            mascota = Mascota() 
-            mascota.Nombre_M = request.POST.get('Nombre_M')
-            mascota.Raza_M = request.POST.get('Raza_M')
-            mascota.Color_M = request.POST.get('Color_M')
-            mascota.Foto_M = request.FILES['Foto_M']
-            mascota.save()
-            return redirect('MisMascotas/Botones')
-        else:
-            return render(request, 'MisMascotas/Insertar.html')
+    if request.method == "POST":
+        mascota = Mascota()
+        mascota.Nombre_M = request.POST.get('Nombre_M')
+        mascota.Raza_M = request.POST.get('Raza_M')
+        mascota.Color_M = request.POST.get('Color_M')
+        mascota.Foto_M = request.FILES['Foto_M']
+        mascota.usuario = request.user  # asociar la mascota con el usuario actual
+        mascota.save()
+        return redirect('MisMascotas/Botones')
+    else:
+        return render(request, 'MisMascotas/Insertar.html')
         
 
 def ListadoMascota(request):
     MascotasPorPaginar = 4
-    MMascotas = Mascota.objects.all()
+    MMascotas = Mascota.objects.filter(usuario=request.user) # solo las mascotas del usuario actual
     paginador = Paginator(MMascotas, MascotasPorPaginar)
 
     pagina = request.GET.get('pagina')
@@ -208,7 +208,6 @@ def ListadoMascota(request):
         mascotas = paginador.page(1)
     except EmptyPage:
         mascotas = paginador.page(paginador.num_pages)
-
 
     context = {
         'mascotas': mascotas
@@ -237,6 +236,8 @@ def EliminarMascota(request,Id_Mascota):
         }
         
         return render(request, 'MisMascotas/Listado.html', context)
+
+
     
 def MostrarActualizarMascota(request,Id_Mascota):
     mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
@@ -245,35 +246,36 @@ def MostrarActualizarMascota(request,Id_Mascota):
     }
     return render(request, 'MisMascotas/Actualizar.html', context)
 
-def ActualizarMascota(request,Id_Mascota):
+
+def ActualizarMascota(request, Id_Mascota):
     try:
         Nombre_M = request.POST['Nombre_M']
         Raza_M = request.POST['Raza_M']
         Color_M = request.POST['Color_M']
-        mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
+        mascota = Mascota.objects.get(Id_Mascota=Id_Mascota)
+
         try:
             Foto_M = request.FILES['Foto_M']
-            ruta_foto = "Media/"+str(mascota.Foto_M)
-            
+            ruta_foto = "Media/" + str(mascota.Foto_M)
             import os
             if ruta_foto != "Media/ImagenesBD/noimagen.jpg":
                 os.remove(ruta_foto)
         except:
             Foto_M = mascota.Foto_M
-            
+
         mascota.Nombre_M = Nombre_M
         mascota.Raza_M = Raza_M
         mascota.Color_M = Color_M
         mascota.Foto_M = Foto_M
+        mascota.usuario = request.user  # Asigna el usuario actual a la mascota actualizada
         mascota.save()
-        
-        mascotas = Mascota.objects.all().values()
-        
+
+        mascotas = Mascota.objects.filter(usuario=request.user).values()
+
         context = {
             'mascotas': mascotas
         }
         return render(request, 'MisMascotas/Listado.html', context)
-    
     except:
         pass
 

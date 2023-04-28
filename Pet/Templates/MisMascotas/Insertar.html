@@ -10,7 +10,6 @@
     <title>Document</title>
     <link href="{% static 'Css/EstilosInsertarMascota.css'%}" rel="stylesheet">
 </head>
-
 <body>
 
     <div class="Container">
@@ -46,18 +45,13 @@
                             <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg"
                                 id="">
                         </div>
-                    </div>
-    
-                    <br>
-                    <a href="/MisMascotas/Botones" role="button" class="btn btn-secondary">Volver</a>
-                    <a href="/MisMascotas/Listado" class="btn btn btn-success">Guardar</a>
+                    </div><br>
 
-                    
+                    <a href="/MisMascotas/Botones"><button role="button" class="btn btn-secondary" >Volver</button></a>
+                    <a href="/MisMascotas/Listado"><button class="btn btn-success">Guardar</button></a>
 
                 </div>
-                
             </form>
-
         </div>
 
     </div>
@@ -67,5 +61,7 @@
     </footer>
 
 </body>
-
 </html>
+
+
+{% include "Inc/footer.html" %}
