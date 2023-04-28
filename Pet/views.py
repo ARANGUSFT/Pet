@@ -6,7 +6,6 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
 from Pet.models import Mascota
-from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
