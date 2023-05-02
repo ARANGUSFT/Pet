@@ -190,7 +190,7 @@ def InsertarMascota(request):
         mascota.Foto_M = request.FILES['Foto_M']
         mascota.usuario = request.user  # asociar la mascota con el usuario actual
         mascota.save()
-        return redirect('MisMascotas/Botones')
+        return redirect('/MisMascotas/Listado')
     else:
         return render(request, 'MisMascotas/Insertar.html')
         
