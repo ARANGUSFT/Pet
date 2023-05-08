@@ -131,13 +131,14 @@ def ActualizarUsuario(request, user_id):
 
         #Validacion
         user = authenticate(request, username=username, password=password)
+
         if User.objects.exclude(id=user_id).filter(username=username).exists():
             messages.error(request, 'El apodo ya esta en uso')
-            return redirect(f"/Actualizar/usuarios/{user.id}")
+            return redirect(f"/Actualizar/usuarios/{user_id}")
         
         if User.objects.exclude(id=user_id).filter(email=email).exists():
             messages.error(request, 'El email ya fue registrado')
-            return redirect(f"/Actualizar/usuarios/{user.id}")
+            return redirect(f"/Actualizar/usuarios/{user_id}")
 
         user = User.objects.get(id=user_id)
         user.username = username
