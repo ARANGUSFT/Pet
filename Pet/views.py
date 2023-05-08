@@ -57,6 +57,35 @@ def Contacto(request):
         return redirect('/Usuarios/contacto')
     else:
         return render(request, 'Principal/contacto.html')
+    
+    
+def Contacto2(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        template = render_to_string('Principal/email.html',{
+            'name': name,
+            'email': email,
+            'message': message
+        })
+
+        email = EmailMessage(
+            subject,
+            template,
+            settings.EMAIL_HOST_USER,
+            ['littlepetworld2023@gmail.com']
+        )
+
+        email.fail_silently = False
+        email.send()
+
+        messages.success(request, 'Correo enviado')
+        return redirect('/Usuarios/contacto2')
+    else:
+        return render(request, 'Principal/contacto2.html')
 
 
 #endregion

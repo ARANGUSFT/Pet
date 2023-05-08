@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Pet.views import Principal,Contacto
+from Pet.views import Principal,Contacto,Contacto2
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
 from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño
 from django.conf import settings
@@ -36,7 +36,9 @@ urlpatterns = [
     path('Usuarios/eliminar/<int:user_id>',EliminarUsuario),
     #Principal
     path('Principal/inicio',Principal),
-    path('Usuarios/contacto',Contacto, name='Contacto'),    
+    path('Usuarios/contacto',Contacto, name='Contacto'),
+    path('Usuarios/contacto2',Contacto2, name='Contacto2'),    
+    
 
 
 

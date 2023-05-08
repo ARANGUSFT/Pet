@@ -1,4 +1,4 @@
-{% include "Inc/header.html" %}
+
 
 {% load static %}
 <!DOCTYPE html>
@@ -13,9 +13,9 @@
 <body><br><br><br><br><br>
 
 
-    <h1>Formulario de Reportes</h1>
+    <h1>Little pet world</h1>
 
-    <form class="cf" action="{% url 'Contacto' %}" method="POST">
+    <form class="cf" action="{% url 'Contacto2' %}" method="POST">
 
         {% csrf_token %}
       <div class="half left cf">
@@ -41,4 +41,3 @@
 </html>
 
 
-{% include "Inc/footer.html" %}
