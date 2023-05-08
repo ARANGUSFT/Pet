@@ -1,3 +1,4 @@
+from django.db import connection
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -5,7 +6,7 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
-from Pet.models import Mascota
+from Pet.models import Mascota,Dueno
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -278,5 +279,16 @@ def ActualizarMascota(request, Id_Mascota):
         return render(request, 'MisMascotas/Listado.html', context)
     except:
         pass
+
+def InsertarDueño(request):
+    if request.method == "POST":
+         #prepare
+        insertar = connection.cursor()
+        insertar.execute("call insertarDueno('"+request.POST.get ('Nombre_Completo_D')+"','"+request.POST.get ('Celular_D')+"','"+request.POST.get ('Celular_Secundario_D')+"','"+request.POST.get ('Correo_D')+"','"+request.POST.get ('Municipio_D')+"','"+request.POST.get ('Mascota_Id')+"')")
+        return redirect('MisMascotas/Botones')
+    else:
+        mascota = Mascota.objects.all()
+        return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
+
 
 #endregion

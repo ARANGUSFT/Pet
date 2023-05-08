@@ -1,0 +1,91 @@
+{% include "Inc/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'Css/EstilosGenerarQR.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="Container">
+
+        <div class="Rectangulo">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form">
+                    <h2>Generar QR</h2>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Eligue una de tus mascotas para generar su QR:</label>
+                            <select class="form-select" name="Mascota_Id" id="">
+                                <option value="">Elige una Mascota</option>
+                                {% for m in mascota %}
+                                <option value="{{ m.Id_Mascota }}">{{ m.Nombre_M }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Ingresa tu Nombre Completo:</label>
+                            <input class="form-control" type="text" name="Nombre_Completo_D" id="">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Ingresa tu Celular:</label>
+                            <input class="form-control" type="text" name="Celular_D" id="">
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Ingresa un Celular Secundario:</label>
+                            <input class="form-control" type="text" name="Celular_Secundario_D" id="">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Ingresa tu Correo:</label>
+                            <input class="form-control" type="text" name="Correo_D" id="">
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label" for="">Ingresa tu Municipio de Residencia:</label>
+                            <select class="form-select" name="Municipio_D" id="">
+                                <option value="">Elige un Municipio</option>
+                                <option value="Bello">Bello</option>
+                                <option value="Caldas">Caldas</option>
+                                <option value="La Estrella">La Estrella</option>
+                                <option value="Sabaneta">Sabaneta</option>
+                                <option value="Envigado">Envigado</option>
+                                <option value="Itagüí">Itagüí</option>
+                                <option value="Copacabana">Copacabana</option>
+                                <option value="Girardota">Girardota </option>
+                                <option value="Barbosa">Barbosa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+
+                    <button class="btn btn-success" type="submit">Enviar</button>
+                </div>
+            </form>
+            <a href="/MisMascotas/Botones" class="btn btn-secondary" role="button" style="margin-left: 5%; margin-top: 1%;">Volver</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container px-5">
+            <p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
