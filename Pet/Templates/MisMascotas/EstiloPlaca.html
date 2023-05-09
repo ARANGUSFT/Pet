@@ -1,4 +1,5 @@
 {% load static %}
+{% include "Inc/header.html" %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,17 +14,79 @@
     <div>
         <form action="" method="post">
             {% csrf_token %}
-            <div class="Estilo">
-                <h2>Elija el Estilo de su Placa</h2>
-                <img id="imagen-seleccionada" src="{% static 'Img/placa circular.jpg' %}" alt="Imagen 1">
-                <select name="Estilo_Placa_C" id="select-imagen" onchange="actualizarImagen()">
-                    <option value="{% static 'Img/placa color plateado.jpg'%}">Cicular</option>
-                    <option value="{% static 'Img/Elige un estilo.jpg' %}">Hueso</option>
-                </select>
-            </div>
-            
 
-            <div class="Color">
+            <div class="card" style="width: 18rem;">
+                <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <img src="{% static 'Img/placa circular.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <img src="{% static 'Img/placa hueso.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Estilos disponibles</h5>
+                    <p></p>
+                </div>
+                <div class="card-body">
+                    <select name="Estilo_Placa_C" id="select-imagen" class="form-select">
+                        <option value="">Elije el estilo de tu placa</option>
+                        <option value="">Placa en forma circular</option>
+                        <option value="">Placa en forma de hueso</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="card" style="width: 18rem;">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static 'Img/placa circular.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'Img/placa hueso.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Estilos disponibles</h5>
+                    <p></p>
+                </div>
+                <div class="card-body">
+                    <select name="Estilo_Placa_C" id="select-imagen" class="form-select">
+                        <option value="">Elije el estilo de tu placa</option>
+                        <option value="">Placa en forma circular</option>
+                        <option value="">Placa en forma de hueso</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+
+            <!-- <div class="Color">
                 <h2>Elija el Color de su Placa</h2>
                 <img id="imagen_seleccionada" src="" alt="Imagen 2">
                 <select name="Estilo_Color_C" id="Estilo_Color_C">
@@ -31,26 +94,20 @@
                     <option value="{% static 'Img/placa color dorado.jpg'%}"></option>
                     <option value="{% static 'Img/placa color negro.jpg'%}"></option>
                 </select>
-            </div>
+            </div> -->
 
         </form>
     </div>
 
 
-    <script src="{% static 'Js/ElejirColor.js'%}"></script>
-    <script>
-        function actualizarImagen() {
-            // Obtener el valor seleccionado en el select
-            var valor = document.getElementById("select-imagen").value;
 
-            // Obtener la ruta de la imagen correspondiente en el diccionario
-            var rutaImagen = imagenes[valor];
+    <!-- <script src="{% static 'Js/ElejirColor.js'%}"></script> -->
 
-            // Actualizar la imagen en la etiqueta <img>
-            document.getElementById("imagen-seleccionada").src = rutaImagen;
-        }
 
-    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
