@@ -1,8 +1,8 @@
-const imagen = document.getElementById('Estilo_Placa_C');
-const imagenSeleccionada = document.getElementById('imagenes1');
+const select = document.getElementById("seleccion");
+const imagen = document.getElementById("imagen");
 
-imagen.addEventListener('change', function () {
-    const valorSeleccionado = imagen.value;
-    imagenSeleccionada.src = "{% static '" + valorSeleccionado + "' %}";
-    imagenSeleccionada.alt = imagen.options[imagen.selectedIndex].text;
+select.addEventListener("change", function(){
+    const valor = select.value;
+    imagen.src = "{% static '" + valor + "'%}";
+    imagen.alt = select.options[select.selectedIndex].text;
 }); 

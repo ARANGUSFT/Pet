@@ -1,30 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{% static 'Js/ElejirEstilo.js'%}"></script>
-    <script src="{% static 'Js/ElejirColor.js'%}"></script>
     <title>Document</title>
 </head>
+
 <body>
     <div>
         <form action="" method="post">
             {% csrf_token %}
             <div class="Estilo">
                 <h2>Elija el Estilo de su Placa</h2>
-                <img id="imagenes1" src="{% static 'Img/placa circular.jpg'%}" alt="Imagen 1">
-                <select name="Estilo_Placa_C" id="Estilo_Placa_C">
-                    <option value="{% static 'Img/placa circular.jpg'%}">h</option>
-                    <option value="{% static 'Img/Elige un estilo.jpg'%}">h</option>
+                <img id="imagen-seleccionada" src="{% static 'Img/placa circular.jpg' %}" alt="Imagen 1">
+                <select name="Estilo_Placa_C" id="select-imagen" onchange="actualizarImagen()">
+                    <option value="{% static 'Img/placa color plateado.jpg'%}">Cicular</option>
+                    <option value="{% static 'Img/Elige un estilo.jpg' %}">Hueso</option>
                 </select>
             </div>
+            
 
             <div class="Color">
                 <h2>Elija el Color de su Placa</h2>
-                <img id="imagenes2" src="{% static 'Img/Elige un estilo.jpg'%}" alt="Imagen 2">
+                <img id="imagen_seleccionada" src="" alt="Imagen 2">
                 <select name="Estilo_Color_C" id="Estilo_Color_C">
                     <option value="{% static 'Img/placa color plateado.jpg'%}"></option>
                     <option value="{% static 'Img/placa color dorado.jpg'%}"></option>
@@ -35,15 +36,21 @@
         </form>
     </div>
 
-<script>
-    const imagen = document.getElementById('Estilo_Placa_C');
-const imagenSeleccionada = document.getElementById('imagenes1');
 
-imagen.addEventListener('change', function () {
-    const valorSeleccionado = imagen.value;
-    imagenSeleccionada.src = "{% static '" + valorSeleccionado + "' %}";
-    imagenSeleccionada.alt = imagen.options[imagen.selectedIndex].text;
-}); 
-</script>
+    <script src="{% static 'Js/ElejirColor.js'%}"></script>
+    <script>
+        function actualizarImagen() {
+            // Obtener el valor seleccionado en el select
+            var valor = document.getElementById("select-imagen").value;
+
+            // Obtener la ruta de la imagen correspondiente en el diccionario
+            var rutaImagen = imagenes[valor];
+
+            // Actualizar la imagen en la etiqueta <img>
+            document.getElementById("imagen-seleccionada").src = rutaImagen;
+        }
+
+    </script>
 </body>
+
 </html>
