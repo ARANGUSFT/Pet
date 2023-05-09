@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'Js/ElejirEstilo.js'%}"></script>
+    <script src="{% static 'Js/ElejirColor.js'%}"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="Estilo">
+                <h2>Elija el Estilo de su Placa</h2>
+                <img id="imagenes1" src="{% static 'Img/placa circular.jpg'%}" alt="Imagen 1">
+                <select name="Estilo_Placa_C" id="Estilo_Placa_C">
+                    <option value="{% static 'Img/placa circular.jpg'%}">h</option>
+                    <option value="{% static 'Img/Elige un estilo.jpg'%}">h</option>
+                </select>
+            </div>
+
+            <div class="Color">
+                <h2>Elija el Color de su Placa</h2>
+                <img id="imagenes2" src="{% static 'Img/Elige un estilo.jpg'%}" alt="Imagen 2">
+                <select name="Estilo_Color_C" id="Estilo_Color_C">
+                    <option value="{% static 'Img/placa color plateado.jpg'%}"></option>
+                    <option value="{% static 'Img/placa color dorado.jpg'%}"></option>
+                    <option value="{% static 'Img/placa color negro.jpg'%}"></option>
+                </select>
+            </div>
+
+        </form>
+    </div>
+
+<script>
+    const imagen = document.getElementById('Estilo_Placa_C');
+const imagenSeleccionada = document.getElementById('imagenes1');
+
+imagen.addEventListener('change', function () {
+    const valorSeleccionado = imagen.value;
+    imagenSeleccionada.src = "{% static '" + valorSeleccionado + "' %}";
+    imagenSeleccionada.alt = imagen.options[imagen.selectedIndex].text;
+}); 
+</script>
+</body>
+</html>
