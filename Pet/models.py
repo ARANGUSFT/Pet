@@ -14,6 +14,7 @@ class Mascota(models.Model):
     class Meta:
       db_table = 'tbl_mascota'
 
+
 class Dueno(models.Model):
     Id_Dueno = models.AutoField(primary_key=True)
     Nombre_Completo_D = models.TextField(max_length=150)
@@ -21,16 +22,23 @@ class Dueno(models.Model):
     Celular_Secundario_D = models.TextField(max_length=20)
     Correo_D = models.TextField(max_length=150)
     Municipio_D = models.TextField(max_length=50) 
-    Mascota_Id = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    Mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    
     class Meta:
       db_table = 'tbl_Dueno'
 
 class Caracteristicas(models.Model):
     Id_Caracteristicas = models.AutoField(primary_key=True)
     Estilo_Placa_C = models.TextField(max_length=50)
-    Estilo_Color_C = models.TextField(max_length=50)
-    Dueno_Id = models.ForeignKey(Dueno, on_delete=models.CASCADE)
+    Color_Placa_C = models.TextField(max_length=50)
+    Dueno = models.ForeignKey(Dueno, on_delete=models.CASCADE)
 
     class Meta:
       db_table = 'tbl_Caracteristicas'
+
+
+
+
+
+
+

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="{% static 'Css/EstilosInsertarMascota.css'%}" rel="stylesheet">
+    
 </head>
 <body>
 
@@ -16,7 +17,7 @@
 
         <div class="Rectangulo">
 
-            <form action="" method="post" enctype="multipart/form-data" >
+            <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" id="form">
                 {% csrf_token %}
                 <div class="form">
                 <h1>Registra tu Mascota</h1>
@@ -25,27 +26,32 @@
                     <div class="row">
                         <div class="col-md-5">
                             <label class="form-label" for="">Nombre de la Mascota:</label>
-                            <input class="form-control" type="text" name="Nombre_M" id="">
+                            <input class="form-control" type="text" name="Nombre_M" id="NombreMascota">
+                            <samp id="NombreMascotaError" class="error"></samp>
                         </div>
     
                         <div class="col-md-5">
                             <label class="form-label" for="">Raza de la Mascota:</label>
-                            <input class="form-control" type="text" name="Raza_M" id="">
+                            <input class="form-control" type="text" name="Raza_M" id="RazaMascota">
+                            <samp id="RazaMascotaError" class="error"></samp>
                         </div>
                     </div>
     
                     <div class="row">
                         <div class="col-md-5">
                             <label class="form-label" for="">Color de la Mascota:</label>
-                            <input class="form-control" type="text" name="Color_M" id="">
+                            <input class="form-control" type="text" name="Color_M" id="ColorMascota">
+                            <samp id="ColorMascotaError" class="error"></samp>
                         </div>
     
                         <div class="col-md-5">
                             <label class="form-label" for="">Foto de la Mascota:</label>
-                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg"
-                                id="">
+                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id="FotoMacota">
+                            <samp id="FotoMascotaError" class="error"></samp>
                         </div>
                     </div><br>
+
+                    <samp id="Error" class="error"></samp>
 
                     
                     <a href="/MisMascotas/Listado"><button class="btn btn-success" type="submit">Guardar</button></a>
@@ -62,6 +68,10 @@
     <footer>
         <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p></div>
     </footer>
+
+
+
+    
 
 </body>
 </html>
