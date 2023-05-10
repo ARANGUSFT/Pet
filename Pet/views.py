@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
-from Pet.models import Mascota,Dueno
+from Pet.models import Mascota
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
