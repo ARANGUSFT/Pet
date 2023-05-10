@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'Css/Login2.css'%}">
+    <script src="{% static 'Js/ValidacionesInicio.js'%}"></script>
     <title>Ingreso</title>
 </head>
 <body>
@@ -22,13 +23,14 @@
     <div class="form-wrapper">
       <h1 class="form-title">Ingresar Cuenta</h1>
   
-      <form action="" method="POST">
+      <form id="registrationForm" action="" onsubmit="return validateForm()" method="POST">
         {% csrf_token %}
 
         <div class="form-group">
           <label for="username">Apodo</label>
           <input type="text" name="username" id="username" class="w-100" autofocus placeholder="ingresa tu apodo" >
           <span class="check-icon"></span>
+          <span id="usernameError" class="error"></span><br><br>
         </div>
   
   
@@ -36,12 +38,13 @@
           <label for="password">Contraseña</label>
           <input type="password" name="password" id="password" placeholder="ingresa tu contraseña" class="w-100" >
           <span class="check-icon"></span>
+          <span id="passwordError" class="error"></span><br><br>
         </div><br><br>
   
         
   
         <div class="form-group mb-0">
-          <input type="submit" value="Entrar" class="w-100" id="submit">
+          <input type="submit" value="Entrar" class="w-100">
         </div>
       </form><br>
 
@@ -58,6 +61,32 @@
     </div> 
   </div> 
 
+
+  <script>
+
+    const input = document.getElementById('username');
+    input.addEventListener('input', function() {
+    if (this.value.length > 16) {
+        this.value = this.value.slice(0, 16);
+      }
+    });
+
+
+
+    const passwordInput = document.getElementById('password');
+    passwordInput.addEventListener('input', function() {
+      if (this.value.length > 16) {
+        this.value = this.value.slice(0, 16);
+      }
+    });
+
+ </script>
+
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
     
 </body>
 </html>

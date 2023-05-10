@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'Css/EstiloActualizarPerfil.css'%}">
     <script src="{% static 'Js/sweetalert.min.js'%}"></script>
     <script src="{% static 'Js/AlertaEliminarCuenta.js'%}"></script>
+    <script src="{% static 'Js/ValidacionesEditarPerfil.js'%}"></script>
     <title>EditarPerfil</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
                     <div class="">
       
      <!-- Formulario  -->
-   <form action="" id="form" method="POST">
+   <form id="registrationForm" action="" onsubmit="return validateForm()" method="POST">
         {% csrf_token %}
 
     <div class="tr">          
@@ -38,15 +39,21 @@
         <label class="label" for="input">Apodo</label>
          <input class="input" type="text" name="username" value="{{ user.username }}" id="username">
          <div id="Error1" class="error-message"></div>
+         <span id="usernameError" class="error"></span><br><br>
+
         
         
         <label class="label" for="input">Email<div id="texte"></div></label>  
          <input class="input texte" type="email" name="email" value="{{ user.email }}" id="email">
          <div id="Error2" class="error-message"></div>
+         <span id="emailError" class="error"></span><br><br>
+
         
         <label class="label" for="input">Contraseña</label> 
          <input class="input" type="password" name="password" placeholder="Ingresa tu nueva contraseña" id="password">
          <div id="Error3" class="error-message"></div>
+         <span id="passwordError" class="error"></span><br><br>
+
     </div><br><br>
 
       
@@ -75,5 +82,40 @@
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+
+      const input = document.getElementById('username');
+      input.addEventListener('input', function() {
+      if (this.value.length > 16) {
+          this.value = this.value.slice(0, 16);
+        }
+      });
+  
+  
+      const emailInput = document.getElementById('email');
+      emailInput.addEventListener('input', function() {
+        if (this.value.length > 120) {
+          this.value = this.value.slice(0, 120);
+        }
+      });
+  
+  
+      const passwordInput = document.getElementById('password');
+      passwordInput.addEventListener('input', function() {
+        if (this.value.length > 16) {
+          this.value = this.value.slice(0, 16);
+        }
+      });
+  
+   </script>
+  
+    
+    <style>
+        .error {
+          color: red;
+        }
+      </style>
+
 </body>
 </html>
