@@ -3,14 +3,10 @@ body{
     background-size: cover;
 }
 
-.form{
-    margin-left: 5%;
-}
-
 .Rectangulo{
     margin-top: 12.5%; 
     width: 50%;
-    height: 400px;
+    height: 470px;
     background: #F7F7F7;
     padding: 1%;
     border-radius: 8px;
@@ -22,6 +18,22 @@ body{
     justify-content: center;
 }
 
+.Cartas{
+    margin-left: 34px;
+    margin-top: 10px;
+}
+
+.Btn1{
+    margin-left: 35px;
+    margin-bottom: 3px;
+}
+
+.Btn2{
+    margin-left: 35px;
+    
+}
+
+
 footer{
     background-color: black;
     padding: 1em 0;
@@ -31,9 +43,3 @@ footer{
     width: 100%;
 }
 
-.error {
-    color: red;
-  }
-  
- 
-  

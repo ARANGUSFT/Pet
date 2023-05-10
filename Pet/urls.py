@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from Pet.views import Principal,Contacto,Contacto2
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
-from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño
+from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -56,7 +56,10 @@ urlpatterns = [
     #Actualizar Mascota
     path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota),
     #Insertar Dueño
-    path('MisMascotas/GenerarMiQR',InsertarDueño)
+    path('MisMascotas/GenerarMiQR',InsertarDueño),
+
+    #Insertar Estilo Placa
+    path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca)
 ]
 
 if settings.DEBUG:

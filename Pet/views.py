@@ -6,8 +6,10 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
-from Pet.models import Mascota
+from Pet.models import Mascota,Dueno,Caracteristicas
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.handlers.wsgi import WSGIRequest
+
 
 
 
@@ -322,3 +324,36 @@ def InsertarDueño(request):
 
 
 #endregion
+
+
+#region dueño
+
+def InsertarDueño(request):
+    if request.method == "POST":
+         #prepare
+        insertar = connection.cursor()
+        insertar.execute("call insertarDueno('"+request.POST.get ('Nombre_Completo_D')+"','"+request.POST.get ('Celular_D')+"','"+request.POST.get ('Celular_Secundario_D')+"','"+request.POST.get ('Correo_D')+"','"+request.POST.get ('Municipio_D')+"','"+request.POST.get ('Mascota_Id')+"')")
+        return redirect('/MisMascotas/EstiloPlaca')
+    else:
+        mascota = Mascota.objects.all()
+        return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
+
+
+""" def InsertarEstiloPlaca(request):
+    if request.method == "POST":
+        insertar = connection.cursor()
+        insertar.execute("call InsertarEstilos('"+request.POST.get ('Estilo_Placa_C')+"','"+request.POST.get ('Color_Placa_C')+"','"+request.POST.get ('Dueno_Id')+"')")
+        return redirect('/MisMascotas/Botones')
+
+    return render(request,'MisMascotas/EstiloPlaca.html') """
+
+def InsertarEstiloPlaca(request):
+    if request.method == "POST":
+        with connection.cursor() as cursor:
+            cursor.callproc('InsertarEstilos', [request.POST.get('Estilo_Placa_C'), request.POST.get('Color_Placa_C')])
+        return redirect('/MisMascotas/Botones')
+
+    return render(request, 'MisMascotas/EstiloPlaca.html')
+
+#endregion
+

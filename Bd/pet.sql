@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2023 a las 05:29:34
+-- Tiempo de generación: 09-05-2023 a las 08:26:25
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.1.17
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -123,7 +123,8 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(12, 'pbkdf2_sha256$600000$34T2ttkkiskotFNI4f1y27$GrblB11hyKZr2dwmXuK1T8eMe8+1Mss38ZZk03ABHEQ=', '2023-05-08 03:28:12.385778', 0, 'ARANGUSFT', '', '', 'santiago@gmail.com', 0, 1, '2023-05-08 03:27:59.137458');
+(12, 'pbkdf2_sha256$600000$34T2ttkkiskotFNI4f1y27$GrblB11hyKZr2dwmXuK1T8eMe8+1Mss38ZZk03ABHEQ=', '2023-05-08 03:28:12.385778', 0, 'ARANGUSFT', '', '', 'santiago@gmail.com', 0, 1, '2023-05-08 03:27:59.137458'),
+(13, 'pbkdf2_sha256$600000$b58c2AdgASlxdv4V6fmHLn$mYcAtz0yP78rqugzh/BHt5zdaUk1QVyrhIArOZvKFqY=', '2023-05-09 03:09:09.796636', 0, 'Arnol', '', '', 'arnol@gmail.com', 0, 1, '2023-05-09 03:09:00.879753');
 
 -- --------------------------------------------------------
 
@@ -245,10 +246,25 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911'),
+('dc7jzflwr9pmumfd7ac8yuo55qoxto63', '.eJxVjDkOwjAUBe_iGlmxgzdKes5g_U04gGwpTirE3UmkFNDOzHtvlWFdSl67zHlidVFmVKdfiEBPqbvhB9R709TqMk-o90QftutbY3ldj_bvoEAv2zqdwYXReIoMiEPCIGKBOdpk0AJ69FbYESElMnGDwSFY8nEwNiSnPl8lNDiO:1pwDiv:a63vgt5ZFcFZY5rf7BsVAhszyZGcR0vKn3ySVFC9H4A', '2023-05-23 03:09:09.838621'),
 ('j03kamvodem4k1ydsiw5wavg7m8ixa1j', '.eJxVjMsOwiAQRf-FtSE8JiAu3fsNhGEGqRpISrtq_Hdt0oVu7znnbiKmdalxHTzHicRFaCNOvyOm_OS2E3qkdu8y97bME8pdkQcd8taJX9fD_TuoadRvDQUVBguKHTjWGjSwPxOywwDO2RyS98FkZQpli6A8ETDaAhaDByfeH_uvN9w:1pvrXo:jRqBxEIahI93_Cr75DS6hK_nE7GKst5Zf2rDwsHvj_A', '2023-05-22 03:28:12.389864'),
 ('mn3gcv8p4i62tec5ufg4yhwn266gv9en', '.eJxVjEEOwiAQRe_C2hDQ6Qgu3XsGwjCDVA0kpV0Z726bdKHb_977bxXiMpewdJnCyOqirFWH35FiekrdCD9ivTedWp2nkfSm6J12fWssr-vu_h2U2Mtaiz8NYCzy8cwuc_KUjWGDLDYDxITWsXceMDtnk0-QSSIQDoSrKKg-Xw3VOHU:1pvea6:vOU8fQ1lcsrk10oskToauqEqk5xr437Yaan0f9Wt1Oo', '2023-05-21 13:37:42.109843'),
 ('sdvgm7g03rudsay78hucn4tnx6pbuvwi', '.eJxVjE0OwiAYBe_C2pACBcGle89Avr9K1dCktCvj3W2TLnQ7M--9VYZ1KXltMueR1UVFdfplCPSUugt-QL1Pmqa6zCPqPdGHbfo2sbyuR_t3UKCVbT2Ic3QO1gigCWzJeMtMYXDihVOE2McNIqGVZJm8c8l3GIPBnrtk1ecLAXM4MA:1psDwo:4PtElfGk13A9C8zv6rOx8V_tw1-cFKou9gs3uMdc5hE', '2023-05-12 02:34:58.183266'),
 ('wweu083qysi1x286axou36p3cj5xbl48', '.eJxVjEEOwiAQRe_C2hDQ6Qgu3XsGwjCDVA0kpV0Z726bdKHb_977bxXiMpewdJnCyOqirFWH35FiekrdCD9ivTedWp2nkfSm6J12fWssr-vu_h2U2Mtaiz8NYCzy8cwuc_KUjWGDLDYDxITWsXceMDtnk0-QSSIQDoSrKKg-Xw3VOHU:1puD54:rJzZT0TSRNkT_SCgXL5kTHP-KaxHE8YyIIF6T6kYiAI', '2023-05-17 14:03:42.510835');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_caracteristicas`
+--
+
+CREATE TABLE `tbl_caracteristicas` (
+  `Id_Caracteristicas` int(11) NOT NULL,
+  `Estilo_Placa_C` varchar(50) NOT NULL,
+  `Estilo_Color_C` varchar(50) NOT NULL,
+  `Dueno_Id` int(11) NOT NULL,
+  `Envio_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -280,6 +296,13 @@ CREATE TABLE `tbl_mascota` (
   `Foto_M` varchar(255) NOT NULL,
   `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_mascota`
+--
+
+INSERT INTO `tbl_mascota` (`Id_Mascota`, `Nombre_M`, `Raza_M`, `Color_M`, `Foto_M`, `usuario_id`) VALUES
+(19, 'hades', 'pitbull', 'cafe', 'ImagenesBD/R.jpg', 13);
 
 --
 -- Índices para tablas volcadas
@@ -359,6 +382,13 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
+-- Indices de la tabla `tbl_caracteristicas`
+--
+ALTER TABLE `tbl_caracteristicas`
+  ADD PRIMARY KEY (`Id_Caracteristicas`),
+  ADD KEY `Dueno_Id` (`Dueno_Id`);
+
+--
 -- Indices de la tabla `tbl_dueno`
 --
 ALTER TABLE `tbl_dueno`
@@ -398,7 +428,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
@@ -431,6 +461,12 @@ ALTER TABLE `django_migrations`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT de la tabla `tbl_caracteristicas`
+--
+ALTER TABLE `tbl_caracteristicas`
+  MODIFY `Id_Caracteristicas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `tbl_dueno`
 --
 ALTER TABLE `tbl_dueno`
@@ -440,7 +476,7 @@ ALTER TABLE `tbl_dueno`
 -- AUTO_INCREMENT de la tabla `tbl_mascota`
 --
 ALTER TABLE `tbl_mascota`
-  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
@@ -479,6 +515,12 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `tbl_caracteristicas`
+--
+ALTER TABLE `tbl_caracteristicas`
+  ADD CONSTRAINT `tbl_caracteristicas_ibfk_1` FOREIGN KEY (`Dueno_Id`) REFERENCES `tbl_dueno` (`Id_Dueno`);
 
 --
 -- Filtros para la tabla `tbl_dueno`
