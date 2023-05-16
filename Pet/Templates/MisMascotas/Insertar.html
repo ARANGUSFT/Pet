@@ -9,71 +9,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="{% static 'Css/EstilosInsertarMascota.css'%}" rel="stylesheet">
-    
+
+
 </head>
+
 <body>
 
     <div class="Container">
 
         <div class="Rectangulo">
 
-            <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" id="form">
+            <form action="" method="post" enctype="multipart/form-data" id="formulario">
                 {% csrf_token %}
                 <div class="form">
-                <h1>Registra tu Mascota</h1>
+                    <h1>Registra tu Mascota</h1>
 
-                
+
                     <div class="row">
                         <div class="col-md-5">
                             <label class="form-label" for="">Nombre de la Mascota:</label>
-                            <input class="form-control" type="text" name="Nombre_M" id="NombreMascota">
-                            <samp id="NombreMascotaError" class="error"></samp>
+                            <input class="form-control" type="text" name="Nombre_M" id="NombreMascota" oninput="limitInputLength(event, 50)">
+                            <div id="Error1" class="error-message"></div>
                         </div>
-    
+
                         <div class="col-md-5">
                             <label class="form-label" for="">Raza de la Mascota:</label>
-                            <input class="form-control" type="text" name="Raza_M" id="RazaMascota">
-                            <samp id="RazaMascotaError" class="error"></samp>
+                            <input class="form-control" type="text" name="Raza_M" id="RazaMascota" oninput="limitInputLength(event, 50)">
+                            <div id="Error2" class="error-message"></div>
                         </div>
                     </div>
-    
+
                     <div class="row">
                         <div class="col-md-5">
                             <label class="form-label" for="">Color de la Mascota:</label>
-                            <input class="form-control" type="text" name="Color_M" id="ColorMascota">
-                            <samp id="ColorMascotaError" class="error"></samp>
+                            <input class="form-control" type="text" name="Color_M" id="ColorMascota"
+                                placeholder="EJ: Blanco y Negro" oninput="limitInputLength(event, 50)">
+                            <div id="Error3" class="error-message"></div>
                         </div>
-    
+
                         <div class="col-md-5">
                             <label class="form-label" for="">Foto de la Mascota:</label>
-                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id="FotoMacota">
-                            <samp id="FotoMascotaError" class="error"></samp>
+                            <input class="form-control" type="file" name="Foto_M" id="FotoMacota"
+                                accept="image/png, image/gif, image/jpeg">
+                            <div id="Error4" class="error-message"></div>
                         </div>
                     </div><br>
 
-                    <samp id="Error" class="error"></samp>
-
-                    
+                    <a href="/MisMascotas/Botones" class="btn btn-secondary">Volver</a>
                     <a href="/MisMascotas/Listado"><button class="btn btn-success" type="submit">Guardar</button></a>
 
                 </div>
             </form>
 
-            <a href="/MisMascotas/Botones" class="btn btn-secondary" role="button" style="margin-left: 5%; margin-top: 1%;">Volver</a>
-            
+
         </div>
 
     </div>
 
     <footer>
-        <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p></div>
+        <div class="container px-5">
+            <p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p>
+        </div>
     </footer>
 
 
+    <script src="{% static 'Js/ValidacionInsertar.js'%}"></script>
+    <script>
+        function limitInputLength(event, maxLength) {
+            var input = event.target;
+            var inputValue = input.value.toString();
 
-    
-
+            if (inputValue.length > maxLength) {
+                input.value = inputValue.slice(0, maxLength);
+            }
+        }
+    </script>
 </body>
+
 </html>
 
 

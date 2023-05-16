@@ -16,7 +16,7 @@
     <div class="Container">
 
         <div class="Rectangulo">
-            <form action="/MisMascotas/Actualizar/{{ mascota.Id_Mascota }}" method="post" enctype="multipart/form-data">
+            <form action="/MisMascotas/Actualizar/{{ mascota.Id_Mascota }}" method="post" enctype="multipart/form-data" id="formulario"> 
 
                 {% csrf_token %}
         
@@ -25,26 +25,30 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label for="" class="form-label">Actualiza el Nombre de tu Mascota:</label>
-                        <input class="form-control" type="text" name="Nombre_M" id="" value="{{ mascota.Nombre_M }}">
+                        <input class="form-control" type="text" name="Nombre_M" id="NombreMascota" value="{{ mascota.Nombre_M }}">
+                        <div id="Error1" class="error-message"></div>
                     </div>
         
                     <div class="col-md-5">
                         <label for="" class="form-label">Actualiza la Raza de tu Mascota:</label>
-                        <input class="form-control" type="text" name="Raza_M" id="" value="{{ mascota.Raza_M }}">
+                        <input class="form-control" type="text" name="Raza_M" id="RazaMascota" value="{{ mascota.Raza_M }}">
+                        <div id="Error2" class="error-message"></div>
                     </div>
                 </div>
         
                 <div class="row">
                     <div class="col-md-5">
                         <label for="" class="form-label">Actualiza el Color de tu Mascota:</label>
-                        <input class="form-control" type="text" name="Color_M" id="" value="{{ mascota.Color_M }}">
+                        <input class="form-control" type="text" name="Color_M" id="ColorMascota" value="{{ mascota.Color_M }}">
+                        <div id="Error3" class="error-message"></div>
                     </div>
         
                     <div class="col-md-5">
                             <label for="" class="form-label">Actualiza la Foto de tu mascota:</label>
-                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id="" />
+                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id="FotoMacota" />
                             <label for="" class="form-label">Foto Actual:</label><br>
                             <img src="../../../Media/{{ mascota.Foto_M }}" width="100" height="100" alt="No Encontrada" />
+                            <div id="Error4" class="error-message"></div>
                     </div>
                 </div>
                 <a href="/MisMascotas/Listado" role="button" class="btn btn-secondary">Volver</a>
@@ -57,7 +61,7 @@
     <footer>
         <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p></div>
     </footer>
-    
+    <script src="{% static 'Js/ValidacionesActualizar.js'%}"></script>
 </body>
 
 </html>
