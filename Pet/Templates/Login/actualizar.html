@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'Css/EstiloActualizarPerfil.css'%}">
     <script src="{% static 'Js/sweetalert.min.js'%}"></script>
     <script src="{% static 'Js/AlertaEliminarCuenta.js'%}"></script>
+    <script src="{% static 'Js/ValidacionesEditarPerfil.js'%}"></script>
     <title>EditarPerfil</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
                     <div class="">
       
      <!-- Formulario  -->
-   <form action="" id="form" method="POST">
+   <form id="registrationForm" action="" onsubmit="return validarFormulario()" method="POST">
         {% csrf_token %}
 
     <div class="tr">          
@@ -38,15 +39,21 @@
         <label class="label" for="input">Apodo</label>
          <input class="input" type="text" name="username" value="{{ user.username }}" id="username">
          <div id="Error1" class="error-message"></div>
+         <span id="usernameError" class="error"></span><br><br>
+
         
         
         <label class="label" for="input">Email<div id="texte"></div></label>  
          <input class="input texte" type="email" name="email" value="{{ user.email }}" id="email">
          <div id="Error2" class="error-message"></div>
+         <span id="emailError" class="error"></span><br><br>
+
         
         <label class="label" for="input">Contraseña</label> 
          <input class="input" type="password" name="password" placeholder="Ingresa tu nueva contraseña" id="password">
          <div id="Error3" class="error-message"></div>
+         <span id="passwordError" class="error"></span><br><br>
+
     </div><br><br>
 
       
@@ -75,5 +82,120 @@
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <style>
+        .error {
+          color: red;
+          font-size: 12px;
+        }
+      </style>
+    
+      <script>
+        function validarFormulario() {
+          // Obtener los valores de los campos
+          var username = document.getElementById("username").value;
+          var email = document.getElementById("email").value;
+          var password = document.getElementById("password").value;
+          
+          // Obtener las etiquetas de error
+          var usernameError = document.getElementById("usernameError");
+          var emailError = document.getElementById("emailError");
+          var passwordError = document.getElementById("passwordError");
+          
+          // Expresión regular para verificar que no haya espacios en blanco
+          var espaciosEnBlanco = /\s/;
+          
+          // Limpiar los mensajes de error anteriores
+          usernameError.innerHTML = "";
+          emailError.innerHTML = "";
+          passwordError.innerHTML = "";
+          
+          // Verificar campos vacíos
+          if (username === "") {
+            usernameError.innerHTML = "Por favor, ingrese un apodo.";
+            return false;
+          }
+          
+          if (email === "") {
+            emailError.innerHTML = "Por favor, ingrese un correo electrónico.";
+            return false;
+          }
+
+
+          if (password === "") {
+            passwordError.innerHTML = "Por favor, ingrese una contraseña.";
+            return false;
+          }
+          
+        
+          // Verificar espacios en blanco
+          if (espaciosEnBlanco.test(username)) {
+            usernameError.innerHTML = "El apodo no puede contener espacios en blanco.";
+            return false;
+          }
+          
+          if (espaciosEnBlanco.test(email)) {
+            emailError.innerHTML = "El correo electrónico no puede contener espacios en blanco.";
+            return false;
+          }
+          
+          if (espaciosEnBlanco.test(password)) {
+            passwordError.innerHTML = "La contraseña no puede contener espacios en blanco.";
+            return false;
+          }
+    
+         // Validate password
+    if (password === "") {
+   
+} else if (password.length < 8) {
+  document.getElementById("passwordError").textContent = "Recuerda que la contrasea debe tener minimo 8 y maximo 16 caracteres";
+  return false;
+}
+    
+          
+          // Validar longitud mínima y máxima del apodo
+          if (username.length < 4 || username.length > 16) {
+            usernameError.innerHTML = "El apodo debe tener entre 4 y 16 caracteres.";
+            return false;
+          }
+    
+          
+          // Validar el formato del correo electrónico utilizando una expresión regular
+          var formatoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!formatoEmail.test(email)) {
+            emailError.innerHTML = "Por favor, ingrese una dirección de correo electrónico válida.";
+            return false;
+          }
+    
+          
+        }
+    
+    
+        const input = document.getElementById('username');
+      input.addEventListener('input', function() {
+      if (this.value.length > 16) {
+          this.value = this.value.slice(0, 16);
+        }
+      });
+    
+      const emailInput = document.getElementById('email');
+      emailInput.addEventListener('input', function() {
+        if (this.value.length > 120) {
+          this.value = this.value.slice(0, 120);
+        }
+      });
+    
+    
+      const passwordInput = document.getElementById('password');
+      passwordInput.addEventListener('input', function() {
+        if (this.value.length > 16) {
+          this.value = this.value.slice(0, 16);
+        }
+      });
+    
+      </script>
+    
+  
+  
 </body>
 </html>

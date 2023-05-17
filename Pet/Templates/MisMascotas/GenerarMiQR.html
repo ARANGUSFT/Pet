@@ -15,7 +15,7 @@
     <div class="Container">
 
         <div class="Rectangulo">
-            <form action="" method="post" id="formulario" onsubmit="return validarSelect()">
+            <form action="" method="post" id="formulario">
                 {% csrf_token %}
                 <div class="form">
                     <h2>Generar QR</h2>
@@ -66,7 +66,7 @@
 
                         <div class="col-md-5">
                             <label class="form-label" for="">Ingresa tu Municipio de Residencia:</label>
-                            <select class="form-select" name="Municipio_D" id=" ">
+                            <select class="form-select" name="Municipio_D" id="">
                                 <option value="">Elige un Municipio</option>
                                 <option value="Bello">Bello</option>
                                 <option value="Caldas">Caldas</option>
@@ -95,47 +95,6 @@
             <p class="m-0 text-center text-white small">Copyright &copy; Little Pet World 2023</p>
         </div>
     </footer>
-
-    <script src="{% static 'Js/ValidacionesGenerarQR.js'%}"></script>
-
-   <!--  <script src="{% static 'Js/ValidacionesGenerarQRSelect.js'%}"></script> -->
-
-    <script>
-        function limitInputLength(event, maxLength) {
-            var input = event.target;
-            var inputValue = input.value.toString();
-
-            if (inputValue.length > maxLength) {
-                input.value = inputValue.slice(0, maxLength);
-            }
-        }
-    </script>
-
-<script>
-    function validarSelect() {
-      var selectValor = document.getElementById("MascotaDueño").value;
-      var selectValor2 = document.getElementById("Municipio_D").value;
-
-      if (selectValor === "") {
-        document.querySelector('#Error1').style.display = 'block';
-        document.getElementById('Error1').textContent = 'Debes elegir una de tus mascotas';
-        return false;
-      } else {
-        document.querySelector('#Error1').style.display = 'none';
-      }
-      
-      if (selectValor2 === "") {
-        document.getElementById('Error6').textContent = 'Debes elegir un municipio';
-        document.querySelector('#Error6').style.display = 'block';
-        return false;
-      } else {
-        document.querySelector('#Error6').style.display = 'none';
-      }
-
-    }
-  </script> 
-
-
 
 </body>
 

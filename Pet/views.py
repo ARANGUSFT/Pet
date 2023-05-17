@@ -12,8 +12,6 @@ from django.core.handlers.wsgi import WSGIRequest
 
 
 
-
-
 #region Elegir
 
 #FUNCION PARA ENTRAR ELEGIR
@@ -312,42 +310,29 @@ def ActualizarMascota(request, Id_Mascota):
     except:
         pass
 
-def InsertarDueño(request):
-    if request.method == "POST":
-         #prepare
-        insertar = connection.cursor()
-        insertar.execute("call insertarDueno('"+request.POST.get ('Nombre_Completo_D')+"','"+request.POST.get ('Celular_D')+"','"+request.POST.get ('Celular_Secundario_D')+"','"+request.POST.get ('Correo_D')+"','"+request.POST.get ('Municipio_D')+"','"+request.POST.get ('Mascota_Id')+"')")
-        return redirect('MisMascotas/Botones')
-    else:
-        mascota = Mascota.objects.all()
-        return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
-
-
 #endregion
 
 
-#region dueño
-
+#region Dueño
 def InsertarDueño(request):
+    
     if request.method == "POST":
-         #prepare
+         #prepar
+     
         insertar = connection.cursor()
         insertar.execute("call insertarDueno('"+request.POST.get ('Nombre_Completo_D')+"','"+request.POST.get ('Celular_D')+"','"+request.POST.get ('Celular_Secundario_D')+"','"+request.POST.get ('Correo_D')+"','"+request.POST.get ('Municipio_D')+"','"+request.POST.get ('Mascota_Id')+"')")
         return redirect('/MisMascotas/EstiloPlaca')
     else:
-        mascota = Mascota.objects.all()
+        mascota = Mascota.objects.filter(usuario=request.user)
         return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
 
+#endregion
 
-""" def InsertarEstiloPlaca(request):
-    if request.method == "POST":
-        insertar = connection.cursor()
-        insertar.execute("call InsertarEstilos('"+request.POST.get ('Estilo_Placa_C')+"','"+request.POST.get ('Color_Placa_C')+"','"+request.POST.get ('Dueno_Id')+"')")
-        return redirect('/MisMascotas/Botones')
 
-    return render(request,'MisMascotas/EstiloPlaca.html') """
-
+#region Placa
 def InsertarEstiloPlaca(request):
+   return render(request, 'MisMascotas/EstiloPlaca.html')
+   """  if request.method == "POST":
    return render(request, 'MisMascotas/EstiloPlaca.html')
    """  if request.method == "POST":
         with connection.cursor() as cursor:

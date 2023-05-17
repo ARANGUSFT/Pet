@@ -22,8 +22,9 @@ class Dueno(models.Model):
     Celular_Secundario_D = models.TextField(max_length=20)
     Correo_D = models.TextField(max_length=150)
     Municipio_D = models.TextField(max_length=50) 
-    Mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
-    
+    Mascota_Id = models.ForeignKey(Mascota, on_delete=models.CASCADE, db_column='Mascota_Id')
+
+
     class Meta:
       db_table = 'tbl_Dueno'
 
