@@ -33,14 +33,13 @@ urlpatterns = [
     path('Cerrar/sesion',Logout),
     #Actualizar Perfil
     path('Actualizar/usuarios/<int:user_id>',ActualizarUsuario),
+    #Eliminar cuenta
     path('Usuarios/eliminar/<int:user_id>',EliminarUsuario),
     #Principal
     path('Principal/inicio',Principal),
+    #Formularios Reporte
     path('Usuarios/contacto',Contacto, name='Contacto'),
     path('Usuarios/contacto2',Contacto2, name='Contacto2'),    
-    
-
-
 
 
     #Elegir botones
@@ -57,7 +56,6 @@ urlpatterns = [
     path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota),
     #Insertar Dueño
     path('MisMascotas/GenerarMiQR',InsertarDueño),
-
     #Insertar Estilo Placa
     path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca)
 ]

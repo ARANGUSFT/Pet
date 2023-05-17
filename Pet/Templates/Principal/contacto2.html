@@ -15,17 +15,25 @@
 
     <h1>Little pet world</h1>
 
-    <form class="cf" action="{% url 'Contacto2' %}" method="POST">
+    <form class="cf" id="registrationForm" onsubmit="return validarFormulario()" action="{% url 'Contacto2' %}" method="POST">
 
         {% csrf_token %}
       <div class="half left cf">
-        <input name="subject" type="text" id="input-email" placeholder="Asunto">
-        <input name="name" type="text" id="input-name" placeholder="Ingresa tu nombre">
-        <input name="email" type="email" id="input-email" placeholder="Ingresa tu correo">
+        <input name="subject" type="text" id="asunto" placeholder="Asunto">
+        <span id="asuntoError" class="error"></span><br>
+
+        <input name="name" type="text" id="name" placeholder="Ingresa tu nombre">
+        <span id="nameError" class="error"></span><br>
+
+        <input name="email" type="email" id="email" placeholder="Ingresa tu correo">
+        <span id="emailError" class="error"></span><br>
+
       </div>
 
       <div class="half right cf">
-        <textarea name="message" type="text" id="input-message" placeholder="Mensaje"></textarea>
+        <textarea name="message" type="text" id="message" placeholder="Mensaje"></textarea><br>
+        <span id="messageError" class="error"></span>
+
         <input type="submit" value="Enviar" id="input-submit">
       </div>
       
@@ -36,6 +44,98 @@
           <h1>{{message}}</h1>
       {% endfor %}
     {% endif %}
+
+
+    <style>
+      .error {
+        color: red;
+        font-size: 12px;
+      }
+    </style>
+  
+    
+  <script>
+    function validarFormulario() {
+        var asunto = document.getElementById("asunto").value.trim();
+        var nombre = document.getElementById("name").value.trim();
+        var correo = document.getElementById("email").value.trim();
+        var mensaje = document.getElementById("message").value.trim();
+
+        var regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        var asuntoError = document.getElementById("asuntoError");
+        var nameError = document.getElementById("nameError");
+        var emailError = document.getElementById("emailError");
+        var messageError = document.getElementById("messageError");
+
+        asuntoError.textContent = "";
+        nameError.textContent = "";
+        emailError.textContent = "";
+        messageError.textContent = "";
+
+        if (asunto === "") {
+            asuntoError.textContent = "Por favor, ingresa un asunto.";
+            return false;
+        }
+
+        if (nombre === "") {
+            nameError.textContent = "Por favor, ingresa tu nombre.";
+            return false;
+        }
+
+        if (correo === "") {
+            emailError.textContent = "Por favor, ingresa tu correo.";
+            return false;
+        }
+
+        if (!regexCorreo.test(correo)) {
+            emailError.textContent = "Por favor, ingresa un correo válido.";
+            return false;
+        }
+
+        if (mensaje === "") {
+            messageError.textContent = "Por favor, ingresa un mensaje.";
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+
+    const input = document.getElementById('asunto');
+    input.addEventListener('input', function() {
+    if (this.value.length > 25) {
+      this.value = this.value.slice(0, 30);
+    }
+    });
+
+    const inputnombre = document.getElementById('name');
+    inputnombre.addEventListener('input', function() {
+    if (this.value.length > 50) {
+      this.value = this.value.slice(0, 30);
+    }
+    });
+
+    const inputcorreo = document.getElementById('email');
+    inputcorreo.addEventListener('input', function() {
+    if (this.value.length > 120) {
+      this.value = this.value.slice(0, 30);
+    }
+    });
+
+    const inputmensaje = document.getElementById('message');
+    inputmensaje.addEventListener('input', function() {
+    if (this.value.length > 300) {
+      this.value = this.value.slice(0, 30);
+    }
+    });
+
+  
+
+
+</script>
 
 </body>
 </html>
