@@ -43,3 +43,4 @@ class Caracteristicas(models.Model):
 
 
 
+
