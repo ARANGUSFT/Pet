@@ -1,34 +1,21 @@
-const form = document.getElementById('formulario');
+function validarSelect() {
+    var selectValor = document.getElementById("MascotaDueño").value;
+    var selectValor2 = document.getElementById("Municipio_D").value;
 
-function validateForm(event) {
-    event.preventDefault();
-
+    if (selectValor === "") {
+      document.querySelector('#Error1').style.display = 'block';
+      document.getElementById('Error1').textContent = 'Debes elegir una de tus mascotas';
+      return false;
+    } else {
+      document.querySelector('#Error1').style.display = 'none';
+    }
     
-    const MunicipioDueño = document.getElementById('MunicipioDueño');
-    const MascotaDueño = document.getElementById('MascotaDueño');
-    const selectedValue = MascotaDueño.value;
-    const selectedValue2 = MunicipioDueño.value;
-
-    let validForm = true;
-
-    //validacion del nombre mascota
-    if (selectedValue === '') {
-        event.preventDefault(); // previene el envío del formulario
-        document.querySelector('#Error1').style.display = 'block';
-        document.getElementById('Error1').textContent = 'Debes elegir una de tus mascotas';
+    if (selectValor2 === "") {
+      document.getElementById('Error6').textContent = 'Debes elegir un municipio';
+      document.querySelector('#Error6').style.display = 'block';
+      return false;
     } else {
-        document.querySelector('#Error1').style.display = 'none';
+      document.querySelector('#Error6').style.display = 'none';
     }
 
-    //validacion del municipio
-    if (selectedValue2 === '') {
-        event.preventDefault(); // previene el envío del formulario
-        document.getElementById('Error6').textContent = 'Debes elegir un municipio';
-        document.querySelector('#Error6').style.display = 'block';
-        validForm = false;
-    } else {
-        document.querySelector('#Error6').style.display = 'none';
-    }
-}
-
-form.addEventListener('submit', validateForm);
+  }
