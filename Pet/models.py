@@ -31,8 +31,8 @@ class Dueno(models.Model):
 class Caracteristicas(models.Model):
     Id_Caracteristicas = models.AutoField(primary_key=True)
     Estilo_Placa_C = models.TextField(max_length=50)
-    Color_Placa_C = models.TextField(max_length=50)
-    Dueno = models.ForeignKey(Dueno, on_delete=models.CASCADE)
+    Estilo_Color_C = models.TextField(max_length=50)
+    Dueno_Id = models.ForeignKey(Dueno, on_delete=models.CASCADE, db_column='Dueno_Id')
 
     class Meta:
       db_table = 'tbl_Caracteristicas'

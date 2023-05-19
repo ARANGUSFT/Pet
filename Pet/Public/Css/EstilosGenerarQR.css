@@ -1,12 +1,6 @@
 html,body{
     background-image: url("../Img/fondo.jpg");
     background-size: cover;
-    height: 100%;
-}
-
-body{
-    display: flex;
-    flex-direction: column;
 }
 
 .form{
@@ -14,9 +8,9 @@ body{
 }
 
 .Rectangulo{
-    margin-top: 5.5%; 
+    margin-top: 8%; 
     width: 50%;
-    height: 500px;
+    height: 440px;
     background: #F7F7F7;
     padding: 1%;
     border-radius: 8px;
@@ -28,13 +22,16 @@ body{
     justify-content: center;
 }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-  }
-  
-  
+footer{
+    background-color: black;
+    padding: 1em 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+
 .error-message {
     color: red;
     font-size: 11px;

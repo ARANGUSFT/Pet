@@ -331,12 +331,16 @@ def InsertarDueño(request):
 
 #region Placa
 def InsertarEstiloPlaca(request):
-   return render(request, 'MisMascotas/EstiloPlaca.html')
-   """  if request.method == "POST":
-        with connection.cursor() as cursor:
-            cursor.callproc('InsertarEstilos', [request.POST.get('Estilo_Placa_C'), request.POST.get('Color_Placa_C')])
-        return redirect('/MisMascotas/Botones') """
-    
+    if request.method == "POST":
+        caracteristica = Caracteristicas()
+        caracteristica.Estilo_Placa_C = request.POST.get('Estilo_Placa_C')
+        caracteristica.Estilo_Color_C = request.POST.get('Color_Placa_C')
+        caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
 
-#endregion
+        caracteristica.save()
+        return redirect('MisMascotas/Listado.html')
+    else:
+            return render(request, 'MisMascotas/EstiloPlaca.html')
+
+#endregion  
 
