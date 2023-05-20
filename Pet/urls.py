@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from Pet.views import Principal,Contacto,Contacto2
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
-from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca
+from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,vista_anterior
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -57,7 +57,9 @@ urlpatterns = [
     #Insertar Dueño
     path('MisMascotas/GenerarMiQR',InsertarDueño),
     #Insertar Estilo Placa
-    path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca)
+    path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca),
+    #Vista anterior
+    path('MisMascotas/vista_anterior',vista_anterior)
 ]
 
 if settings.DEBUG:

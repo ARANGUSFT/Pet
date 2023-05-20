@@ -325,7 +325,13 @@ def InsertarDueño(request):
     else:
         mascota = Mascota.objects.filter(usuario=request.user)
         return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
-
+    
+def vista_anterior(request):
+    if request.method == 'GET':
+        # Elimina el registro de la base de datos
+        Dueno.objects.last().delete()
+        
+    return redirect('/MisMascotas/GenerarMiQR')
 #endregion
 
 
@@ -338,7 +344,7 @@ def InsertarEstiloPlaca(request):
         caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
 
         caracteristica.save()
-        return redirect('MisMascotas/Listado.html')
+        return redirect('MisMascotas/Listado')
     else:
             return render(request, 'MisMascotas/EstiloPlaca.html')
 
