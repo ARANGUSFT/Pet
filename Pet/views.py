@@ -9,6 +9,10 @@ from django.conf import settings
 from Pet.models import Mascota,Dueno,Caracteristicas
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.handlers.wsgi import WSGIRequest
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+import qrcode
 
 
 
@@ -338,5 +342,27 @@ def InsertarEstiloPlaca(request):
         return redirect('/MisMascotas/Botones') """
     
 
+def generar_pdf(request):
+    mascota = "toby"
+    create_qr_code("https://app.alertamedica.com.co/demo/mascota", "toby.png")
+    template_path = 'MisMascotas/Factura.html'
+    context = {'qr_code': 'valor', 'mascota':mascota}
+    # Renderiza el template HTML con el contexto
+    template = get_template(template_path)
+    html = template.render(context)
+    # Crea un archivo PDF vacío
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="mi_archivo.pdf"'
+    # Genera el archivo PDF a partir del HTML
+    pisa.CreatePDF(html, dest=response)
+    return response
+
+
+def create_qr_code(text, file_name):
+    qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
+    qr_code.add_data(text)
+    qr_code.make(fit=True)
+    qr_image = qr_code.make_image(fill_color="black", back_color="white")
+    qr_image.save("Pet/Public/QrCode/"+file_name)
 #endregion
 
