@@ -1,0 +1,108 @@
+{% include "Inc/header.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Css/EstiloPago.css'%}" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+  
+  <div class="screen flex-center">
+    <form class="popup flex p-lg" method="POST">
+      {% csrf_token %}
+      <div class="close-btn pointer flex-center p-sm">
+        <i class="ai-cross"></i>
+      </div>
+        
+      
+  
+        <!-- CARD FORM -->
+        <div class="flex-fill flex-vertical">
+          <div class="header flex-between flex-vertical-center">
+            <div class="flex-vertical-center">
+              <i class="ai-bitcoin-fill size-xl pr-sm f-main-color"></i>
+              <span class="title">
+                <h2>COMPRA</h2> 
+              </span>
+            </div>
+          </div>
+          <div class="card-data flex-fill flex-vertical"><br>
+            
+ 
+            <!-- Tarjeta -->
+            <div class="flex-between flex-vertical-center">
+              <div class="card-property-title">
+                <strong>Número de tarjeta</strong>
+                <span>Ingrese el número de tarjeta de 16 dígitos de la tarjeta</span>
+              </div>
+            </div>
+            
+            <!-- Card Field -->
+            <div class="flex-between">
+              <div class="card-number flex-vertical-center flex-fill">
+                <div class="card-number-field flex-vertical-center flex-fill">
+                   
+                  <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="24px" height="24px"><path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"/><path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"/><path fill="#ff3d00" d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"/></svg>
+
+                  <input class="numbers" type="number" name="" placeholder="0000">
+                  <input class="numbers" type="number" name="" placeholder="0000">
+                  <input class="numbers" type="number" name="" placeholder="0000">
+                  <input class="numbers" type="number" name="" placeholder="0000">
+                </div>
+                <i class="ai-circle-check-fill size-lg f-main-color"></i>
+              </div>
+            </div>
+            
+            <!-- Fecha de caducidad -->
+            <div class="flex-between">
+              <div class="card-property-title">
+                <strong>Fecha de caducidad</strong>
+                <span>Introduce la fecha de caducidad de la tarjeta</span>
+              </div>
+              <div class="card-property-value flex-vertical-center">
+                <div class="input-container half-width">
+                  <input class="numbers" data-bound="mm_mock" data-def="00" type="number" min="1" max="12" step="1" placeholder="MM">  
+                </div>
+                <span class="m-md">/</span>
+                <div class="input-container half-width">
+                  <input class="numbers" data-bound="yy_mock" data-def="01" type="number" min="23" max="99" step="1" placeholder="AA">
+                </div>
+              </div>
+            </div>
+            
+            <!-- CCV Number -->
+            <div class="flex-between">
+              <div class="card-property-title">
+                <strong>CVV</strong>
+                <span>Ingrese el código de verificación de la tarjeta</span>
+              </div>
+              <div class="card-property-value">
+                <div class="input-container">
+                  <input id="cvc" type="password">
+                  <i id="cvc_toggler" data-target="cvc" class="ai-eye-open pointer"></i>
+                </div>
+              </div>
+            </div>
+          </div><br><br>
+
+
+          <div class="action flex-center">
+            <button type="submit" class="b-main-color pointer">Pagar</button>
+          </div>
+        </div>
+      
+       
+   
+
+
+
+</body>
+</html>
+
+{% include "Inc/footer.html" %}

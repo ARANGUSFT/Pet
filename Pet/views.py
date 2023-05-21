@@ -334,6 +334,7 @@ def InsertarDueño(request):
 
 
 #region Placa
+
 def InsertarEstiloPlaca(request):
    return render(request, 'MisMascotas/EstiloPlaca.html')
    """  if request.method == "POST":
@@ -341,22 +342,66 @@ def InsertarEstiloPlaca(request):
             cursor.callproc('InsertarEstilos', [request.POST.get('Estilo_Placa_C'), request.POST.get('Color_Placa_C')])
         return redirect('/MisMascotas/Botones') """
     
+#endregion
+
+
+#region Datos Envio
+
+def Envio(request):    
+    return render(request, 'Envio/DatosEnvio.html')
+
+#endregion
+
+
+#region Pago
+
+
+# def Datos Compra(request):
+#         if request.method == "POST":
+#             Pagos =  ()
+#             Pagos.Correo = request.POST.get('correo')
+#             Pagos.Celular = request.POST.get('celular')
+#             Pagos.Municipio = request.POST.get('municipio')
+#             Pagos.Barrio = request.POST.get('barrio')
+#             Pagos.Direccion = request.POST.get('direccion')
+#             Pagos.Detalles = request.POST.get('detalles')
+#             Pagos.save()
+#             return redirect('')
+#         else:
+#             return render (request, 'Pago/DatosCompra.html')
+        
+
+def DatosCompra(request):    
+    return render(request, 'Pago/DatosCompra.html')
+
+
+
+
+
+#endregion
+
+
+#region Pdf
 
 def generar_pdf(request):
     mascota = "toby"
-    create_qr_code("https://app.alertamedica.com.co/demo/mascota", "toby.png")
-    template_path = 'MisMascotas/Factura.html'
+    create_qr_code("https://www.youtube.com/watch?v=uDn75tEflHo", "toby.png")
+    template_path = 'Factura/archivo.html'
     context = {'qr_code': 'valor', 'mascota':mascota}
     # Renderiza el template HTML con el contexto
     template = get_template(template_path)
     html = template.render(context)
     # Crea un archivo PDF vacío
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="mi_archivo.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="Codigo.pdf"'
     # Genera el archivo PDF a partir del HTML
     pisa.CreatePDF(html, dest=response)
     return response
 
+#endregion
+
+
+#region Qr
 
 def create_qr_code(text, file_name):
     qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
@@ -364,5 +409,5 @@ def create_qr_code(text, file_name):
     qr_code.make(fit=True)
     qr_image = qr_code.make_image(fill_color="black", back_color="white")
     qr_image.save("Pet/Public/QrCode/"+file_name)
-#endregion
 
+#endregion

@@ -1,0 +1,89 @@
+{% include "Inc/header.html" %}
+
+{% load static %}
+
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Css/EstiloEnvio.css'%}" rel="stylesheet">
+    <title>Envio</title>
+  </head>
+  <body>
+
+    <form id="formulario">
+        {% csrf_token %}
+
+        <h2>Datos de Envio</h2><br>
+        
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="direccion" >
+          <div class="error-message">Por favor ingresa una dirección</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="barrio">Barrio:</label>
+          <input type="text" id="barrio" name="barrio" >
+          <div class="error-message">Por favor ingresa un barrio</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="detalles">Detalles de la residencia:</label>
+          <textarea id="detalles" name="detalles" ></textarea>
+        </div><br>
+        
+        <div class="form-group">
+          <input type="submit" value="Continuar" id="enviar-btn">
+        </div>
+      </form>
+
+
+    <script>
+            
+        document.getElementById("formulario").addEventListener("submit", function(e) {
+            e.preventDefault();
+        
+            var direccion = document.getElementById("direccion");
+            var barrio = document.getElementById("barrio");
+        
+        
+            if (direccion.value.trim() === "") {
+            mostrarError(direccion, "Por favor ingresa una dirección");
+            } else {
+            ocultarError(direccion);
+            }
+        
+            if (barrio.value.trim() === "") {
+            mostrarError(barrio, "Por favor ingresa un barrio");
+            } else {
+            ocultarError(barrio);
+            }
+        
+        
+        
+            // Si todos los campos son válidos, puedes enviar el formulario aquí
+        });
+    
+        function mostrarError(elemento, mensaje) {
+            var errorMensaje = elemento.nextElementSibling;
+            errorMensaje.innerHTML = mensaje;
+            errorMensaje.style.display = "block";
+        }
+        
+        function ocultarError(elemento) {
+            var errorMensaje = elemento.nextElementSibling;
+            errorMensaje.style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
+  
+
+  {% include "Inc/footer.html" %}
+
+  
+
