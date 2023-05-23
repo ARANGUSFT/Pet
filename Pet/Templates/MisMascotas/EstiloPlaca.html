@@ -17,7 +17,7 @@
         <div class="Container">
 
             <div class="Rectangulo">
-                <form action="" method="post">
+                <form action="" method="post" id="formulario">
                     {% csrf_token %}
 
                     <div class="Cartas">
@@ -51,10 +51,9 @@
                                             <option value="Circular">Placa en forma circular</option>
                                             <option value="Hueso">Placa en forma de hueso</option>
                                         </select>
-                                        <div id="Error1" class="error-message"></div>
-                                    </div>
+                                    </div>     
                                 </div>
-
+                                <div id="Error1" class="error-message"></div>
                             </div>
 
                             <div class="col-sm-6">
@@ -90,28 +89,25 @@
                                             <option value="Dorado">Placa en color dorado</option>
                                             <option value="Negro">Placa en color negro</option>
                                         </select>
-                                        <div id="Error2" class="error-message"></div>
                                     </div>
                                 </div>
-
+                                <div id="Error2" class="error-message"></div>
                             </div>
 
                         </div>
 
                     </div>
 
+                    <input type="hidden" name="Dueno_Id" value="{{ request.user.id }}">
 
                     <br>
 
-
-                    <a href="/MisMascotas/Factura">
-                        <button type="button" class="Btn1 btn btn-success">Generar PDF</button>
-                    </a>
-                    
-                    <button type="submit" class="Btn1 btn btn-success">Siguiente</button>
+                    <div class="btn">
+                        <a href="/MisMascotas/vista_anterior" class="btn btn-secondary">Volver</a>
+                        <button type="submit" class="Btn1 btn btn-success">Siguiente</button>
+                    </div>
 
                 </form>
-                <a href="/MisMascotas/Botones" class="Btn2 btn btn-secondary" role="button">Volver</a>
             </div>
 
         </div>
@@ -127,30 +123,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-
-    <script>
-        function validarSelect() {
-            var selectValor = document.getElementById("select-imagen").value;
-            var selectValor2 = document.getElementById("select-Color").value;
-
-            if (selectValor === "") {
-                document.querySelector('#Error1').style.display = 'block';
-                document.getElementById('Error1').textContent = 'Debes elegir un estilo para tu placa';
-                return false;
-            } else {
-                document.querySelector('#Error1').style.display = 'none';
-            }
-
-            if (selectValor2 === "") {
-                document.getElementById('Error2').textContent = 'Debes elegir un color para tu placa';
-                document.querySelector('#Error2').style.display = 'block';
-                return false;
-            } else {
-                document.querySelector('#Error2').style.display = 'none';
-            }
-
-        }
-    </script>
+    
+    <script src="{% static 'Js/validacionesEstilos.js'%}"></script>
 </body>
 
 </html>

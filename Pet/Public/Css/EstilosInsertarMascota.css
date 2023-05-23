@@ -8,9 +8,9 @@ body{
 }
 
 .Rectangulo{
-    margin-top: 12.5%; 
+    margin-top: 7%; 
     width: 50%;
-    height: 430px;
+    height: 380px;
     background: #F7F7F7;
     padding: 1%;
     border-radius: 8px;
@@ -38,4 +38,3 @@ footer{
     font-size: 11px;
 }
  
-  

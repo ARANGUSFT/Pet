@@ -13,71 +13,81 @@
   </head>
   <body>
 
-    <form id="formulario">
+    <form id="formulario" method="POST">
         {% csrf_token %}
 
         <h2>Datos de Envio</h2><br>
         
         <div class="form-group">
           <label for="direccion">Dirección:</label>
-          <input type="text" id="direccion" name="direccion" >
+          <input type="text" id="direccion" name="dire" placeholder="Ingresa una direccion">
           <div class="error-message">Por favor ingresa una dirección</div>
         </div>
         
         <div class="form-group">
           <label for="barrio">Barrio:</label>
-          <input type="text" id="barrio" name="barrio" >
+          <input type="text" id="barrio" name="barri" placeholder="Ingresa un barrio" >
           <div class="error-message">Por favor ingresa un barrio</div>
         </div>
         
         <div class="form-group">
           <label for="detalles">Detalles de la residencia:</label>
-          <textarea id="detalles" name="detalles" ></textarea>
+          <textarea id="detalles" name="detalle" ></textarea>
         </div><br>
         
         <div class="form-group">
-          <input type="submit" value="Continuar" id="enviar-btn">
+          <input type="submit" value="Continuar" id="enviar-btn"><br>
+          <button>ATRAS</button>
         </div>
+        
       </form>
-
+      
+      <a href="/MisMascotas/Factura">
+        <button type="button" class="Btn1 btn btn-success">Siguiente</button>
+    </a>
 
     <script>
             
-        document.getElementById("formulario").addEventListener("submit", function(e) {
-            e.preventDefault();
-        
-            var direccion = document.getElementById("direccion");
-            var barrio = document.getElementById("barrio");
-        
-        
-            if (direccion.value.trim() === "") {
-            mostrarError(direccion, "Por favor ingresa una dirección");
-            } else {
-            ocultarError(direccion);
-            }
-        
-            if (barrio.value.trim() === "") {
-            mostrarError(barrio, "Por favor ingresa un barrio");
-            } else {
-            ocultarError(barrio);
-            }
-        
-        
-        
-            // Si todos los campos son válidos, puedes enviar el formulario aquí
-        });
-    
-        function mostrarError(elemento, mensaje) {
-            var errorMensaje = elemento.nextElementSibling;
-            errorMensaje.innerHTML = mensaje;
-            errorMensaje.style.display = "block";
-        }
-        
-        function ocultarError(elemento) {
-            var errorMensaje = elemento.nextElementSibling;
-            errorMensaje.style.display = "none";
-        }
-    </script>
+            document.addEventListener('DOMContentLoaded', function() {
+  var formulario = document.getElementById('formulario');
+  var direccionInput = document.getElementById('direccion');
+  var barrioInput = document.getElementById('barrio');
+
+  formulario.addEventListener('submit', function(event) {
+    // Verificar el campo "Dirección"
+    if (direccionInput.value.trim() === '') {
+      event.preventDefault();
+      direccionInput.classList.add('error');
+      direccionInput.nextElementSibling.style.display = 'block';
+    } else {
+      direccionInput.classList.remove('error');
+      direccionInput.nextElementSibling.style.display = 'none';
+    }
+
+    // Verificar el campo "Barrio"
+    if (barrioInput.value.trim() === '') {
+      event.preventDefault();
+      barrioInput.classList.add('error');
+      barrioInput.nextElementSibling.style.display = 'block';
+    } else {
+      barrioInput.classList.remove('error');
+      barrioInput.nextElementSibling.style.display = 'none';
+    }
+  });
+
+  // Limpiar los estilos de error al cambiar el valor de los campos
+  direccionInput.addEventListener('input', function() {
+    direccionInput.classList.remove('error');
+    direccionInput.nextElementSibling.style.display = 'none';
+  });
+
+  barrioInput.addEventListener('input', function() {
+    barrioInput.classList.remove('error');
+    barrioInput.nextElementSibling.style.display = 'none';
+  });
+});
+
+    </script> 
 
 </body>
 </html>

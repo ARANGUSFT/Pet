@@ -24,18 +24,28 @@ class Dueno(models.Model):
     Municipio_D = models.TextField(max_length=50) 
     Mascota_Id = models.ForeignKey(Mascota, on_delete=models.CASCADE, db_column='Mascota_Id')
 
-
     class Meta:
       db_table = 'tbl_Dueno'
+
 
 class Caracteristicas(models.Model):
     Id_Caracteristicas = models.AutoField(primary_key=True)
     Estilo_Placa_C = models.TextField(max_length=50)
-    Color_Placa_C = models.TextField(max_length=50)
-    Dueno = models.ForeignKey(Dueno, on_delete=models.CASCADE)
+    Estilo_Color_C = models.TextField(max_length=50)
+    Dueno_Id = models.ForeignKey(Dueno, on_delete=models.CASCADE, db_column='Dueno_Id')
 
     class Meta:
       db_table = 'tbl_Caracteristicas'
+
+
+class Envio(models.Model):
+    Id_Envio = models.AutoField(primary_key=True)
+    Direccion = models.TextField(max_length=256)
+    Barrio = models.TextField(max_length=256)
+    Detalles = models.TextField(max_length=256)
+
+    class Meta:
+      db_table = 'tbl_envio'
 
 
 

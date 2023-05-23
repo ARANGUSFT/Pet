@@ -6,13 +6,17 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
-from Pet.models import Mascota,Dueno,Caracteristicas
+from Pet.models import Mascota,Dueno,Caracteristicas,Envio
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 import qrcode
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import os
+from django.shortcuts import render, get_object_or_404
+from io import BytesIO
 
 
 
@@ -216,8 +220,9 @@ def ElegirBotones(request):
     return render(request, 'MisMascotas/Botones.html')
 
 
-def InsertarMascota(request):    
+def InsertarMascota(request):
     if request.method == "POST":
+        # ...
         mascota = Mascota()
         mascota.Nombre_M = request.POST.get('Nombre_M')
         mascota.Raza_M = request.POST.get('Raza_M')
@@ -225,6 +230,18 @@ def InsertarMascota(request):
         mascota.Foto_M = request.FILES['Foto_M']
         mascota.usuario = request.user  # asociar la mascota con el usuario actual
         mascota.save()
+
+        # Generar el código QR con el enlace a la vista de detalles
+        mascota_id = mascota.pk  # Asegúrate de que la variable 'mascota' esté definida aquí
+        qr_code_data = f"http://127.0.0.1:8000/MisMascotas/Listado/{mascota_id}"
+        qr_code_file = f"mascota_{mascota_id}.png"
+
+        qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
+        qr_code.add_data(qr_code_data)
+        qr_code.make(fit=True)
+        qr_image = qr_code.make_image(fill_color="black", back_color="white")
+        qr_image.save(f"Pet/Public/QrCode/{qr_code_file}")
+
         return redirect('/MisMascotas/Listado')
     else:
         return render(request, 'MisMascotas/Insertar.html')
@@ -232,7 +249,7 @@ def InsertarMascota(request):
 
 def ListadoMascota(request):
     MascotasPorPaginar = 4
-    MMascotas = Mascota.objects.filter(usuario=request.user) # solo las mascotas del usuario actual
+    MMascotas = Mascota.objects.filter(usuario=request.user)  # solo las mascotas del usuario actual
     paginador = Paginator(MMascotas, MascotasPorPaginar)
 
     pagina = request.GET.get('pagina')
@@ -247,9 +264,20 @@ def ListadoMascota(request):
     context = {
         'mascotas': mascotas
     }
+
     return render(request, 'MisMascotas/Listado.html', context)
 
-    
+
+#Vista del QR
+def DetalleMascota(request, mascota_id):
+    mascota = get_object_or_404(Mascota, Id_Mascota=mascota_id)
+
+    context = {
+        'mascota': mascota
+    }
+
+    return render(request, 'MisMascotas/Detalle.html', context)
+
 
 
 def EliminarMascota(request,Id_Mascota):
@@ -280,6 +308,7 @@ def MostrarActualizarMascota(request,Id_Mascota):
         'mascota': mascota
     }
     return render(request, 'MisMascotas/Actualizar.html', context)
+
 
 
 def ActualizarMascota(request, Id_Mascota):
@@ -317,6 +346,7 @@ def ActualizarMascota(request, Id_Mascota):
 #endregion
 
 
+# //UNIR LA MASCOTA SELECCIONADA Y QUE APAREZCA SU QR EN LA FACTURA#
 #region Dueño
 def InsertarDueño(request):
     
@@ -329,85 +359,129 @@ def InsertarDueño(request):
     else:
         mascota = Mascota.objects.filter(usuario=request.user)
         return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
-
+    
+def vista_anterior(request):
+    if request.method == 'GET':
+        # Elimina el registro de la base de datos
+        Dueno.objects.last().delete()
+        
+    return redirect('/MisMascotas/GenerarMiQR')
 #endregion
 
 
 #region Placa
 
 def InsertarEstiloPlaca(request):
-   return render(request, 'MisMascotas/EstiloPlaca.html')
-   """  if request.method == "POST":
-        with connection.cursor() as cursor:
-            cursor.callproc('InsertarEstilos', [request.POST.get('Estilo_Placa_C'), request.POST.get('Color_Placa_C')])
-        return redirect('/MisMascotas/Botones') """
-    
-#endregion
+    if request.method == "POST":
+        caracteristica = Caracteristicas()
+        caracteristica.Estilo_Placa_C = request.POST.get('Estilo_Placa_C')
+        caracteristica.Estilo_Color_C = request.POST.get('Color_Placa_C')
+        caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
+
+        caracteristica.save()
+        return redirect('Envio/Datos')
+    else:
+            return render(request, 'MisMascotas/EstiloPlaca.html')
+
+#endregion  
 
 
-#region Datos Envio
+#region Envio
 
-def Envio(request):    
-    return render(request, 'Envio/DatosEnvio.html')
-
-#endregion
-
-
-#region Pago
-
-
-# def Datos Compra(request):
-#         if request.method == "POST":
-#             Pagos =  ()
-#             Pagos.Correo = request.POST.get('correo')
-#             Pagos.Celular = request.POST.get('celular')
-#             Pagos.Municipio = request.POST.get('municipio')
-#             Pagos.Barrio = request.POST.get('barrio')
-#             Pagos.Direccion = request.POST.get('direccion')
-#             Pagos.Detalles = request.POST.get('detalles')
-#             Pagos.save()
-#             return redirect('')
-#         else:
-#             return render (request, 'Pago/DatosCompra.html')
+def DatosEnvio(request):
+        if request.method == "POST":
+            Datos = Envio()
+            Datos.Direccion = request.POST.get('dire')
+            Datos.Barrio = request.POST.get('barri')
+            Datos.Detalles = request.POST.get('detalle')
+            Datos.save()
+            return redirect('/Pago/Placa')
+        else:
+            return render (request, 'Envio/DatosEnvio.html')
         
 
-def DatosCompra(request):    
-    return render(request, 'Pago/DatosCompra.html')
-
-
-
-
-
 #endregion
 
 
+#AQUI DEBE APARECER EL QR Y LOS DATOS DEL USUARIO
 #region Pdf
 
-def generar_pdf(request):
-    mascota = "toby"
-    create_qr_code("https://www.youtube.com/watch?v=uDn75tEflHo", "toby.png")
-    template_path = 'Factura/archivo.html'
-    context = {'qr_code': 'valor', 'mascota':mascota}
-    # Renderiza el template HTML con el contexto
-    template = get_template(template_path)
-    html = template.render(context)
-    # Crea un archivo PDF vacío
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="Codigo.pdf"'
-    # Genera el archivo PDF a partir del HTML
-    pisa.CreatePDF(html, dest=response)
-    return response
+def generar_factura(request):
+
+    datos_factura = {
+    'numero_factura': 'F2023001',
+    'fecha_emision': '22 de mayo de 2023',
+    'cliente': {
+        'nombre': 'Juan Pérez',
+        'direccion': 'Calle Principal, 123',
+        'ciudad': 'Ciudad XYZ',
+        'telefono': '1234567890'
+    },
+    'items': [
+        {
+            'descripcion': 'Producto A',
+            'cantidad': 2,
+            'precio_unitario': 10.00,
+            'subtotal': 20.00
+        },
+        {
+            'descripcion': 'Producto B',
+            'cantidad': 3,
+            'precio_unitario': 15.00,
+            'subtotal': 45.00
+        },
+        # Agrega más elementos de línea de factura según sea necesario
+    ],
+    'total': 65.00  # Total de la factura
+  }
+    
+    mascota = Mascota.objects.filter(usuario=request.user).first()
+
+    # Verifica si se encontró una mascota para el usuario actual
+    if mascota:
+        # Generar el código QR con el enlace a la vista de detalles de la mascota
+        mascota_id = mascota.pk
+        qr_code_data = f"http://127.0.0.1:8000/MisMascotas/Listado/{mascota_id}"
+        qr_code_file = f"mascota_{mascota_id}.png"
+
+        qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
+        qr_code.add_data(qr_code_data)
+        qr_code.make(fit=True)
+        qr_image = qr_code.make_image(fill_color="black", back_color="white")
+        qr_image.save(f"Pet/Public/QrCode/{qr_code_file}")
+
+        # Carga la plantilla HTML de la factura
+        template = get_template('Factura/archivo.html')
+        context = {
+            'datos_factura': datos_factura,  # Reemplaza con los datos relevantes de la factura
+            'qr_code_url': f"/Pet/Public/QrCode/{qr_code_file}",  # Actualiza la URL del código QR
+        }
+        html = template.render(context)
+
+        # Crea un objeto BytesIO para almacenar el PDF generado
+        pdf_file = BytesIO()
+
+        # Genera el PDF a partir del HTML de la factura y el código QR
+        pisa.CreatePDF(html, dest=pdf_file)
+
+        # Vuelve al inicio del archivo PDF generado
+        pdf_file.seek(0)
+
+        # Crea un objeto HttpResponse con el encabezado adecuado para PDF
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="factura.pdf"'
+
+        # Copia el contenido del archivo PDF generado al objeto de respuesta
+        response.write(pdf_file.read())
+
+        return response
+        # else:
+        #     # No se encontró una mascota asociada al usuario actual
+        #     # Maneja este caso según tus necesidades (por ejemplo, muestra un mensaje de error)
 
 #endregion
 
 
-#region Qr
 
-def create_qr_code(text, file_name):
-    qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
-    qr_code.add_data(text)
-    qr_code.make(fit=True)
-    qr_image = qr_code.make_image(fill_color="black", back_color="white")
-    qr_image.save("Pet/Public/QrCode/"+file_name)
 
-#endregion
+

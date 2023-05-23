@@ -46,6 +46,7 @@
                 <th class="table-light">Raza de la Mascota</th>
                 <th class="table-light">Color de la Mascota</th>
                 <th class="table-light">Foto de la Mascota</th>
+                <th class="table-light">Codigo Qr</th>
                 <th class="table-light">Editar</th>
                 <th class="table-light">Eliminar</th>
             </tr>
@@ -57,18 +58,13 @@
                 <td class="table-light">{{ mascota.Nombre_M }}</td>
                 <td class="table-light">{{ mascota.Raza_M }}</td>
                 <td class="table-light">{{ mascota.Color_M }}</td>
-                <td class="table-light"><img src="../../../Media/{{ mascota.Foto_M }}" alt="No Encontrada" width="100"
-                        height="100"></td>
-                <td class="table-light"><a href="/MisMascotas/ActualizarForm/{{ mascota.Id_Mascota }}"
-                        class="btn btn-outline-success" role="button">Editar</a>
-                    <i class=""></i>
-                    </a>
-                </td>
-                <td class="table-light"><button class="btn btn-outline-danger" type="button"
-                        onclick="borrar('{{ mascota.Id_Mascota}}')" class="">Borrar<i class=""></i></button>
-                    </a></td>
+                <td class="table-light"><img src="../../../Media/{{ mascota.Foto_M }}" alt="No Encontrada" width="100" height="100"></td>
+                <td class="table-light"> <img src="/Pet/Public/QrCode//mascota_{{ mascota.id }}.png" alt="Código QR de {{ mascota.Nombre_M }}"></td>
+                <td class="table-light"><a href="/MisMascotas/ActualizarForm/{{ mascota.Id_Mascota }}" class="btn btn-outline-success" role="button">Editar</a><i class=""></i></a></td>
+                <td class="table-light"><button class="btn btn-outline-danger" type="button" onclick="borrar('{{ mascota.Id_Mascota}}')" class="">Borrar<i class=""></i></button></a></td>
             </tr>
         </tbody>
+
         {% endfor %}
     </table>
 

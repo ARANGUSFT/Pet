@@ -4,9 +4,9 @@ body{
 }
 
 .Rectangulo{
-    margin-top: 12.5%; 
-    width: 50%;
-    height: 470px;
+    margin-top: 7%; 
+    width: 60%;
+    height: 460px;
     background: #F7F7F7;
     padding: 1%;
     border-radius: 8px;
@@ -19,20 +19,9 @@ body{
 }
 
 .Cartas{
-    margin-left: 34px;
+    margin-left: 4%;
     margin-top: 10px;
 }
-
-.Btn1{
-    margin-left: 35px;
-    margin-bottom: 3px;
-}
-
-.Btn2{
-    margin-left: 35px;
-    
-}
-
 
 footer{
     background-color: black;
@@ -42,4 +31,11 @@ footer{
     bottom: 0;
     width: 100%;
 }
+
+.error-message {
+    color: red;
+    font-size: 11px;
+}
+ 
+  
 

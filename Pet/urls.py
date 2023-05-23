@@ -3,13 +3,15 @@ from django.contrib import admin
 from django.urls import path
 from Pet.views import Principal,Contacto,Contacto2
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
-from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,generar_pdf
-from Pet.views import Envio,DatosCompra
+from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,generar_factura,vista_anterior
+from Pet.views import DatosEnvio
+from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
 
     #Inicio
@@ -35,6 +37,12 @@ urlpatterns = [
     path('MisMascotas/Insertar',InsertarMascota),
     #Listado Mascota
     path('MisMascotas/Listado',ListadoMascota),
+
+
+    #Vista del QR, individual por mascota
+    path('MisMascotas/Listado/<int:mascota_id>/', views.DetalleMascota, name='detalle_mascota'),
+
+
     #Borrar Mascota
     path('MisMascotas/Eliminar/<int:Id_Mascota>',EliminarMascota),  
     #Ver Actualizar Mascota
@@ -46,11 +54,11 @@ urlpatterns = [
     #Insertar Estilo Placa
     path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca),
     #Envio
-    path('Envio/Datos',Envio),
-    #Pasarela Pago
-    path('Pago/Placa',DatosCompra),
+    path('Envio/Datos',DatosEnvio),
     #Factura
-    path('MisMascotas/Factura',generar_pdf)
+    path('MisMascotas/Factura',generar_factura),
+    #Vista anterior
+    path('MisMascotas/vista_anterior',vista_anterior)
 ]
 
 

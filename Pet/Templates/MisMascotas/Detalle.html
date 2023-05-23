@@ -1,0 +1,9 @@
+{% block content %}
+  <h1>Detalles de la Mascota</h1>
+  <ul>
+    <li>Nombre: {{ mascota.Nombre_M }}</li>
+    <li>Raza: {{ mascota.Raza_M }}</li>
+    <li>Color: {{ mascota.Color_M }}</li>
+    <li>Foto: <img src="{{ mascota.Foto_M.url }}" alt="Foto de la Mascota"></li>
+  </ul>
+{% endblock %}
