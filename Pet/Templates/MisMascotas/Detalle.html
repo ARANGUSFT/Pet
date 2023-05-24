@@ -1,9 +1,31 @@
-{% block content %}
-  <h1>Detalles de la Mascota</h1>
-  <ul>
-    <li>Nombre: {{ mascota.Nombre_M }}</li>
-    <li>Raza: {{ mascota.Raza_M }}</li>
-    <li>Color: {{ mascota.Color_M }}</li>
-    <li>Foto: <img src="{{ mascota.Foto_M.url }}" alt="Foto de la Mascota"></li>
-  </ul>
-{% endblock %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'Css/EstiloDetallesMascota.css'%}" rel="stylesheet">
+  <title>DetallesMascota</title>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Detalles de la Mascota</h1>
+    <div class="pet-photo">
+      <img src="{{ mascota.Foto_M.url }}" alt="Foto de la Mascota">
+    </div>
+    <ul><br>
+      <li><span class="highlight">Nombre:</span> {{ mascota.Nombre_M }}</li>
+      <li><span class="highlight">Raza:</span> {{ mascota.Raza_M }}</li>
+      <li><span class="highlight">Color:</span> {{ mascota.Color_M }}</li>
+
+      <h1>Contacto</h1>
+      <li><span class="highlight">Correo:</span> </li>
+      <li><span class="highlight">Telefono:</span> </li>
+    </ul>
+  </div>
+  
+</body>
+</html>
