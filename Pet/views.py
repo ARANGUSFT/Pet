@@ -231,16 +231,6 @@ def InsertarMascota(request):
         mascota.usuario = request.user  # asociar la mascota con el usuario actual
         mascota.save()
 
-        # Generar el código QR con el enlace a la vista de detalles
-        mascota_id = mascota.pk  # Asegúrate de que la variable 'mascota' esté definida aquí
-        qr_code_data = f"http://127.0.0.1:8000/MisMascotas/Listado/{mascota_id}"
-        qr_code_file = f"mascota_{mascota_id}.png"
-
-        qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
-        qr_code.add_data(qr_code_data)
-        qr_code.make(fit=True)
-        qr_image = qr_code.make_image(fill_color="black", back_color="white")
-        qr_image.save(f"Pet/Public/QrCode/{qr_code_file}")
 
         return redirect('/MisMascotas/Listado')
     else:
@@ -267,16 +257,6 @@ def ListadoMascota(request):
 
     return render(request, 'MisMascotas/Listado.html', context)
 
-
-#Vista del QR
-def DetalleMascota(request, mascota_id):
-    mascota = get_object_or_404(Mascota, Id_Mascota=mascota_id)
-
-    context = {
-        'mascota': mascota
-    }
-
-    return render(request, 'MisMascotas/Detalle.html', context)
 
 
 
@@ -346,19 +326,48 @@ def ActualizarMascota(request, Id_Mascota):
 #endregion
 
 
-# //UNIR LA MASCOTA SELECCIONADA Y QUE APAREZCA SU QR EN LA FACTURA#
 #region Dueño
 def InsertarDueño(request):
-    
     if request.method == "POST":
-         #prepar
-     
-        insertar = connection.cursor()
-        insertar.execute("call insertarDueno('"+request.POST.get ('Nombre_Completo_D')+"','"+request.POST.get ('Celular_D')+"','"+request.POST.get ('Celular_Secundario_D')+"','"+request.POST.get ('Correo_D')+"','"+request.POST.get ('Municipio_D')+"','"+request.POST.get ('Mascota_Id')+"')")
+        nombre_completo = request.POST.get('Nombre_Completo_D')
+        celular_d = request.POST.get('Celular_D')
+        celular_secundario_d = request.POST.get('Celular_Secundario_D')
+        correo_d = request.POST.get('Correo_D')
+        municipio_d = request.POST.get('Municipio_D')
+        mascota_id = request.POST.get('Mascota_Id')
+       
+        mascota = Mascota.objects.get(Id_Mascota=mascota_id)  
+
+        dueno = Dueno.objects.create(
+            Nombre_Completo_D=nombre_completo,
+            Celular_D=celular_d,
+            Celular_Secundario_D=celular_secundario_d,
+            Correo_D=correo_d,
+            Municipio_D=municipio_d,
+            Mascota_Id=mascota
+        )
+
+        # Obtener el ID del dueño recién creado
+        dueno_id = dueno.pk
+
+        # Generar el código QR con el enlace a la vista de detalles
+        qr_code_data = f"http://127.0.0.1:8000/MisMascotas/Listado/{mascota_id}/{dueno_id}"
+        qr_code_file = f"mascota_{mascota_id}.png"
+
+        qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
+        qr_code.add_data(qr_code_data)
+        qr_code.make(fit=True)
+        qr_image = qr_code.make_image(fill_color="black", back_color="white")
+        qr_image.save(f"Pet/Public/QrCode/{qr_code_file}")
+
         return redirect('/MisMascotas/EstiloPlaca')
     else:
         mascota = Mascota.objects.filter(usuario=request.user)
-        return render(request,'MisMascotas/GenerarMiQR.html',{'mascota':mascota})
+        return render(request, 'MisMascotas/GenerarMiQR.html', {'mascota': mascota})
+
+    
+
+
     
 def vista_anterior(request):
     if request.method == 'GET':
@@ -366,6 +375,21 @@ def vista_anterior(request):
         Dueno.objects.last().delete()
         
     return redirect('/MisMascotas/GenerarMiQR')
+#endregion
+
+
+#region QR Vista
+def DetalleMascota(request, mascota_id, dueno_id):
+    mascota = get_object_or_404(Mascota, Id_Mascota=mascota_id)
+    dueno = get_object_or_404(Dueno, Id_Dueno=dueno_id)
+
+    context = {
+        'mascota': mascota,
+        'dueno': dueno
+    }
+
+    return render(request, 'MisMascotas/Detalle.html', context)
+
 #endregion
 
 
@@ -403,7 +427,6 @@ def DatosEnvio(request):
 #endregion
 
 
-#AQUI DEBE APARECER EL QR Y LOS DATOS DEL USUARIO
 #region Pdf
 
 def generar_factura(request):
@@ -480,8 +503,5 @@ def generar_factura(request):
         #     # Maneja este caso según tus necesidades (por ejemplo, muestra un mensaje de error)
 
 #endregion
-
-
-
 
 

@@ -40,7 +40,7 @@ urlpatterns = [
 
 
     #Vista del QR, individual por mascota
-    path('MisMascotas/Listado/<int:mascota_id>/', views.DetalleMascota, name='detalle_mascota'),
+    path('MisMascotas/Listado/<int:mascota_id>/<int:dueno_id>/', views.DetalleMascota, name='detalle_mascota'),
 
 
     #Borrar Mascota
