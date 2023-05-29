@@ -12,6 +12,7 @@ from django.core.handlers.wsgi import WSGIRequest
 
 
 
+
 #region Elegir
 
 #FUNCION PARA ENTRAR ELEGIR
@@ -344,9 +345,23 @@ def InsertarEstiloPlaca(request):
         caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
 
         caracteristica.save()
-        return redirect('MisMascotas/Listado')
+        return redirect('MisMascotas/Pasarela')
     else:
             return render(request, 'MisMascotas/EstiloPlaca.html')
 
 #endregion  
+
+#region Pasarela
+def payment_view(request):
+    return render(request, 'MisMascotas/Pasarela.html')
+
+def vista_anterior2(request):
+    if request.method == 'GET':
+        # Elimina el registro de la base de datos
+        Caracteristicas.objects.last().delete()
+        
+    return redirect('/MisMascotas/EstiloPlaca')
+    
+
+#endregion
 

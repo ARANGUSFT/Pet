@@ -19,8 +19,10 @@ from django.urls import path
 from Pet.views import Principal,Contacto,Contacto2
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
 from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,vista_anterior
+from Pet.views import payment_view,vista_anterior2
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -59,7 +61,11 @@ urlpatterns = [
     #Insertar Estilo Placa
     path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca),
     #Vista anterior
-    path('MisMascotas/vista_anterior',vista_anterior)
+    path('MisMascotas/vista_anterior',vista_anterior),
+    #Pasarela de pagos
+    path('MisMascotas/Pasarela',payment_view),
+    #Vista anterior2
+    path('MisMascotas/vista_anterior2',vista_anterior2)
 ]
 
 if settings.DEBUG:
