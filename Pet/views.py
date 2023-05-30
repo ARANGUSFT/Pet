@@ -415,6 +415,14 @@ def InsertarEstiloPlaca(request):
     else:
         dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
         return render(request, 'MisMascotas/EstiloPlaca.html', {'dueno': dueno})
+    
+@login_required(login_url='/Elegir/entrar')
+def vista_anterior2(request):
+    if request.method == 'GET':
+        # Elimina el registro de la base de datos
+        Caracteristicas.objects.last().delete()
+        
+    return redirect('/MisMascotas/EstiloPlaca')
 
 #endregion  
 
@@ -437,7 +445,14 @@ def DatosEnvio(request):
         else:
             dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
             return render(request, 'Envio/DatosEnvio.html', {'dueno': dueno})
+    
+@login_required(login_url='/Elegir/entrar')
+def vista_anterior3(request):
+    if request.method == 'GET':
+        # Elimina el registro de la base de datos
+        Envio.objects.last().delete()
         
+    return redirect('/Envio/Datos')        
 #endregion
 
 
@@ -445,16 +460,6 @@ def DatosEnvio(request):
 @login_required(login_url='/Elegir/entrar')
 def payment_view(request):
     return render(request, 'MisMascotas/Pasarela.html')
-
-
-@login_required(login_url='/Elegir/entrar')
-def vista_anterior2(request):
-    if request.method == 'GET':
-        # Elimina el registro de la base de datos
-        Caracteristicas.objects.last().delete()
-        
-    return redirect('/MisMascotas/EstiloPlaca')
-    
 
 #endregion
 

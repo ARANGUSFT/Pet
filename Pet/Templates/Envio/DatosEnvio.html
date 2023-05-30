@@ -36,17 +36,18 @@
         </div><br>
         
         <div class="form-group">
-          <input type="submit" value="Continuar" id="enviar-btn"><br>
-          <button>ATRAS</button>
+          <a href="/MisMascotas/vista_anterior2" class="btn btn-secondary">Volver</a>
+          <button type="submit" class="btn btn-success">Siguiente</button>
         </div>
 
         <input type="hidden" name="Dueno_Id" value="{{ dueno.Id_Dueno }}">
 
         
       </form>
+
       
       <a href="/generar/factura">
-        <button type="button" class="Btn1 btn btn-success">Siguiente</button>
+        <button type="button" class="Btn1 btn btn-success">PDF</button>
     </a>
 
     <script>

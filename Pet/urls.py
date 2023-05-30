@@ -6,7 +6,7 @@ from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuari
 from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,generar_factura,vista_anterior
 from Pet.views import DatosEnvio
 from . import views
-from Pet.views import payment_view,vista_anterior2
+from Pet.views import payment_view,vista_anterior2,vista_anterior3
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -67,7 +67,9 @@ urlpatterns = [
     #Vista anterior
     path('MisMascotas/vista_anterior',vista_anterior),
     #Vista anterior2
-    path('MisMascotas/vista_anterior2',vista_anterior2)
+    path('MisMascotas/vista_anterior2',vista_anterior2),
+    #Vista anterior3
+    path('MisMascotas/vista_anterior3',vista_anterior3)
 ]
 
 
