@@ -55,8 +55,10 @@ urlpatterns = [
     path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca),
     #Envio
     path('Envio/Datos',DatosEnvio),
+
+    
     #Factura
-    path('MisMascotas/Factura',generar_factura),
+    path('generar/factura', generar_factura, name='generar_factura'),
     #Vista anterior
     path('MisMascotas/vista_anterior',vista_anterior)
 ]

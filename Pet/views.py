@@ -1,4 +1,3 @@
-from django.db import connection
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -17,6 +16,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os
 from django.shortcuts import render, get_object_or_404
 from io import BytesIO
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -32,12 +32,14 @@ def Elegir(request):
 #region Principal
 
 #FUNCION PARA ENTRAR A LA PAGINA PRINCIPAL
+@login_required(login_url='/Elegir/entrar')
 def Principal(request):    
     return render(request, 'Principal/inicio.html')
 
 
 
 #FUNCION PARA MANDAR EL CORREO
+@login_required(login_url='/Elegir/entrar')
 def Contacto(request):
     if request.method == "POST":
         name = request.POST['name']
@@ -65,8 +67,8 @@ def Contacto(request):
         return redirect('/Usuarios/contacto')
     else:
         return render(request, 'Principal/contacto.html')
-    
-    
+
+
 def Contacto2(request):
     if request.method == "POST":
         name = request.POST['name']
@@ -156,7 +158,7 @@ def Logout(request):
 
 
 #region Actualizar Perfil
-
+@login_required(login_url='/Elegir/entrar')
 def ActualizarUsuario(request, user_id):
     # obtener el usuario actual
     user = request.user
@@ -206,7 +208,7 @@ def ActualizarUsuario(request, user_id):
 
 
 #region EliminarCuenta
-
+@login_required(login_url='/Elegir/entrar')
 def EliminarUsuario(request,user_id):
     user = User.objects.get(id=user_id)
     user.delete()
@@ -216,10 +218,11 @@ def EliminarUsuario(request,user_id):
 
 
 #region MisMascotas
+@login_required(login_url='/Elegir/entrar')
 def ElegirBotones(request):    
     return render(request, 'MisMascotas/Botones.html')
 
-
+@login_required(login_url='/Elegir/entrar')
 def InsertarMascota(request):
     if request.method == "POST":
         # ...
@@ -235,8 +238,9 @@ def InsertarMascota(request):
         return redirect('/MisMascotas/Listado')
     else:
         return render(request, 'MisMascotas/Insertar.html')
-        
 
+
+@login_required(login_url='/Elegir/entrar')
 def ListadoMascota(request):
     MascotasPorPaginar = 4
     MMascotas = Mascota.objects.filter(usuario=request.user)  # solo las mascotas del usuario actual
@@ -259,7 +263,7 @@ def ListadoMascota(request):
 
 
 
-
+@login_required(login_url='/Elegir/entrar')
 def EliminarMascota(request,Id_Mascota):
     
         mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
@@ -281,7 +285,7 @@ def EliminarMascota(request,Id_Mascota):
         return render(request, 'MisMascotas/Listado.html', context)
 
 
-    
+@login_required(login_url='/Elegir/entrar')   
 def MostrarActualizarMascota(request,Id_Mascota):
     mascota = Mascota.objects.get(Id_Mascota = Id_Mascota)
     context = {
@@ -290,7 +294,7 @@ def MostrarActualizarMascota(request,Id_Mascota):
     return render(request, 'MisMascotas/Actualizar.html', context)
 
 
-
+@login_required(login_url='/Elegir/entrar')
 def ActualizarMascota(request, Id_Mascota):
     try:
         Nombre_M = request.POST['Nombre_M']
@@ -327,6 +331,7 @@ def ActualizarMascota(request, Id_Mascota):
 
 
 #region Dueño
+@login_required(login_url='/Elegir/entrar')
 def InsertarDueño(request):
     if request.method == "POST":
         nombre_completo = request.POST.get('Nombre_Completo_D')
@@ -368,7 +373,7 @@ def InsertarDueño(request):
     
 
 
-    
+@login_required(login_url='/Elegir/entrar')
 def vista_anterior(request):
     if request.method == 'GET':
         # Elimina el registro de la base de datos
@@ -394,8 +399,8 @@ def DetalleMascota(request, mascota_id, dueno_id):
 
 
 #region Placa
-
-def InsertarEstiloPlaca(request):
+@login_required(login_url='/Elegir/entrar')
+def InsertarEstiloPlaca(request):    
     if request.method == "POST":
         caracteristica = Caracteristicas()
         caracteristica.Estilo_Placa_C = request.POST.get('Estilo_Placa_C')
@@ -403,7 +408,7 @@ def InsertarEstiloPlaca(request):
         caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
 
         caracteristica.save()
-        return redirect('Envio/Datos')
+        return redirect('/Envio/Datos')
     else:
             return render(request, 'MisMascotas/EstiloPlaca.html')
 
@@ -411,7 +416,7 @@ def InsertarEstiloPlaca(request):
 
 
 #region Envio
-
+@login_required(login_url='/Elegir/entrar')
 def DatosEnvio(request):
         if request.method == "POST":
             Datos = Envio()
@@ -430,77 +435,35 @@ def DatosEnvio(request):
 #region Pdf
 
 def generar_factura(request):
-
-    datos_factura = {
-    'numero_factura': 'F2023001',
-    'fecha_emision': '22 de mayo de 2023',
-    'cliente': {
-        'nombre': 'Juan Pérez',
-        'direccion': 'Calle Principal, 123',
-        'ciudad': 'Ciudad XYZ',
-        'telefono': '1234567890'
-    },
-    'items': [
-        {
-            'descripcion': 'Producto A',
-            'cantidad': 2,
-            'precio_unitario': 10.00,
-            'subtotal': 20.00
-        },
-        {
-            'descripcion': 'Producto B',
-            'cantidad': 3,
-            'precio_unitario': 15.00,
-            'subtotal': 45.00
-        },
-        # Agrega más elementos de línea de factura según sea necesario
-    ],
-    'total': 65.00  # Total de la factura
-  }
     
-    mascota = Mascota.objects.filter(usuario=request.user).first()
+    usuario = request.user
 
-    # Verifica si se encontró una mascota para el usuario actual
-    if mascota:
-        # Generar el código QR con el enlace a la vista de detalles de la mascota
-        mascota_id = mascota.pk
-        qr_code_data = f"http://127.0.0.1:8000/MisMascotas/Listado/{mascota_id}"
-        qr_code_file = f"mascota_{mascota_id}.png"
+    dueno = Dueno.objects.first()
+    caracte = Caracteristicas.objects.first()
+    mascota = Mascota.objects.first()
 
-        qr_code = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
-        qr_code.add_data(qr_code_data)
-        qr_code.make(fit=True)
-        qr_image = qr_code.make_image(fill_color="black", back_color="white")
-        qr_image.save(f"Pet/Public/QrCode/{qr_code_file}")
 
-        # Carga la plantilla HTML de la factura
-        template = get_template('Factura/archivo.html')
-        context = {
-            'datos_factura': datos_factura,  # Reemplaza con los datos relevantes de la factura
-            'qr_code_url': f"/Pet/Public/QrCode/{qr_code_file}",  # Actualiza la URL del código QR
-        }
-        html = template.render(context)
+    context = {
+        'usuario':usuario,
+        'dueno': dueno,
+        'caracte': caracte,
+        'mascota': mascota
+    }
 
-        # Crea un objeto BytesIO para almacenar el PDF generado
-        pdf_file = BytesIO()
+    # Renderizar la plantilla HTML con los datos de la factura
+    template_path = 'Factura/archivo.html'  # Ruta de la plantilla HTML
+    html = render(request, template_path, context,).content
 
-        # Genera el PDF a partir del HTML de la factura y el código QR
-        pisa.CreatePDF(html, dest=pdf_file)
+    # Crear un archivo PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="factura.pdf"'
 
-        # Vuelve al inicio del archivo PDF generado
-        pdf_file.seek(0)
+    # Convertir el HTML a PDF usando xhtml2pdf
+    pisa.CreatePDF(html, dest=response)
 
-        # Crea un objeto HttpResponse con el encabezado adecuado para PDF
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename="factura.pdf"'
-
-        # Copia el contenido del archivo PDF generado al objeto de respuesta
-        response.write(pdf_file.read())
-
-        return response
-        # else:
-        #     # No se encontró una mascota asociada al usuario actual
-        #     # Maneja este caso según tus necesidades (por ejemplo, muestra un mensaje de error)
+    return response
+    
+   
 
 #endregion
 
