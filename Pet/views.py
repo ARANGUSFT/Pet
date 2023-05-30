@@ -342,12 +342,15 @@ def InsertarEstiloPlaca(request):
         caracteristica = Caracteristicas()
         caracteristica.Estilo_Placa_C = request.POST.get('Estilo_Placa_C')
         caracteristica.Estilo_Color_C = request.POST.get('Color_Placa_C')
-        caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
+        
+        dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+        caracteristica.Dueno_Id = dueno
 
         caracteristica.save()
-        return redirect('MisMascotas/Pasarela')
+        return redirect('/MisMascotas/Pasarela')
     else:
-            return render(request, 'MisMascotas/EstiloPlaca.html')
+        dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+        return render(request, 'MisMascotas/EstiloPlaca.html', {'dueno': dueno})
 
 #endregion  
 
