@@ -6,6 +6,7 @@ from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuari
 from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,generar_factura,vista_anterior
 from Pet.views import DatosEnvio
 from . import views
+from Pet.views import payment_view,vista_anterior2
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -49,18 +50,24 @@ urlpatterns = [
     path('MisMascotas/ActualizarForm/<int:Id_Mascota>',MostrarActualizarMascota),
     #Actualizar Mascota
     path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota),
+
+
     #Insertar Dueño
     path('MisMascotas/GenerarMiQR',InsertarDueño),
     #Insertar Estilo Placa
     path('MisMascotas/EstiloPlaca',InsertarEstiloPlaca),
     #Envio
     path('Envio/Datos',DatosEnvio),
+    #Pasarela de pagos
+    path('MisMascotas/Pasarela',payment_view),
 
     
     #Factura
     path('generar/factura', generar_factura, name='generar_factura'),
     #Vista anterior
-    path('MisMascotas/vista_anterior',vista_anterior)
+    path('MisMascotas/vista_anterior',vista_anterior),
+    #Vista anterior2
+    path('MisMascotas/vista_anterior2',vista_anterior2)
 ]
 
 

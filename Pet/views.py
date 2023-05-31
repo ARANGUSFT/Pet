@@ -20,6 +20,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
+
 #region Elegir
 
 #FUNCION PARA ENTRAR ELEGIR
@@ -408,7 +409,7 @@ def InsertarEstiloPlaca(request):
         caracteristica.Dueno_Id = Dueno.objects.get(Id_Dueno=request.POST.get('Dueno_Id'))
 
         caracteristica.save()
-        return redirect('/Envio/Datos')
+        return redirect('MisMascotas/Pasarela')
     else:
             return render(request, 'MisMascotas/EstiloPlaca.html')
 
@@ -423,11 +424,30 @@ def DatosEnvio(request):
             Datos.Direccion = request.POST.get('dire')
             Datos.Barrio = request.POST.get('barri')
             Datos.Detalles = request.POST.get('detalle')
+            Datos.Caracteristicas_Id = Caracteristicas.objects.get(Id_Caracteristicas=request.POST.get('Caracteristicas_Id'))
+
             Datos.save()
-            return redirect('/Pago/Placa')
+            return redirect('/MisMascotas/Pasarela')
         else:
             return render (request, 'Envio/DatosEnvio.html')
         
+#endregion
+
+
+#region Pasarela
+@login_required(login_url='/Elegir/entrar')
+def payment_view(request):
+    return render(request, 'MisMascotas/Pasarela.html')
+
+
+@login_required(login_url='/Elegir/entrar')
+def vista_anterior2(request):
+    if request.method == 'GET':
+        # Elimina el registro de la base de datos
+        Caracteristicas.objects.last().delete()
+        
+    return redirect('/MisMascotas/EstiloPlaca')
+    
 
 #endregion
 
