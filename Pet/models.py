@@ -43,7 +43,7 @@ class Envio(models.Model):
     Direccion = models.TextField(max_length=256)
     Barrio = models.TextField(max_length=256)
     Detalles = models.TextField(max_length=256)
-    Caracteristicas_Id = models.ForeignKey(Caracteristicas, on_delete=models.CASCADE, db_column='Caracteristicas_Id')
+    Dueno_Id = models.ForeignKey(Dueno, on_delete=models.CASCADE, db_column='Dueno_Id')
 
     class Meta:
       db_table = 'tbl_Envio'

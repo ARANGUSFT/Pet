@@ -427,12 +427,16 @@ def DatosEnvio(request):
             Datos.Direccion = request.POST.get('dire')
             Datos.Barrio = request.POST.get('barri')
             Datos.Detalles = request.POST.get('detalle')
-            Datos.Caracteristicas_Id = Caracteristicas.objects.get(Id_Caracteristicas=request.POST.get('Caracteristicas_Id'))
-
+            # Datos.Caracteristicas_Id = Caracteristicas.objects.get(Id_Caracteristicas=request.POST.get('Caracteristicas_Id'))
+            
+            dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+            Datos.Dueno_Id = dueno
+             
             Datos.save()
             return redirect('/MisMascotas/Pasarela')
         else:
-            return render (request, 'Envio/DatosEnvio.html')
+            dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+            return render(request, 'Envio/DatosEnvio.html', {'dueno': dueno})
         
 #endregion
 
