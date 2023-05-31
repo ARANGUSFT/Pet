@@ -416,6 +416,7 @@ def InsertarEstiloPlaca(request):
         dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
         return render(request, 'MisMascotas/EstiloPlaca.html', {'dueno': dueno})
     
+
 @login_required(login_url='/Elegir/entrar')
 def vista_anterior2(request):
     if request.method == 'GET':
@@ -445,6 +446,7 @@ def DatosEnvio(request):
         else:
             dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
             return render(request, 'Envio/DatosEnvio.html', {'dueno': dueno})
+    
     
 @login_required(login_url='/Elegir/entrar')
 def vista_anterior3(request):
