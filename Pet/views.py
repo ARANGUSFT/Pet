@@ -416,6 +416,7 @@ def InsertarEstiloPlaca(request):
         dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
         return render(request, 'MisMascotas/EstiloPlaca.html', {'dueno': dueno})
     
+    
 @login_required(login_url='/Elegir/entrar')
 def vista_anterior2(request):
     if request.method == 'GET':
@@ -500,3 +501,9 @@ def generar_factura(request):
 #endregion
 
 
+#region CompraRealizada
+@login_required(login_url='/Elegir/entrar')
+def CompraRealizada(request):    
+    return render(request, 'MisMascotas/CompraRealizada.html')
+
+#endregion

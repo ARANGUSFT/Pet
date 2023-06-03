@@ -4,7 +4,7 @@ from django.urls import path
 from Pet.views import Principal,Contacto,Contacto2
 from Pet.views import Elegir,RegistroLogin,IngresarLogin,Logout,ActualizarUsuario,EliminarUsuario,ElegirBotones,InsertarMascota
 from Pet.views import ListadoMascota,EliminarMascota,MostrarActualizarMascota,ActualizarMascota,InsertarDueño,InsertarEstiloPlaca,generar_factura,vista_anterior
-from Pet.views import DatosEnvio
+from Pet.views import DatosEnvio,CompraRealizada
 from . import views
 from Pet.views import payment_view,vista_anterior2,vista_anterior3
 from django.conf import settings
@@ -63,7 +63,10 @@ urlpatterns = [
 
     
     #Factura
+    path('Compra/realizada',CompraRealizada),
     path('generar/factura', generar_factura, name='generar_factura'),
+    
+
     #Vista anterior
     path('MisMascotas/vista_anterior',vista_anterior),
     #Vista anterior2
