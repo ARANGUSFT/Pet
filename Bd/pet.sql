@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2023 a las 04:59:53
+-- Tiempo de generación: 14-06-2023 a las 13:42:31
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.1.17
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pet`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarDueno` (IN `Nombre_Completo` VARCHAR(150), IN `Celular` VARCHAR(20), IN `Celular_Secundario` VARCHAR(20), IN `Correo` VARCHAR(150), IN `Municipio` VARCHAR(50), IN `Mascota` INT(11))   BEGIN
+INSERT INTO tbl_dueno(Nombre_Completo_D,Celular_D,Celular_Secundario_D,Correo_D,Municipio_D,Mascota_Id)
+VALUES(Nombre_Completo,Celular,Celular_Secundario,Correo,Municipio,Mascota);
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -106,13 +117,6 @@ CREATE TABLE `auth_user` (
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `auth_user`
---
-
-INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(4, 'pbkdf2_sha256$600000$UD1hg5Tl6rDFk9CBgNJAeO$XWKPNgqA2/Iia6xajwRYAAL4A4RAqTMAH/RxnIvPL4E=', '2023-04-25 02:30:36.525914', 0, 'ARANGUSFT', '', '', 'santiago@gmail.com', 0, 1, '2023-04-25 02:22:23.519846');
 
 -- --------------------------------------------------------
 
@@ -233,7 +237,74 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911');
+('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911'),
+('3pfiz2blqkq77qov9a0mabr4ggj8dkde', '.eJxVjEsOAiEQBe_C2hBoEGiX7j0D4dPIqIFkmFkZ725IZqHbV1XvzXzYt-r3QatfMrswqdnpd4whPalNkh-h3TtPvW3rEvlU-EEHv_VMr-vh_h3UMOqswZpiRVYkgyUgB9apIowsqI1UaIoWBCpKQIzJZIW6YMlCA-AZhGOfL-45Nvo:1pzF2w:rVJ-ft066CW5nUF219KwXq-YARQls80KszBsrR1MfPU', '2023-05-31 11:10:18.332767'),
+('amml4jfg96szyendk4s1m8ird5ja1l57', '.eJxVjDkOwjAQRe_iGlnJeB1K-pwhmvGCA8iWslSIu5NIKaB97_3_FiNtaxm3Jc3jFMVVAIrLL2QKz1QPEx9U702GVtd5Ynkk8rSLHFpMr9vZ_h0UWsq-ds5xgtBbnZUmC0gaDGKnrEL0O80Qne06SsxeG4h9VsH1zjIb4z2KzxfkNzcJ:1q487k:lT5puZWq93hUlFQBAtl0glfpLxWtczdT6VKfJAarIMA', '2023-06-13 22:47:28.257862'),
+('dc7jzflwr9pmumfd7ac8yuo55qoxto63', '.eJxVjDkOwjAUBe_iGlmxgzdKes5g_U04gGwpTirE3UmkFNDOzHtvlWFdSl67zHlidVFmVKdfiEBPqbvhB9R709TqMk-o90QftutbY3ldj_bvoEAv2zqdwYXReIoMiEPCIGKBOdpk0AJ69FbYESElMnGDwSFY8nEwNiSnPl8lNDiO:1pwDiv:a63vgt5ZFcFZY5rf7BsVAhszyZGcR0vKn3ySVFC9H4A', '2023-05-23 03:09:09.838621'),
+('e3zhty5hfu8nr1upbnox44if6ea0hx6z', '.eJxVjEsOAiEQBe_C2hBoEGiX7j0D4dPIqIFkmFkZ725IZqHbV1XvzXzYt-r3QatfMrswqdnpd4whPalNkh-h3TtPvW3rEvlU-EEHv_VMr-vh_h3UMOqswZpiRVYkgyUgB9apIowsqI1UaIoWBCpKQIzJZIW6YMlCA-AZhGOfL-45Nvo:1pzEuS:QxvLuxdwoRuhWrV3dUv_C689dfVjTlxV2zkOaGuuWMk', '2023-05-31 11:01:32.922340'),
+('j03kamvodem4k1ydsiw5wavg7m8ixa1j', '.eJxVjMsOwiAQRf-FtSE8JiAu3fsNhGEGqRpISrtq_Hdt0oVu7znnbiKmdalxHTzHicRFaCNOvyOm_OS2E3qkdu8y97bME8pdkQcd8taJX9fD_TuoadRvDQUVBguKHTjWGjSwPxOywwDO2RyS98FkZQpli6A8ETDaAhaDByfeH_uvN9w:1pvrXo:jRqBxEIahI93_Cr75DS6hK_nE7GKst5Zf2rDwsHvj_A', '2023-05-22 03:28:12.389864'),
+('k2ql7aq26kmpitvjuaw7eiq1vhi0assz', '.eJxVjDEOwjAMRe-SGUXYSRzCyM4ZKid2aAG1UtNOiLtDpQ6w_vfef5mO16Xv1qZzN4g5Gwjm8DtmLg8dNyJ3Hm-TLdO4zEO2m2J32ux1En1edvfvoOfWf-sopC5kKJKAqmphpewEvMPkKKKiTxgrCmvIBNF7PHlMR4JKtYCa9wcSDDfe:1pzyjE:89nSwRz8Jw0wOYtvujZg-N7oIQL7yjnb2ddhYhr8Wh4', '2023-06-02 11:57:00.454846'),
+('sdvgm7g03rudsay78hucn4tnx6pbuvwi', '.eJxVjE0OwiAYBe_C2pACBcGle89Avr9K1dCktCvj3W2TLnQ7M--9VYZ1KXltMueR1UVFdfplCPSUugt-QL1Pmqa6zCPqPdGHbfo2sbyuR_t3UKCVbT2Ic3QO1gigCWzJeMtMYXDihVOE2McNIqGVZJm8c8l3GIPBnrtk1ecLAXM4MA:1psDwo:4PtElfGk13A9C8zv6rOx8V_tw1-cFKou9gs3uMdc5hE', '2023-05-12 02:34:58.183266'),
+('w3j2pykecmepxapjnpspb9zcs19iehku', '.eJxVjEsOwiAUAO_C2hDgwaN16b5nII-fVA0kpV0Z725IutDtzGTezNGxF3f0tLk1sisDYJdf6Ck8Ux0mPqjeGw-t7tvq-Uj4aTtfWkyv29n-DQr1Mr4zSjCKxISUhBSIczJBaW21F8FHgzhRyiZrK1F5RYBSCQ1WZaPBRPb5AtUkNqc:1q9OX3:B7FZ_-dOHyDfhUPjdoaFRBTQPPgDD-TbBa22oydujE0', '2023-06-28 11:19:21.906539'),
+('zyhspbavgv58jvoetp0y1rrpilt4qqfh', '.eJxVjDEOwjAMRe-SGUVJIbHDyM4ZIsd2aAG1UtNOiLtDpQ6w_vfef5lM69LntemcBzFn04E5_I6F-KHjRuRO422yPI3LPBS7KXanzV4n0edld_8Oemr9t0ZOGh0ganDlxFiFC0cIyUGCWl2nLD6Cp9o5TLEET8ELJzwKBQUy7w8QQThU:1q4E6H:UEDd95Y-1srRepyvvCwLIoZfjmjz7k7zXBbdY0x9Xw8', '2023-06-14 05:10:21.254717');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_caracteristicas`
+--
+
+CREATE TABLE `tbl_caracteristicas` (
+  `Id_Caracteristicas` int(11) NOT NULL,
+  `Estilo_Placa_C` varchar(50) NOT NULL,
+  `Estilo_Color_C` varchar(50) NOT NULL,
+  `Dueno_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_dueno`
+--
+
+CREATE TABLE `tbl_dueno` (
+  `Id_Dueno` int(11) NOT NULL,
+  `Nombre_Completo_D` varchar(150) NOT NULL,
+  `Celular_D` varchar(20) NOT NULL,
+  `Celular_Secundario_D` varchar(20) NOT NULL,
+  `Correo_D` varchar(150) NOT NULL,
+  `Municipio_D` varchar(50) NOT NULL,
+  `Mascota_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_envio`
+--
+
+CREATE TABLE `tbl_envio` (
+  `Id_Envio` int(11) NOT NULL,
+  `Direccion` varchar(256) NOT NULL,
+  `Barrio` varchar(256) NOT NULL,
+  `Detalles` varchar(256) DEFAULT NULL,
+  `Dueno_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_mascota`
+--
+
+CREATE TABLE `tbl_mascota` (
+  `Id_Mascota` int(11) NOT NULL,
+  `Nombre_M` varchar(50) NOT NULL,
+  `Raza_M` varchar(50) NOT NULL,
+  `Color_M` varchar(50) NOT NULL,
+  `Foto_M` varchar(255) NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -313,6 +384,34 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
+-- Indices de la tabla `tbl_caracteristicas`
+--
+ALTER TABLE `tbl_caracteristicas`
+  ADD PRIMARY KEY (`Id_Caracteristicas`),
+  ADD KEY `Dueno_Id` (`Dueno_Id`);
+
+--
+-- Indices de la tabla `tbl_dueno`
+--
+ALTER TABLE `tbl_dueno`
+  ADD PRIMARY KEY (`Id_Dueno`),
+  ADD KEY `Mascota_Id` (`Mascota_Id`);
+
+--
+-- Indices de la tabla `tbl_envio`
+--
+ALTER TABLE `tbl_envio`
+  ADD PRIMARY KEY (`Id_Envio`),
+  ADD KEY `Dueno_Id` (`Dueno_Id`);
+
+--
+-- Indices de la tabla `tbl_mascota`
+--
+ALTER TABLE `tbl_mascota`
+  ADD PRIMARY KEY (`Id_Mascota`),
+  ADD KEY `usuario_id` (`usuario_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -338,7 +437,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
@@ -369,6 +468,30 @@ ALTER TABLE `django_content_type`
 --
 ALTER TABLE `django_migrations`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_caracteristicas`
+--
+ALTER TABLE `tbl_caracteristicas`
+  MODIFY `Id_Caracteristicas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_dueno`
+--
+ALTER TABLE `tbl_dueno`
+  MODIFY `Id_Dueno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_envio`
+--
+ALTER TABLE `tbl_envio`
+  MODIFY `Id_Envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mascota`
+--
+ALTER TABLE `tbl_mascota`
+  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- Restricciones para tablas volcadas
@@ -407,6 +530,30 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `tbl_caracteristicas`
+--
+ALTER TABLE `tbl_caracteristicas`
+  ADD CONSTRAINT `tbl_caracteristicas_ibfk_1` FOREIGN KEY (`Dueno_Id`) REFERENCES `tbl_dueno` (`Id_Dueno`);
+
+--
+-- Filtros para la tabla `tbl_dueno`
+--
+ALTER TABLE `tbl_dueno`
+  ADD CONSTRAINT `tbl_dueno_ibfk_1` FOREIGN KEY (`Mascota_Id`) REFERENCES `tbl_mascota` (`Id_Mascota`);
+
+--
+-- Filtros para la tabla `tbl_envio`
+--
+ALTER TABLE `tbl_envio`
+  ADD CONSTRAINT `tbl_envio_ibfk_1` FOREIGN KEY (`Dueno_Id`) REFERENCES `tbl_dueno` (`Id_Dueno`);
+
+--
+-- Filtros para la tabla `tbl_mascota`
+--
+ALTER TABLE `tbl_mascota`
+  ADD CONSTRAINT `tbl_mascota_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

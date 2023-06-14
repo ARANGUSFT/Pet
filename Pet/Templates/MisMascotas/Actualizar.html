@@ -1,0 +1,67 @@
+{% include "Inc/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Css/EstilosInsertarMascota.css'%}" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="Container">
+
+        <div class="Rectangulo">
+            <form action="/MisMascotas/Actualizar/{{ mascota.Id_Mascota }}" method="post" enctype="multipart/form-data" id="formulario"> 
+
+                {% csrf_token %}
+        
+                <h1>Actualizar</h1>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="form-label">Actualiza el Nombre de tu Mascota:</label>
+                        <input class="form-control" type="text" name="Nombre_M" id="NombreMascota" value="{{ mascota.Nombre_M }}">
+                        <div id="Error1" class="error-message"></div>
+                    </div>
+        
+                    <div class="col-md-5">
+                        <label for="" class="form-label">Actualiza la Raza de tu Mascota:</label>
+                        <input class="form-control" type="text" name="Raza_M" id="RazaMascota" value="{{ mascota.Raza_M }}">
+                        <div id="Error2" class="error-message"></div>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="form-label">Actualiza el Color de tu Mascota:</label>
+                        <input class="form-control" type="text" name="Color_M" id="ColorMascota" value="{{ mascota.Color_M }}">
+                        <div id="Error3" class="error-message"></div>
+                    </div>
+        
+                    <div class="col-md-5">
+                            <label for="" class="form-label">Actualiza la Foto de tu mascota:</label>
+                            <input class="form-control" type="file" name="Foto_M" accept="image/png, image/gif, image/jpeg" id="FotoMacota" />
+                            <label for="" class="form-label">Foto Actual:</label><br>
+                            <img src="../../../Media/{{ mascota.Foto_M }}" width="100" height="100" alt="No Encontrada" />
+                            <div id="Error4" class="error-message"></div>
+                    </div>
+                </div>
+                <a href="/MisMascotas/Listado" role="button" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-success">Actualizar</button>
+        
+            </form>
+        </div>
+    </div>
+
+   
+    <script src="{% static 'Js/ValidacionesActualizar.js'%}"></script>
+</body>
+
+</html>
+
+{% include "Inc/footer.html" %}

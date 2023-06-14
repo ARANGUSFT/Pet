@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'Css/Login2.css'%}">
+    <script src="{% static 'Js/ValidacionesInicio.js'%}"></script>
     <title>Ingreso</title>
 </head>
 <body>
@@ -16,18 +18,19 @@
     
     <div class="quote-wrapper">
 
-    </div> <!-- end quote-wrapper -->
+    </div> 
   
     <div class="form-wrapper">
       <h1 class="form-title">Ingresar Cuenta</h1>
   
-      <form action="" method="POST">
+      <form id="registrationForm" action="" onsubmit="return validarIngresar()" method="POST">
         {% csrf_token %}
 
         <div class="form-group">
           <label for="username">Apodo</label>
           <input type="text" name="username" id="username" class="w-100" autofocus placeholder="ingresa tu apodo" >
           <span class="check-icon"></span>
+          <span id="usernameError" class="error"></span><br><br>
         </div>
   
   
@@ -35,12 +38,13 @@
           <label for="password">Contraseña</label>
           <input type="password" name="password" id="password" placeholder="ingresa tu contraseña" class="w-100" >
           <span class="check-icon"></span>
+          <span id="passwordError" class="error"></span><br><br>
         </div><br><br>
   
         
   
         <div class="form-group mb-0">
-          <input type="submit" value="Entrar" class="w-100" id="submit">
+          <input type="submit" value="Entrar" class="w-100">
         </div>
       </form><br>
 
@@ -54,11 +58,104 @@
   
       <small>Crear cuenta <a href="/Registro/usuarios">Registro</a></small>
       
-    </div> <!-- end form-wrapper -->
-  </div> <!-- end wrapper -->
+    </div> 
+  </div> 
 
-  <!-- <script src="{% static 'Js/ValidacionesLogin.js'%}"></script> -->
-    
+
+
+  <style>
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+  
+  <script>
+    function validarIngresar() {
+      // Obtener los valores de los campos
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      
+      // Obtener las etiquetas de error
+      var usernameError = document.getElementById("usernameError");
+      var passwordError = document.getElementById("passwordError");
+      
+      // Expresión regular para verificar que no haya espacios en blanco
+      var espaciosEnBlanco = /\s/;
+      
+      // Limpiar los mensajes de error anteriores
+      usernameError.innerHTML = "";
+      passwordError.innerHTML = "";
+      
+      // Verificar campos vacíos
+      if (username === "") {
+        usernameError.innerHTML = "Por favor, ingrese un apodo.";
+        return false;
+      }
+      
+
+      
+      if (password === "") {
+        passwordError.innerHTML = "Por favor, ingrese una contraseña.";
+        return false;
+      }
+      
+      // Verificar espacios en blanco
+      if (espaciosEnBlanco.test(username)) {
+        usernameError.innerHTML = "El apodo no puede contener espacios en blanco.";
+        return false;
+      }
+      
+   
+      
+      if (espaciosEnBlanco.test(password)) {
+        passwordError.innerHTML = "La contraseña no puede contener espacios en blanco.";
+        return false;
+      }
+
+                  // Validar longitud mínima y máxima de la contraseña
+      if (password.length < 8 || password.length > 16) {
+        passwordError.innerHTML = "Recuerda que la contraseña es de 8 o mas caracteres";
+        return false;
+      }
+
+      
+      // Validar longitud mínima y máxima del apodo
+      if (username.length < 4 || username.length > 16) {
+        usernameError.innerHTML = "Recuerda que el apodo es de 4 o mas caracteres";
+        return false;
+      }
+
+  
+    }
+
+
+    const input = document.getElementById('username');
+  input.addEventListener('input', function() {
+  if (this.value.length > 16) {
+      this.value = this.value.slice(0, 16);
+    }
+  });
+
+
+  const emailInput = document.getElementById('email');
+      emailInput.addEventListener('input', function() {
+        if (this.value.length > 120) {
+          this.value = this.value.slice(0, 120);
+        }
+      });
+
+  const passwordInput = document.getElementById('password');
+  passwordInput.addEventListener('input', function() {
+    if (this.value.length > 16) {
+      this.value = this.value.slice(0, 16);
+    }
+  });
+
+  </script>
+
+  
+
 
 </body>
 </html>
