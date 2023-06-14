@@ -161,21 +161,19 @@ def Logout(request):
 #region Actualizar Perfil
 @login_required(login_url='/Elegir/entrar')
 def ActualizarUsuario(request, user_id):
-    # obtener el usuario actual
+    # Obtener el usuario actual
     user = request.user
-    if request.method == 'POST':
 
+    if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
 
-        #Validacion
-        user = authenticate(request, username=username, password=password)
-
+        # Validación
         if User.objects.exclude(id=user_id).filter(username=username).exists():
-            messages.error(request, 'El apodo ya esta en uso')
+            messages.error(request, 'El apodo ya está en uso')
             return redirect(f"/Actualizar/usuarios/{user_id}")
-        
+
         if User.objects.exclude(id=user_id).filter(email=email).exists():
             messages.error(request, 'El email ya fue registrado')
             return redirect(f"/Actualizar/usuarios/{user_id}")
@@ -183,25 +181,29 @@ def ActualizarUsuario(request, user_id):
         user = User.objects.get(id=user_id)
         user.username = username
         user.email = email
-        user.set_password(password)  # Utilizamos el método set_password() para establecer la nueva contraseña
+
+        if password:
+            user.set_password(password)  # Utilizamos el método set_password() para establecer la nueva contraseña
+
         user.save()
 
-        # Autenticar al usuario con su nueva contraseña
-        auth_user = authenticate(username=username, password=password)
-        if auth_user is not None:
-            # Iniciar sesión con la nueva información de autenticación
-            login(request, auth_user)
-            # Actualizar la sesión del usuario con la nueva información de autenticación
-            update_session_auth_hash(request, auth_user)
+        # Autenticar al usuario con su nueva información
+        if password:
+            # Solo si se proporcionó una nueva contraseña
+            auth_user = authenticate(username=username, password=password)
+            if auth_user is not None:
+                # Iniciar sesión con la nueva información de autenticación
+                login(request, auth_user)
+                # Actualizar la sesión del usuario con la nueva información de autenticación
+                update_session_auth_hash(request, auth_user)
 
         return redirect(f"/Actualizar/usuarios/{user.id}")
     else:
         if str(user.id) != str(user_id):
             return redirect(f"/Actualizar/usuarios/{user.id}")
-
         else:
-          user = User.objects.get(id=user_id)
-          return render(request, 'Login/actualizar.html', {'user': user})
+            user = User.objects.get(id=user_id)
+            return render(request, 'Login/actualizar.html', {'user': user})
 
         
 
