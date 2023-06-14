@@ -236,8 +236,6 @@ def InsertarMascota(request):
         mascota.Foto_M = request.FILES['Foto_M']
         mascota.usuario = request.user  # asociar la mascota con el usuario actual
         mascota.save()
-
-
         return redirect('/MisMascotas/Listado')
     else:
         return render(request, 'MisMascotas/Insertar.html')
@@ -402,21 +400,27 @@ def DetalleMascota(request, mascota_id, dueno_id):
 
 
 #region Placa
+
+
 @login_required(login_url='/Elegir/entrar')
-def InsertarEstiloPlaca(request):    
+def InsertarEstiloPlaca(request):
     if request.method == "POST":
         caracteristica = Caracteristicas()
         caracteristica.Estilo_Placa_C = request.POST.get('Estilo_Placa_C')
         caracteristica.Estilo_Color_C = request.POST.get('Color_Placa_C')
         
-        dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+        dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
         caracteristica.Dueno_Id = dueno
 
         caracteristica.save()
         return redirect('/Envio/Datos')
     else:
-        dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+        dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
         return render(request, 'MisMascotas/EstiloPlaca.html', {'dueno': dueno})
+
+
+
+
     
     
 @login_required(login_url='/Elegir/entrar')
@@ -440,13 +444,13 @@ def DatosEnvio(request):
             Datos.Detalles = request.POST.get('detalle')
             # Datos.Caracteristicas_Id = Caracteristicas.objects.get(Id_Caracteristicas=request.POST.get('Caracteristicas_Id'))
             
-            dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+            dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
             Datos.Dueno_Id = dueno
              
             Datos.save()
             return redirect('/MisMascotas/Pasarela')
         else:
-            dueno = Dueno.objects.get(Mascota_Id__usuario=request.user)
+            dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
             return render(request, 'Envio/DatosEnvio.html', {'dueno': dueno})
     
 @login_required(login_url='/Elegir/entrar')
