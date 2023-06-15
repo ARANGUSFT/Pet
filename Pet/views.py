@@ -512,4 +512,6 @@ def generar_factura(request):
 def CompraRealizada(request):    
     return render(request, 'MisMascotas/CompraRealizada.html')
 
+
+
 #endregion

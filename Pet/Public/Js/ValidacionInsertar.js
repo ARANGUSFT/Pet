@@ -2,7 +2,7 @@ const form = document.getElementById('formulario');
 
 const expresiones = {
     expr1: /^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,50}$/,
-    expr2: /^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,50}$/,
+    expr2: /^^[a-zA-Z]{1,50} [a-zA-Z]{1,50}$/,
     expr3: /^(?=.{1,50}$)([a-zA-Z]|[a-zA-Z][ ]{0,1}[a-zA-Z][ ]{0,1}[a-zA-Z]){1,50}$/,
 }
 
