@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        img.logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        h3 {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        h2 {
+            text-align: center;
+
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        
+        .qr-code {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .qr-code img {
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>COMPRA REALIZADA</h1>
+        <img class="" src="{% static 'Img/03.png'%}" alt="..." />
+      
+        <p>Estimad(@) {{ dueno.Nombre_Completo_D }}, agradecemos su compra de la placa QR. Su placa estará llegando en un
+            aproximado de 3 a 5 días, lo cual depende del tiempo de fabricación y la entrega por parte del servicio
+            de mensajería.</p>
+       
+
+      
+        <h3>Tipo de Diseño</h3>
+        <p>Estilo: {{ caracteristica.Estilo_Placa_C }}<br>
+           Color: {{ caracteristica.Estilo_Color_C }}
+        </p>
+        
+        
+
+        <h2>CÓDIGO QR</h2>
+        <div class="qr-code">
+           
+                <h4>{{ mascota.Nombre_M }}</h4>
+                
+         
+        </div>
+    </div>
+</body>
+
+
+</html>

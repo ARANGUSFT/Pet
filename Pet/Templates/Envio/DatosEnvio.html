@@ -1,0 +1,103 @@
+{% include "Inc/header.html" %}
+
+{% load static %}
+
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Css/EstiloEnvio.css'%}" rel="stylesheet">
+    <title>Envio</title>
+  </head>
+  <body>
+
+    <form id="formulario" method="POST">
+        {% csrf_token %}
+
+        <h2>Datos de Envio</h2><br>
+        
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="dire" placeholder="Ingresa una direccion">
+          <div class="error-message">Por favor ingresa una dirección</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="barrio">Barrio:</label>
+          <input type="text" id="barrio" name="barri" placeholder="Ingresa un barrio" >
+          <div class="error-message">Por favor ingresa un barrio</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="detalles">Detalles de la residencia:</label>
+          <textarea id="detalles" name="detalle" ></textarea>
+        </div><br>
+        
+        <div class="form-group">
+          <a href="/MisMascotas/vista_anterior2" class="btn btn-secondary">Volver</a>
+          <button type="submit" class="btn btn-success">Siguiente</button>
+        </div>
+
+        <input type="hidden" name="Dueno_Id" value="{{ dueno.Id_Dueno }}">
+
+        
+      </form>
+
+      
+      <a href="/generar/factura">
+        <button type="button" class="Btn1 btn btn-success">PDF</button>
+    </a>
+
+    <script>
+            
+            document.addEventListener('DOMContentLoaded', function() {
+  var formulario = document.getElementById('formulario');
+  var direccionInput = document.getElementById('direccion');
+  var barrioInput = document.getElementById('barrio');
+
+  formulario.addEventListener('submit', function(event) {
+    // Verificar el campo "Dirección"
+    if (direccionInput.value.trim() === '') {
+      event.preventDefault();
+      direccionInput.classList.add('error');
+      direccionInput.nextElementSibling.style.display = 'block';
+    } else {
+      direccionInput.classList.remove('error');
+      direccionInput.nextElementSibling.style.display = 'none';
+    }
+
+    // Verificar el campo "Barrio"
+    if (barrioInput.value.trim() === '') {
+      event.preventDefault();
+      barrioInput.classList.add('error');
+      barrioInput.nextElementSibling.style.display = 'block';
+    } else {
+      barrioInput.classList.remove('error');
+      barrioInput.nextElementSibling.style.display = 'none';
+    }
+  });
+
+  // Limpiar los estilos de error al cambiar el valor de los campos
+  direccionInput.addEventListener('input', function() {
+    direccionInput.classList.remove('error');
+    direccionInput.nextElementSibling.style.display = 'none';
+  });
+
+  barrioInput.addEventListener('input', function() {
+    barrioInput.classList.remove('error');
+    barrioInput.nextElementSibling.style.display = 'none';
+  });
+});
+
+    </script> 
+
+</body>
+</html>
+  
+
+  {% include "Inc/footer.html" %}
+
+  
+
