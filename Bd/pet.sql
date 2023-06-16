@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2023 a las 13:42:31
+-- Tiempo de generación: 16-06-2023 a las 07:45:47
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Versión de PHP: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -240,6 +240,8 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('33299nqpa50l9h8ex6l0kgn6ft2wjwi1', '.eJxVjEEOwiAQRe_C2hCGUhhcuvcMZGAmUjU0Ke3KeHdt0oVu_3vvv1Siba1p67KkidVZOXX63TKVh7Qd8J3abdZlbusyZb0r-qBdX2eW5-Vw_w4q9fqto3OAFn0phJ4zMPrRxDzIEAAjjtlKQBQMVjxzMQRgWcAYYG8xiHp_AMXkNyU:1pr8Rw:OMQ1wh_9YniImaeexq-53IDzyIHUuKzC29UjiEPWplk', '2023-05-09 02:30:36.526911'),
 ('3pfiz2blqkq77qov9a0mabr4ggj8dkde', '.eJxVjEsOAiEQBe_C2hBoEGiX7j0D4dPIqIFkmFkZ725IZqHbV1XvzXzYt-r3QatfMrswqdnpd4whPalNkh-h3TtPvW3rEvlU-EEHv_VMr-vh_h3UMOqswZpiRVYkgyUgB9apIowsqI1UaIoWBCpKQIzJZIW6YMlCA-AZhGOfL-45Nvo:1pzF2w:rVJ-ft066CW5nUF219KwXq-YARQls80KszBsrR1MfPU', '2023-05-31 11:10:18.332767'),
 ('amml4jfg96szyendk4s1m8ird5ja1l57', '.eJxVjDkOwjAQRe_iGlnJeB1K-pwhmvGCA8iWslSIu5NIKaB97_3_FiNtaxm3Jc3jFMVVAIrLL2QKz1QPEx9U702GVtd5Ynkk8rSLHFpMr9vZ_h0UWsq-ds5xgtBbnZUmC0gaDGKnrEL0O80Qne06SsxeG4h9VsH1zjIb4z2KzxfkNzcJ:1q487k:lT5puZWq93hUlFQBAtl0glfpLxWtczdT6VKfJAarIMA', '2023-06-13 22:47:28.257862'),
+('aticlrtm4zb6h1j2orcfr7cavlvxs253', '.eJxVjDsOwyAQRO9CHaEFzC9lep8BLQsEJxGWjF1FuXtsyUVSjTTvzbxZwG2tYet5CVNiVzYIdvktI9Izt4OkB7b7zGlu6zJFfij8pJ2Pc8qv2-n-HVTsdV9bXwhAijh4XTDqAkahNhYNocpOKshqz-IJSHqXIwglnIrWSUsGDft8Af9EN6I:1q9sWh:SxPmzTk9lxD4oI1Tc5QIfzxq3yqpgVZ7A2WpZtZQdH4', '2023-06-29 19:20:59.028470'),
+('db6w33nfrzulc7q6hf5jik4quv0nt9xs', '.eJxVjEEOwiAQRe_C2pAWCAwu3XsGMsMMUjU0Ke3KeHdt0oVu_3vvv1TCba1p67KkidVZOatOvyNhfkjbCd-x3Wad57YuE-ld0Qft-jqzPC-H-3dQsddvHawhJAGIxUZXwAh4xkGEnMtkTChsfIxRbCZPBZD9aIdSwuiAcjTq_QEiOjiz:1qA1Xl:jKQt7qaQW95fl3KS5p-A1npqgC45Q7a2-6BnrJWgwsM', '2023-06-30 04:58:41.513459'),
 ('dc7jzflwr9pmumfd7ac8yuo55qoxto63', '.eJxVjDkOwjAUBe_iGlmxgzdKes5g_U04gGwpTirE3UmkFNDOzHtvlWFdSl67zHlidVFmVKdfiEBPqbvhB9R709TqMk-o90QftutbY3ldj_bvoEAv2zqdwYXReIoMiEPCIGKBOdpk0AJ69FbYESElMnGDwSFY8nEwNiSnPl8lNDiO:1pwDiv:a63vgt5ZFcFZY5rf7BsVAhszyZGcR0vKn3ySVFC9H4A', '2023-05-23 03:09:09.838621'),
 ('e3zhty5hfu8nr1upbnox44if6ea0hx6z', '.eJxVjEsOAiEQBe_C2hBoEGiX7j0D4dPIqIFkmFkZ725IZqHbV1XvzXzYt-r3QatfMrswqdnpd4whPalNkh-h3TtPvW3rEvlU-EEHv_VMr-vh_h3UMOqswZpiRVYkgyUgB9apIowsqI1UaIoWBCpKQIzJZIW6YMlCA-AZhGOfL-45Nvo:1pzEuS:QxvLuxdwoRuhWrV3dUv_C689dfVjTlxV2zkOaGuuWMk', '2023-05-31 11:01:32.922340'),
 ('j03kamvodem4k1ydsiw5wavg7m8ixa1j', '.eJxVjMsOwiAQRf-FtSE8JiAu3fsNhGEGqRpISrtq_Hdt0oVu7znnbiKmdalxHTzHicRFaCNOvyOm_OS2E3qkdu8y97bME8pdkQcd8taJX9fD_TuoadRvDQUVBguKHTjWGjSwPxOywwDO2RyS98FkZQpli6A8ETDaAhaDByfeH_uvN9w:1pvrXo:jRqBxEIahI93_Cr75DS6hK_nE7GKst5Zf2rDwsHvj_A', '2023-05-22 03:28:12.389864'),
@@ -274,7 +276,9 @@ CREATE TABLE `tbl_dueno` (
   `Celular_Secundario_D` varchar(20) NOT NULL,
   `Correo_D` varchar(150) NOT NULL,
   `Municipio_D` varchar(50) NOT NULL,
-  `Mascota_Id` int(11) NOT NULL
+  `Mascota_Id` int(11) NOT NULL,
+  `codigo_qr_url` varchar(255) DEFAULT NULL,
+  `codigo_qr_nombre_archivo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -437,7 +441,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
@@ -473,25 +477,25 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT de la tabla `tbl_caracteristicas`
 --
 ALTER TABLE `tbl_caracteristicas`
-  MODIFY `Id_Caracteristicas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `Id_Caracteristicas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_dueno`
 --
 ALTER TABLE `tbl_dueno`
-  MODIFY `Id_Dueno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `Id_Dueno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_envio`
 --
 ALTER TABLE `tbl_envio`
-  MODIFY `Id_Envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Id_Envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_mascota`
 --
 ALTER TABLE `tbl_mascota`
-  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `Id_Mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- Restricciones para tablas volcadas

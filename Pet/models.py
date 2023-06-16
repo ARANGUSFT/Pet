@@ -23,6 +23,8 @@ class Dueno(models.Model):
     Correo_D = models.TextField(max_length=150)
     Municipio_D = models.TextField(max_length=50) 
     Mascota_Id = models.ForeignKey(Mascota, on_delete=models.CASCADE, db_column='Mascota_Id')
+    codigo_qr_url = models.URLField(null=True, blank=True)
+    codigo_qr_nombre_archivo = models.ImageField(max_length=255, null=True, blank=True)
 
     class Meta:
       db_table = 'tbl_Dueno'

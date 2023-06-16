@@ -17,6 +17,8 @@ import os
 from django.shortcuts import render, get_object_or_404
 from io import BytesIO
 from django.contrib.auth.decorators import login_required
+from urllib.parse import urljoin
+
 
 
 
@@ -152,7 +154,8 @@ def IngresarLogin(request):
 
 #FUNCION PARA CERRAR SESION
 def Logout(request):
-    logout(request)
+    if request.user.is_authenticated:
+        logout(request)
     return redirect('/Elegir/entrar')
 
 #endregion
@@ -297,6 +300,7 @@ def MostrarActualizarMascota(request,Id_Mascota):
 
 @login_required(login_url='/Elegir/entrar')
 def ActualizarMascota(request, Id_Mascota):
+    
     try:
         Nombre_M = request.POST['Nombre_M']
         Raza_M = request.POST['Raza_M']
@@ -324,6 +328,8 @@ def ActualizarMascota(request, Id_Mascota):
         context = {
             'mascotas': mascotas
         }
+
+        
         return render(request, 'MisMascotas/Listado.html', context)
     except:
         pass
@@ -364,7 +370,18 @@ def InsertarDueño(request):
         qr_code.add_data(qr_code_data)
         qr_code.make(fit=True)
         qr_image = qr_code.make_image(fill_color="black", back_color="white")
-        qr_image.save(f"Pet/Public/QrCode/{qr_code_file}")
+
+
+        # Guardar el código QR en la carpeta de medios
+        qr_code_path = os.path.join(settings.MEDIA_ROOT, qr_code_file)
+        qr_image.save(qr_code_path)
+
+        # Asociar la información del código QR al modelo Dueno
+        dueno.codigo_qr_url = urljoin(settings.MEDIA_URL, qr_code_data)
+        dueno.codigo_qr_nombre_archivo = qr_code_file
+        dueno.save()
+
+
 
         return redirect('/MisMascotas/EstiloPlaca')
     else:
@@ -408,15 +425,16 @@ def InsertarEstiloPlaca(request):
         caracteristica = Caracteristicas()
         caracteristica.Estilo_Placa_C = request.POST.get('Estilo_Placa_C')
         caracteristica.Estilo_Color_C = request.POST.get('Color_Placa_C')
-        
-        dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
+
+        dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).last()  # Obtener el último dueño en lugar del primero
         caracteristica.Dueno_Id = dueno
 
         caracteristica.save()
         return redirect('/Envio/Datos')
     else:
-        dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
+        dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).last()  # Obtener el último dueño en lugar del primero
         return render(request, 'MisMascotas/EstiloPlaca.html', {'dueno': dueno})
+
 
 
 
@@ -474,24 +492,28 @@ def payment_view(request):
 #region Pdf
 
 def generar_factura(request):
-    
     usuario = request.user
 
-    dueno = Dueno.objects.first()
-    caracte = Caracteristicas.objects.first()
-    mascota = Mascota.objects.first()
+    # Obtener el último Dueño relacionado con el usuario en sesión
+    dueno = Dueno.objects.filter(Mascota_Id__usuario=usuario).last()
 
+    # Verificar si existe un Dueño para generar la factura
+    if dueno is None:
+        return HttpResponse("No se encontraron datos de compra.")
+
+    mascota = dueno.Mascota_Id
+    caracteristica = Caracteristicas.objects.filter(Dueno_Id=dueno).first()
+    
 
     context = {
-        'usuario':usuario,
         'dueno': dueno,
-        'caracte': caracte,
-        'mascota': mascota
+        'mascota': mascota,
+        'caracteristica': caracteristica
     }
 
     # Renderizar la plantilla HTML con los datos de la factura
     template_path = 'Factura/archivo.html'  # Ruta de la plantilla HTML
-    html = render(request, template_path, context,).content
+    html = render(request, template_path, context).content
 
     # Crear un archivo PDF
     response = HttpResponse(content_type='application/pdf')
@@ -501,6 +523,9 @@ def generar_factura(request):
     pisa.CreatePDF(html, dest=response)
 
     return response
+
+
+
     
    
 

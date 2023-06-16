@@ -68,28 +68,30 @@
 <body>
     <div class="container">
         <h1>COMPRA REALIZADA</h1>
-        <img class="img-fluid rounded-circle" src="{% static 'Img/01.jpeg' %}" alt="..." />
-
-        <p>Estimado(a) {{ dueno.Nombre_Completo_D }}, agradecemos su compra de la placa QR. Su placa estará llegando en un
+        <img class="" src="{% static 'Img/03.png'%}" alt="..." />
+      
+        <p>Estimad(@) {{ dueno.Nombre_Completo_D }}, agradecemos su compra de la placa QR. Su placa estará llegando en un
             aproximado de 3 a 5 días, lo cual depende del tiempo de fabricación y la entrega por parte del servicio
             de mensajería.</p>
+       
 
+      
         <h3>Tipo de Diseño</h3>
-        <p>Estilo: {{ caracte.Estilo_Placa_C}}<br>
-           Color: {{ caracte.Estilo_Color_C}}
+        <p>Estilo: {{ caracteristica.Estilo_Placa_C }}<br>
+           Color: {{ caracteristica.Estilo_Color_C }}
         </p>
-
+        
+        
 
         <h2>CÓDIGO QR</h2>
         <div class="qr-code">
-            <h4>{{ mascota.Nombre_M }}</h4>
-            <img src="" alt="Código QR">
-            
+           
+                <h4>{{ mascota.Nombre_M }}</h4>
+                
+         
         </div>
-
-
-
     </div>
 </body>
+
 
 </html>
