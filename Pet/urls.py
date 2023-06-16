@@ -47,7 +47,7 @@ urlpatterns = [
     #Borrar Mascota
     path('MisMascotas/Eliminar/<int:Id_Mascota>',EliminarMascota),  
     #Ver Actualizar Mascota
-    path('MisMascotas/ActualizarForm/<int:Id_Mascota>',MostrarActualizarMascota),
+    path('MisMascotas/ActualizarForm/<int:Id_Mascota>', views.ActualizarMascota, name='actualizar_mascota'),
     #Actualizar Mascota
     path('MisMascotas/Actualizar/<int:Id_Mascota>',ActualizarMascota),
 
