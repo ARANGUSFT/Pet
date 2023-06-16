@@ -300,8 +300,9 @@ def MostrarActualizarMascota(request,Id_Mascota):
 
 
 @login_required(login_url='/Elegir/entrar')
+
+
 def ActualizarMascota(request, Id_Mascota):
-    
     try:
         Nombre_M = request.POST['Nombre_M']
         Raza_M = request.POST['Raza_M']
@@ -329,8 +330,10 @@ def ActualizarMascota(request, Id_Mascota):
             'mascotas': mascotas
         }
         return render(request, 'MisMascotas/Listado.html', context)
-    except:
-        pass
+    except Exception as e:
+        return HttpResponseServerError('Se produjo un error al actualizar la mascota: {}'.format(str(e)))
+
+
 
 #endregion
 
