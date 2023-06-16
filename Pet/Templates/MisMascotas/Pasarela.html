@@ -1,0 +1,125 @@
+{% include "Inc/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Css/EstilosPasarela.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <title>Document</title>
+    <style>
+        .move-down {
+            margin-top: 6%;
+        }
+
+        .error-message {
+        color: rgb(255, 0, 0);
+        font-size: 13px;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="col-lg-6 mx-auto move-down">
+
+            <div class="bg-white rounded-lg shadow-sm p-5">
+
+                <h1>Realiza el pago de tu placa</h1>
+
+                <!--end-->
+                <form role="form" id="formulario">
+
+                    <div class="form-group">
+                        <label for="username">Nombre completo en la tarjeta</label>
+                        <input class="form-control" type="text" id="Nombre" oninput="limitInputLength(event, 50)">
+                        <div id="Error1" class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardNumber">Número de Tarjeta</label>
+                        <input class="form-control" type="text" id="NumeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX" oninput="limitInputLength(event, 19)">
+                        <div id="Error2" class="error-message"></div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label><span class="hidden-xs">Fecha de Expiración</span></label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="MM" id="Fecha" oninput="limitInputLength(event, 2)"> <h1>/</h1>
+                                    <input class="form-control" type="text" placeholder="YY" id="Fecha" oninput="limitInputLength(event, 2)">
+                                </div> 
+                                <div id="Error3" class="error-message"></div>                             
+                            </div>                           
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label title="Digite los 3 digitos de la parte de atrás de su tarjeta">CVV
+                                    <i class="fa fa-question-circle"></i>
+                                </label>
+                                <input class="form-control" type="text" placeholder="123" id="Codigo" oninput="limitInputLength(event, 3)">
+                            </div>
+                            <div id="Error4" class="error-message"></div>
+                        </div>
+
+                    </div>
+                    <a href="Compra/Reenviar">
+                        <button type="submit" class="btn btn-primary btn-block rounded-pill shadow-sm subscribe">Enviar</button>
+                      </a>
+                      <br>
+                    <a href="/MisMascotas/vista_anterior3" class="btn btn-secondary btn-block rounded-pill shadow-sm subscribe">Volver</a>
+                    
+
+                </form>
+
+            </div>
+
+
+
+            <!--End--->
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+    </section>
+    <script>
+        function limitInputLength(event, maxLength) {
+            var input = event.target;
+            var inputValue = input.value.toString();
+
+            if (inputValue.length > maxLength) {
+                input.value = inputValue.slice(0, maxLength);
+            }
+        }
+    </script>
+
+    <script src="{% static 'Js/validacionesPasarela.js'%}"></script>
+
+    <script src="https://kit.fontawesome.com/aae1a073a8.js" crossorigin="anonymous"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
