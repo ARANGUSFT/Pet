@@ -7,16 +7,23 @@
   box-sizing: border-box;
 }
 
+body{
+  background-image: url("../Img/fondo.jpg");
+  background-size: cover;
+}
+
 html,
 body {
   background: #f1f1f1;
   font-family: "Merriweather", "sans-serif";
   padding: 1em;
+  background-image: url("../Img/fondo.jpg");
+  background-size: cover;
 }
 
 h1 {
   text-align: center;
-  color: #a8a8a8;
+  color: #000000;
   text-shadow: 1px 1px 0 white;
 }
 

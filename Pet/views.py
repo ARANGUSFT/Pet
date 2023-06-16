@@ -17,6 +17,7 @@ import os
 from django.shortcuts import render, get_object_or_404
 from io import BytesIO
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseServerError
 
 
 
@@ -320,13 +321,20 @@ def ActualizarMascota(request, Id_Mascota):
         mascota.save()
 
         mascotas = Mascota.objects.filter(usuario=request.user).values()
-
         context = {
             'mascotas': mascotas
         }
-        return render(request, 'MisMascotas/Listado.html', context)
-    except:
-        pass
+        
+        if str(mascota.Id_Mascota) != str(Id_Mascota):
+            return redirect('actualizar_mascota', Id_Mascota=mascota.Id_Mascota)
+        else:
+            return render(request, 'MisMascotas/Actualizar.html', context)
+        
+    except Exception as e:
+        return HttpResponseServerError(f"Ocurrió un error: {str(e)}")
+
+
+
 
 #endregion
 
