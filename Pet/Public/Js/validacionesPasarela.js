@@ -55,20 +55,23 @@ function validateForm(event) {
 
     if (validForm) {
         swal({
-            title: "¿Estas seguro de realizar la compra?",
-            text: "depues de realizar la compra no se puede cancenlar y se generar tu factura",
+            title: "¿Estás seguro de realizar la compra?",
+            text: "Después de realizar la compra no se puede cancelar y se generará tu factura",
             icon: "warning",
             buttons: ["Cancelar", "Finalizar"],
             dangerMode: true,
         })
-            .then((willSubmit) => {
-                if (willSubmit) {
-                    form.submit();
-                } else {
-                    // No hacer nada
-                }
-            });
+        .then((willSubmit) => {
+            if (willSubmit) {
+                // Realizar la redirección
+                window.location.href = "/Compra/realizada";
+            } else {
+                // No hacer nada
+            }
+        });
     }
+    
+    
 }
 
 

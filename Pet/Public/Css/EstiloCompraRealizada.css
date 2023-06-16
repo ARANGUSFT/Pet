@@ -1,4 +1,10 @@
+body{
+  background-image: url("../Img/fondo.jpg");
+  background-size: cover; 
+}
+
 .container {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,12 +13,14 @@
   
   .purchase-success {
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #F7F7F7;
     padding: 40px;
     border-radius: 5px;
     max-width: 600px;
     width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
+
   
   .purchase-success h1 {
     font-size: 36px;

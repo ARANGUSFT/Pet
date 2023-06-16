@@ -470,7 +470,7 @@ def DatosEnvio(request):
             Datos.Dueno_Id = dueno
              
             Datos.save()
-            return redirect('/MisMascotas/Pasarela')
+            return redirect('/Compra/realizada')
         else:
             dueno = Dueno.objects.filter(Mascota_Id__usuario=request.user).first()
             return render(request, 'Envio/DatosEnvio.html', {'dueno': dueno})
@@ -483,15 +483,6 @@ def vista_anterior3(request):
         
     return redirect('/Envio/Datos')        
 #endregion
-
-
-#region Pasarela
-@login_required(login_url='/Elegir/entrar')
-def payment_view(request):
-    return render(request, 'MisMascotas/Pasarela.html')
-
-#endregion
-
 
 #region Pdf
 

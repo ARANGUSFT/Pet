@@ -2,102 +2,159 @@
 
 {% load static %}
 
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'Css/EstiloEnvio.css'%}" rel="stylesheet">
-    <title>Envio</title>
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="es">
 
-    <form id="formulario" method="POST">
-        {% csrf_token %}
-
-        <h2>Datos de Envio</h2><br>
-        
-        <div class="form-group">
-          <label for="direccion">Dirección:</label>
-          <input type="text" id="direccion" name="dire" placeholder="Ingresa una direccion">
-          <div class="error-message">Por favor ingresa una dirección</div>
-        </div>
-        
-        <div class="form-group">
-          <label for="barrio">Barrio:</label>
-          <input type="text" id="barrio" name="barri" placeholder="Ingresa un barrio" >
-          <div class="error-message">Por favor ingresa un barrio</div>
-        </div>
-        
-        <div class="form-group">
-          <label for="detalles">Detalles de la residencia:</label>
-          <textarea id="detalles" name="detalle" ></textarea>
-        </div><br>
-        
-        <div class="form-group">
-          <a href="/MisMascotas/vista_anterior2" class="btn btn-secondary">Volver</a>
-          <button type="submit" class="btn btn-success">Siguiente</button>
-        </div>
-
-        <input type="hidden" name="Dueno_Id" value="{{ dueno.Id_Dueno }}">
-
-        
-      </form>
-
-      
-      <a href="/generar/factura">
-        <button type="button" class="Btn1 btn btn-success">PDF</button>
-    </a>
-
-    <script>
-            
-            document.addEventListener('DOMContentLoaded', function() {
-  var formulario = document.getElementById('formulario');
-  var direccionInput = document.getElementById('direccion');
-  var barrioInput = document.getElementById('barrio');
-
-  formulario.addEventListener('submit', function(event) {
-    // Verificar el campo "Dirección"
-    if (direccionInput.value.trim() === '') {
-      event.preventDefault();
-      direccionInput.classList.add('error');
-      direccionInput.nextElementSibling.style.display = 'block';
-    } else {
-      direccionInput.classList.remove('error');
-      direccionInput.nextElementSibling.style.display = 'none';
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'Css/EstiloEnvio.css'%}" rel="stylesheet">
+  <title>Envio</title>
+  <style>
+    .move-down {
+        margin-top: 6%;
     }
 
-    // Verificar el campo "Barrio"
-    if (barrioInput.value.trim() === '') {
-      event.preventDefault();
-      barrioInput.classList.add('error');
-      barrioInput.nextElementSibling.style.display = 'block';
-    } else {
-      barrioInput.classList.remove('error');
-      barrioInput.nextElementSibling.style.display = 'none';
+    .error-message {
+    color: rgb(255, 0, 0);
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+  <form id="formulario" method="POST">
+    {% csrf_token %}
+
+    <h2>Datos de Envio</h2>
+
+    <div class="form-group">
+      <label for="direccion">Dirección:</label>
+      <input class="form-control" type="text" id="direccion" name="dire" placeholder="Ingresa una direccion">
+      <div class="error-message">Debes ingresar una direccion valida, Verifica.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="barrio">Barrio:</label>
+      <input class="form-control" type="text" id="barrio" name="barri" placeholder="Ingresa un barrio">
+      <div class="error-message">Debes ingresar un barrio valido, Verifica</div>
+    </div>
+
+    <div class="form-group">
+      <label for="detalles">Detalles de la residencia:</label>
+      <textarea  class="form-control" row="3" id="detalles" name="detalle"></textarea>
+    </div>
+
+    <h2>Realiza tu pago</h2>
+
+    <div class="form-group">
+      <label for="username">Nombre completo en la tarjeta:</label>
+      <input class="form-control" type="text" id="Nombre" oninput="limitInputLength(event, 50)">
+      <div id="Error1" class="error-message"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="cardNumber">Número de Tarjeta:</label>
+      <input class="form-control" type="text" id="NumeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX"
+        oninput="limitInputLength(event, 19)">
+      <div id="Error2" class="error-message"></div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-8">
+        <div class="form-group">
+          <label><span class="hidden-xs">Fecha de Expiración:</span></label>
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="MM" id="Fecha" oninput="limitInputLength(event, 2)">
+            <span class="input-group-text">/</span>
+            <input class="form-control" type="text" placeholder="YY" id="Fecha" oninput="limitInputLength(event, 2)">
+          </div>
+          <div id="Error3" class="error-message"></div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label title="Digite los 3 digitos de la parte de atrás de su tarjeta">CVV
+            <i class="fa fa-question-circle"></i>
+          </label>
+          <input class="form-control" type="text" placeholder="123" id="Codigo" oninput="limitInputLength(event, 3)">
+        </div>
+        <div id="Error4" class="error-message"></div>
+      </div>
+
+
+      <input type="hidden" name="Dueno_Id" value="{{ dueno.Id_Dueno }}">
+
+
+      <div class="form-group btn">
+        <a href="/MisMascotas/vista_anterior2" class="btn btn-secondary">Volver</a>
+        <button type="submit" class="btn btn-success">Comprar</button>
+      </div>
+
+  </form>
+
+
+</section>
+<script>
+    function limitInputLength(event, maxLength) {
+        var input = event.target;
+        var inputValue = input.value.toString();
+
+        if (inputValue.length > maxLength) {
+            input.value = inputValue.slice(0, maxLength);
+        }
     }
-  });
+</script>
 
-  // Limpiar los estilos de error al cambiar el valor de los campos
-  direccionInput.addEventListener('input', function() {
-    direccionInput.classList.remove('error');
-    direccionInput.nextElementSibling.style.display = 'none';
-  });
+<script src="{% static 'Js/validacionesPasarela.js'%}"></script>
 
-  barrioInput.addEventListener('input', function() {
-    barrioInput.classList.remove('error');
-    barrioInput.nextElementSibling.style.display = 'none';
-  });
-});
+  <script>
 
-    </script> 
+    document.addEventListener('DOMContentLoaded', function () {
+      var formulario = document.getElementById('formulario');
+      var direccionInput = document.getElementById('direccion');
+      var barrioInput = document.getElementById('barrio');
+
+      formulario.addEventListener('submit', function (event) {
+        // Verificar el campo "Dirección"
+        if (direccionInput.value.trim() === '') {
+          event.preventDefault();
+          direccionInput.classList.add('error');
+          direccionInput.nextElementSibling.style.display = 'block';
+        } else {
+          direccionInput.classList.remove('error');
+          direccionInput.nextElementSibling.style.display = 'none';
+        }
+
+        // Verificar el campo "Barrio"
+        if (barrioInput.value.trim() === '') {
+          event.preventDefault();
+          barrioInput.classList.add('error');
+          barrioInput.nextElementSibling.style.display = 'block';
+        } else {
+          barrioInput.classList.remove('error');
+          barrioInput.nextElementSibling.style.display = 'none';
+        }
+      });
+
+      // Limpiar los estilos de error al cambiar el valor de los campos
+      direccionInput.addEventListener('input', function () {
+        direccionInput.classList.remove('error');
+        direccionInput.nextElementSibling.style.display = 'none';
+      });
+
+      barrioInput.addEventListener('input', function () {
+        barrioInput.classList.remove('error');
+        barrioInput.nextElementSibling.style.display = 'none';
+      });
+    });
+
+  </script>
 
 </body>
+
 </html>
-  
-
-  {% include "Inc/footer.html" %}
-
-  
-
