@@ -303,6 +303,7 @@ def MostrarActualizarMascota(request,Id_Mascota):
 
 
 def ActualizarMascota(request, Id_Mascota):
+    
     try:
         Nombre_M = request.POST['Nombre_M']
         Raza_M = request.POST['Raza_M']
@@ -326,13 +327,15 @@ def ActualizarMascota(request, Id_Mascota):
         mascota.save()
 
         mascotas = Mascota.objects.filter(usuario=request.user).values()
+
         context = {
             'mascotas': mascotas
         }
-        return render(request, 'MisMascotas/Listado.html', context)
-    except Exception as e:
-        return HttpResponseServerError('Se produjo un error al actualizar la mascota: {}'.format(str(e)))
 
+        
+        return render(request, 'MisMascotas/Listado.html', context)
+    except:
+        pass
 
 
 #endregion
