@@ -75,7 +75,7 @@
             de mensajería.</p>
        
 
-        <img src="http://127.0.0.1:8000/Media/{{ dueno.codigo_qr_nombre_archivo }}" alt="">
+        
         <h3>Tipo de Diseño</h3>
         <p>Estilo: {{ caracteristica.Estilo_Placa_C }}<br>
            Color: {{ caracteristica.Estilo_Color_C }}
@@ -83,11 +83,11 @@
         
         
 
-        <h2>CÓDIGO QR</h2>
+        <h1>CÓDIGO QR</h1>
         <div class="qr-code">   
                 
-           
-                <h4>{{ mascota.Nombre_M }}</h4>
+                <img src="http://127.0.0.1:8000/Media/{{ dueno.codigo_qr_nombre_archivo }}" width="400px" height="400px">
+                <h2>{{ mascota.Nombre_M }}</h2>
                 
         </div>
     </div>
